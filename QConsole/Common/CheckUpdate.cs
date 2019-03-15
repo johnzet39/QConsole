@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Windows;
+using System.Threading;
 
 namespace QConsole.Common
 {
@@ -22,6 +23,7 @@ namespace QConsole.Common
             reader = null;
             xmlURL = "https://johnzet39.github.io/apps/qconsole/updates.xml";
         }
+
 
         static public void ReadFileXML()
         {
@@ -66,6 +68,29 @@ namespace QConsole.Common
                 throw;
             }
         }
+
+        #region Check updates.
+        static public async void CheckUpdatesAsync()
+        {
+            try
+            {
+                await Task.Run(() => StartCheckUpdates());
+            }
+            catch (Exception e)
+            {
+                Ext.LogPanel.PrintLog(string.Format("Updater: {0}", e.Message));
+            }
+        }
+
+        static private void StartCheckUpdates()
+        {
+            Thread.Sleep(2000);
+            if (Common.CheckUpdate.CompareVersions())
+            {
+                Common.CheckUpdate.GoDownLoadFiles();
+            }
+        }
+        #endregion
 
         static public bool CompareVersions()
         {
