@@ -28,6 +28,7 @@ namespace QConsole
         {
             displayRootRegistry.RegisterWindowType<MainWindowViewModel, MainWindow>();
             displayRootRegistry.RegisterWindowType<AboutWindowViewModel, AboutWindowView>();
+            displayRootRegistry.RegisterWindowType<SettingsWindowViewModel, SettingsWindowView>();
             displayRootRegistry.RegisterWindowType<UserPropertyWindowViewModel, UserWindowView>();
             displayRootRegistry.RegisterWindowType<LayerPropertyWindowViewModel, LayerPropertyWindowView>();
             displayRootRegistry.RegisterWindowType<GrantPropertyWindowViewModel, GrantPropertyWindowView>();

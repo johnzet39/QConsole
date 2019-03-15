@@ -41,7 +41,9 @@
     <Grid>
         <Menu Grid.Row="0" Style="{DynamicResource MainMenuTemplate}">
             <MenuItem Header="_Файл">
-                <MenuItem x:Name="subMenuSettings" Header="_Настройки" />
+                <MenuItem x:Name="subMenuSettings" Header="_Настройки" 
+                          Command="{Binding ShowSettingsWindowCommand}">
+                </MenuItem>
                 <Separator/>
                 <MenuItem x:Name="subMenuExit" Header="_Выход" Click="subMenuExit_Click"/>
             </MenuItem>
