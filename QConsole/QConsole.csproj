@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E7EFD745-7FF2-4E40-BCE9-B88659ED756A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>QConsole</RootNamespace>
+    <AssemblyName>QConsole</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behaviors\TabContent.cs" />
+    <Compile Include="Commands\PropertyCommand.cs" />
+    <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Common\CheckUpdate.cs" />
+    <Compile Include="Common\ConnectionStrings.cs" />
+    <Compile Include="Converters\MultiParametersConverter.cs" />
+    <Compile Include="DisplayRootRegistry.cs" />
+    <Compile Include="Ext\FocusExtension.cs" />
+    <Compile Include="Ext\Paging.cs" />
+    <Compile Include="Ext\UIHelper.cs" />
+    <Compile Include="ConnectionWindow.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ext\LogPanel.cs" />
+    <Compile Include="Models\Grant.cs" />
+    <Compile Include="Models\ITab.cs" />
+    <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Tabs\GrantTab.cs" />
+    <Compile Include="Models\Tabs\LayerTab.cs" />
+    <Compile Include="Models\Tabs\UserTab.cs" />
+    <Compile Include="Models\Tabs\SessionTab.cs" />
+    <Compile Include="Models\Layer.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="ViewModels\AboutWindowViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\MainMenuViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabGrants\GrantsViewModel.cs" />
+    <Compile Include="ViewModels\TabGrants\GrantPropertyWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabLayers\LayersViewModel.cs" />
+    <Compile Include="ViewModels\TabLayers\LayerPropertyWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabSessions\SessionsViewModel.cs" />
+    <Compile Include="ViewModels\TabUsers\UsersViewModel.cs" />
+    <Compile Include="ViewModels\TabUsers\UserPropertyWindowViewModel.cs" />
+    <Compile Include="Views\AboutWindowView.xaml.cs">
+      <DependentUpon>AboutWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LogPanelView.xaml.cs">
+      <DependentUpon>LogPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainMenu.xaml.cs">
+      <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabGrants\GrantPropertyWindowView.xaml.cs">
+      <DependentUpon>GrantPropertyWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabLayers\LayerPropertyWindowView.xaml.cs">
+      <DependentUpon>LayerPropertyWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabGrantsView.xaml.cs">
+      <DependentUpon>TabGrantsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabLayersView.xaml.cs">
+      <DependentUpon>TabLayersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabSessionsView.xaml.cs">
+      <DependentUpon>TabSessionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabUsersView.xaml.cs">
+      <DependentUpon>TabUsersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabUsers\UserWindowView.xaml.cs">
+      <DependentUpon>UserWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BooleanToBrushConverter.cs" />
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\ComboboxItemDisableConverter.cs" />
+    <Compile Include="Converters\CompareDateToBrushConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\ValueToBrushConverter.cs" />
+    <Compile Include="Converters\VisibilityToBooleanConverter.cs" />
+    <Page Include="Views\AboutWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LogPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabGrants\GrantPropertyWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabLayers\LayerPropertyWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabGrantsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabLayersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabSessionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabUsersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabUsers\UserWindowView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Icons\icon.pdn" />
+    <None Include="Icons\login_imgbar.pdn" />
+    <None Include="Icons\vector\icon.svg" />
+    <None Include="Icons\vector\Next_16x.svg" />
+    <None Include="Icons\vector\OpenTopic_16x.svg" />
+    <None Include="Icons\vector\Previous_16x.svg" />
+    <None Include="Icons\_tabControl\Assembly_16x.svg" />
+    <None Include="Icons\_tabControl\Layers_16x.svg" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Add_12x.png" />
+    <Resource Include="Icons\Add_14x.png" />
+    <Resource Include="Icons\Add_16x.png" />
+    <Resource Include="Icons\clock_16xLG.png" />
+    <Resource Include="Icons\close.png" />
+    <Resource Include="Icons\Copy_16x.png" />
+    <Resource Include="Icons\down_button.png" />
+    <Resource Include="Icons\edit.png" />
+    <Resource Include="Icons\Edit_14x.png" />
+    <Resource Include="Icons\Edit_16x.png" />
+    <Resource Include="Icons\first_button.png" />
+    <Resource Include="Icons\icon.ico" />
+    <Resource Include="Icons\icon.png" />
+    <Resource Include="Icons\icon_256.png" />
+    <Resource Include="Icons\icon_40.png" />
+    <Resource Include="Icons\icon_clear.png" />
+    <Resource Include="Icons\LastHistoryCommand_16x.png" />
+    <Resource Include="Icons\last_button.png" />
+    <Resource Include="Icons\ListView_16x.png" />
+    <Resource Include="Icons\login_imgbar.png" />
+    <Resource Include="Icons\minus.png" />
+    <Resource Include="Icons\next_button.png" />
+    <Resource Include="Icons\OpenTopic_16x.png" />
+    <Resource Include="Icons\plus.png" />
+    <Resource Include="Icons\previous_button.png" />
+    <Resource Include="Icons\Refresh_16x.png" />
+    <Resource Include="Icons\RemoveCommand_16x.png" />
+    <Resource Include="Icons\Remove_color_16x.png" />
+    <Resource Include="Icons\timer4.png" />
+    <Resource Include="Icons\Timer_16x.png" />
+    <Resource Include="Icons\up_button.png" />
+    <Resource Include="Icons\_tabControl\ClientStatistcs_16x.png" />
+    <Resource Include="Icons\_tabControl\Layers_16x.png" />
+    <Resource Include="Icons\_tabControl\ListViewTable_16x.png" />
+    <Resource Include="Icons\_tabControl\RightColumnOfThreeColumns_16x.png" />
+    <Resource Include="Icons\_tabControl\User_16x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QConsole.BLL\QConsole.BLL.csproj">
+      <Project>{f1040dc1-84fa-49d4-83d4-338988ba9588}</Project>
+      <Name>QConsole.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QConsole.DAL\QConsole.DAL.csproj">
+      <Project>{843c0b11-09f7-4dd1-b584-60e5b1f47540}</Project>
+      <Name>QConsole.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

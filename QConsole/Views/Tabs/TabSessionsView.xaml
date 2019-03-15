@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="QConsole.Views.Tabs.TabSessionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Properties="clr-namespace:QConsole.Properties"
+             xmlns:converters="clr-namespace:QConsole.Converters"
+             xmlns:local="clr-namespace:QConsole.Views.Tabs"
+             xmlns:vm="clr-namespace:QConsole.ViewModels.TabSessions"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:SessionsViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:BooleanToBrushConverter x:Key="BooleanToBrushConverter"/>
+        <converters:CompareDateToBrushConverter x:Key="CompareDateToBrushConverter"/>
+
+        <Style x:Key="DataGridSessions" BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid">
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style  TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource CompareDateToBrushConverter}">
+                                        <Binding Path="Starttime"/>
+                                        <Binding Path="Now"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <DataTrigger.Setters>
+                                    <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver"  Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource color_row_selected}" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Background" Value="{StaticResource color_mouse_over}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ToolBar Background="Transparent">
+                <ToolBar.Resources>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToolBar.Resources>
+                <ToggleButton x:Name="BtnTimerEnable" DockPanel.Dock="Left"
+                                      Command="{Binding TimerCommand}" 
+                                      CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" 
+                                      IsChecked="{Binding ButtonTimerChecked, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
+                                      Height="23" VerticalAlignment="Bottom"
+                                      HorizontalAlignment="Left" 
+                                      ToolTip = "Автообновление содержимого вкладки">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Rectangle Width="5" Height="10" VerticalAlignment="Center" Margin="3,0" Stroke="#FF727272"
+                                    Fill="{Binding IsChecked, Converter={StaticResource BooleanToBrushConverter}, ElementName=BtnTimerEnable}"/>
+                        <Image Source="../../icons/clock_16xLG.png" Height="16" />
+                    </StackPanel>
+                </ToggleButton>
+                <Separator/>
+                <!--<Button TabIndex="0" x:Name="BtnSessionsUpdate" DockPanel.Dock="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="BtnSessionsUpdate_Click" ToolTip="Обновить">-->
+                <Button TabIndex="0" x:Name="BtnSessionsUpdate" Command="{Binding RefreshCommand}" DockPanel.Dock="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="Обновить">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../icons/Refresh_16x.png" Height="16"/>
+                        <!--<TextBlock Text="Обновить"/>-->
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <DataGrid x:Name="DG_Session" Style="{StaticResource DataGridSessions}" ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" 
+                      Grid.Row="1" Background="White" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" 
+                      LoadingRow="DG_LoadingRow" IsReadOnly="True" Grid.RowSpan="2">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+                    <!--<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FF58A4FF"/>-->
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="pid" Binding="{Binding Pid}"/>
+                    <DataGridTextColumn Header="Приложение" Binding="{Binding Application_name}"/>
+                    <DataGridTextColumn Header="Начало сеанса" Binding="{Binding Starttime, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}"/>
+                    <DataGridTextColumn Header="Пользователь" Binding="{Binding Usename}"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Descript}"/>
+                    <DataGridTextColumn Header="Адрес клиента" Binding="{Binding Client_addr}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</UserControl>

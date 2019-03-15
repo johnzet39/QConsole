@@ -1,0 +1,314 @@
+﻿<UserControl x:Class="QConsole.Views.Tabs.TabGrantsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Properties="clr-namespace:QConsole.Properties"
+             xmlns:vm="clr-namespace:QConsole.ViewModels.TabGrants"
+             xmlns:local="clr-namespace:QConsole.Views.Tabs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:GrantsViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid"/>
+    </UserControl.Resources>
+    <Grid Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <ToolBar Background="Transparent" Header="Группы:" Grid.Column="0" Grid.Row="0" ToolBarTray.IsLocked="True">
+                <ToolBar.Resources>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToolBar.Resources>
+                <Button Command="{Binding ShowPropertyRoleCommand}" 
+                        CommandParameter="{Binding ElementName=DG_Groups, Path=SelectedItem}" 
+                        IsEnabled="{Binding SelectedItems.Count, ElementName=DG_Groups}"
+                        ToolTip="Свойства элемента">
+                    <Image Source="../../Icons/OpenTopic_16x.png" />
+                </Button>
+                <Separator/>
+                <Button TabIndex="0" x:Name="BtnGrantsUpdate" Command="{Binding RefreshCommand}" DockPanel.Dock="Right" ToolTip="Обновить">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../icons/Refresh_16x.png" Height="16"/>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+            <DataGrid x:Name="DG_Groups" 
+                      ItemsSource="{Binding GroupsList}" 
+                      SelectedItem="{Binding SelectedGroup}"
+                      Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Margin="0" SelectionMode="Single" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow" IsReadOnly="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ShowPropertyRoleCommand}" CommandParameter="{Binding ElementName=DG_Groups, Path=SelectedItem}"/>
+                </DataGrid.InputBindings>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding Usename}"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Descript}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Width="5" ResizeBehavior="PreviousAndNext"/>
+            <ToolBar Background="Transparent" Header="Пользователи:" Grid.Column="2" Grid.Row="0" Height="Auto" ToolBarTray.IsLocked="True">
+                <ToolBar.Resources>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToolBar.Resources>
+                <Button Command="{Binding ShowPropertyRoleCommand}" 
+                        CommandParameter="{Binding ElementName=DG_Users, Path=SelectedItem}" 
+                        IsEnabled="{Binding SelectedItems.Count, ElementName=DG_Users}"
+                        ToolTip="Свойства элемента">
+                    <Image Source="../../Icons/OpenTopic_16x.png" />
+                </Button>
+            </ToolBar>
+            <DataGrid x:Name="DG_Users" 
+                      ItemsSource="{Binding UsersList}"
+                      SelectedItem="{Binding SelectedUser}"
+                      Grid.Row="1" Grid.Column="2" Grid.RowSpan="4" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow"  IsReadOnly="True">
+                <DataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" 
+                                  Command="{Binding ShowPropertyRoleCommand}" 
+                                  CommandParameter="{Binding ElementName=DG_Users, Path=SelectedItem}" />
+                </DataGrid.InputBindings>
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Usename}"/>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Descript}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <GridSplitter Grid.Row="0" Grid.RowSpan="2" Grid.Column="3" Width="5" ResizeBehavior="PreviousAndNext"/>
+            <Grid Grid.Column="4" Grid.RowSpan="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="100" Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="{Binding TabGrants_SplitterLayers, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" MinHeight="100"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ToolBar Background="Transparent" Header="Слои:" ToolBarTray.IsLocked="True">
+                        <ToolBar.Resources>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToolBar.Resources>
+                        <Button Command="{Binding ShowPropertyGrantCommand}" 
+                                CommandParameter="{Binding ElementName=DG_Grants, Path=SelectedItem}" 
+                                IsEnabled="{Binding SelectedItems.Count, ElementName=DG_Grants}"
+                                ToolTip="Свойства элемента">
+                            <Image Source="../../Icons/OpenTopic_16x.png" />
+                        </Button>
+                    </ToolBar>
+                    <!--<TextBlock Text="Слои:" Grid.Row="0" Grid.Column="0" />-->
+                    <DataGrid x:Name="DG_Grants" 
+                              ItemsSource="{Binding GrantLayersList}"
+                              SelectedItem="{Binding SelectedGrantLayer}"
+                              Grid.Row="1" Grid.Column="0" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow" IsReadOnly="True">
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" 
+                                  Command="{Binding ShowPropertyGrantCommand}" 
+                                  CommandParameter="{Binding ElementName=DG_Grants, Path=SelectedItem}"  />
+                        </DataGrid.InputBindings>
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Схема" Binding="{Binding Table_schema}"/>
+                            <DataGridTextColumn Header="Таблица" Binding="{Binding Table_name}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Descript}" Width="*"/>
+                            <DataGridCheckBoxColumn Header="SELECT" Binding="{Binding IsSelect}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelect}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsSelect}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="UPDATE" Binding="{Binding IsUpdate}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="INSERT" Binding="{Binding IsInsert}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsInsert}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsInsert}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="DELETE" Binding="{Binding IsDelete}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDelete}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDelete}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch"/>
+                <Grid Grid.Row="2" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ToolBar Background="Transparent" Header="Справочники:" Grid.Row="0" Grid.ColumnSpan="3" ToolBarTray.IsLocked="True">
+                        <ToolBar.Resources>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.5" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToolBar.Resources>
+                        <Button Command="{Binding ShowPropertyGrantCommand}" 
+                                CommandParameter="{Binding ElementName=DG_GrantsDicts, Path=SelectedItem}" 
+                                IsEnabled="{Binding SelectedItems.Count, ElementName=DG_GrantsDicts}"
+                                ToolTip="Свойства элемента">
+                            <Image Source="../../Icons/OpenTopic_16x.png" />
+                        </Button>
+                    </ToolBar>
+                    <DataGrid x:Name="DG_GrantsDicts" 
+                              ItemsSource="{Binding GrantDictsList}"
+                              SelectedItem="{Binding SelectedGrantDict}"
+                              Grid.Row="1"  Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow" IsReadOnly="True" Grid.ColumnSpan="3">
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" 
+                                  Command="{Binding ShowPropertyGrantCommand}" 
+                                  CommandParameter="{Binding ElementName=DG_GrantsDicts, Path=SelectedItem}"   />
+                        </DataGrid.InputBindings>
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+                        </DataGrid.Resources>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Схема" Binding="{Binding Table_schema}"/>
+                            <DataGridTextColumn Header="Таблица" Binding="{Binding Table_name}"/>
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Descript}" Width="*"/>
+                            <DataGridCheckBoxColumn Header="SELECT" Binding="{Binding IsSelect}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsSelect}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsSelect}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="UPDATE" Binding="{Binding IsUpdate}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsUpdate}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="INSERT" Binding="{Binding IsInsert}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsInsert}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsInsert}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                            <DataGridCheckBoxColumn Header="DELETE" Binding="{Binding IsDelete}">
+                                <DataGridCheckBoxColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDelete}" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsDelete}" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </DataGridCheckBoxColumn.CellStyle>
+                            </DataGridCheckBoxColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QConsole.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MainWindowHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="MainWindowWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1300</Value>
+    </Setting>
+    <Setting Name="MainWindowState" Type="System.Windows.WindowState" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
+    <Setting Name="MainWindowLeft" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="MainWindowTop" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CurrentConnectionIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="LogPanelVisibility" Type="System.Windows.Visibility" Scope="User">
+      <Value Profile="(Default)">Visible</Value>
+    </Setting>
+    <Setting Name="LogPanelSize" Type="System.Windows.GridLength" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="TabGrants_SplitterLayers" Type="System.Windows.GridLength" Scope="User">
+      <Value Profile="(Default)">300</Value>
+    </Setting>
+    <Setting Name="ButtonTimerChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ConnStrings" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IsCheckUpdates" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
