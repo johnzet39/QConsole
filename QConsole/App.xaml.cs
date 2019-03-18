@@ -9,10 +9,12 @@ using QConsole.ViewModels;
 using QConsole.ViewModels.TabUsers;
 using QConsole.ViewModels.TabLayers;
 using QConsole.ViewModels.TabGrants;
+using QConsole.ViewModels.TabLogger;
 using QConsole.Views;
 using QConsole.Views.TabUsers;
 using QConsole.Views.TabLayers;
 using QConsole.Views.TabGrants;
+using QConsole.Views.TabLogger;
 
 namespace QConsole
 {
@@ -32,6 +34,7 @@ namespace QConsole
             displayRootRegistry.RegisterWindowType<UserPropertyWindowViewModel, UserWindowView>();
             displayRootRegistry.RegisterWindowType<LayerPropertyWindowViewModel, LayerPropertyWindowView>();
             displayRootRegistry.RegisterWindowType<GrantPropertyWindowViewModel, GrantPropertyWindowView>();
+            displayRootRegistry.RegisterWindowType<LoggerPropertyWindowViewModel, LoggerPropertyWindowView>();
         }
 
         /// <summary>

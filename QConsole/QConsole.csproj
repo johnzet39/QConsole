@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\FocusExtension.cs" />
     <Compile Include="Behaviors\TabContent.cs" />
     <Compile Include="Commands\PropertyCommand.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
@@ -83,9 +84,11 @@
     <Compile Include="Ext\LogPanel.cs" />
     <Compile Include="Models\Grant.cs" />
     <Compile Include="Models\ITab.cs" />
+    <Compile Include="Models\LogRow.cs" />
     <Compile Include="Models\Session.cs" />
     <Compile Include="Models\Tabs\GrantTab.cs" />
     <Compile Include="Models\Tabs\LayerTab.cs" />
+    <Compile Include="Models\Tabs\LoggerTab.cs" />
     <Compile Include="Models\Tabs\UserTab.cs" />
     <Compile Include="Models\Tabs\SessionTab.cs" />
     <Compile Include="Models\Layer.cs" />
@@ -104,6 +107,8 @@
     <Compile Include="ViewModels\TabGrants\GrantPropertyWindowViewModel.cs" />
     <Compile Include="ViewModels\TabLayers\LayersViewModel.cs" />
     <Compile Include="ViewModels\TabLayers\LayerPropertyWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabLogger\LoggerPropertyWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabLogger\LoggerViewModel.cs" />
     <Compile Include="ViewModels\TabSessions\SessionsViewModel.cs" />
     <Compile Include="ViewModels\TabUsers\UsersViewModel.cs" />
     <Compile Include="ViewModels\TabUsers\UserPropertyWindowViewModel.cs" />
@@ -125,11 +130,17 @@
     <Compile Include="Views\TabLayers\LayerPropertyWindowView.xaml.cs">
       <DependentUpon>LayerPropertyWindowView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\TabLogger\LoggerPropertyWindowView.xaml.cs">
+      <DependentUpon>LoggerPropertyWindowView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Tabs\TabGrantsView.xaml.cs">
       <DependentUpon>TabGrantsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\TabLayersView.xaml.cs">
       <DependentUpon>TabLayersView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabLoggerView.xaml.cs">
+      <DependentUpon>TabLoggerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\TabSessionsView.xaml.cs">
       <DependentUpon>TabSessionsView.xaml</DependentUpon>
@@ -187,11 +198,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\TabLogger\LoggerPropertyWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Tabs\TabGrantsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Tabs\TabLayersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabLoggerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,6 +306,10 @@
     <ProjectReference Include="..\QConsole.DAL\QConsole.DAL.csproj">
       <Project>{843c0b11-09f7-4dd1-b584-60e5b1f47540}</Project>
       <Name>QConsole.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QWpfControls\QWpfControls.csproj">
+      <Project>{fe69324e-44c0-458b-8907-b3f7c6853989}</Project>
+      <Name>QWpfControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
              xmlns:Properties="clr-namespace:QConsole.Properties"
              xmlns:converters="clr-namespace:QConsole.Converters"
              xmlns:local="clr-namespace:QConsole.Views.Tabs"
+             xmlns:behav="clr-namespace:QConsole.Behaviors"
              xmlns:vm="clr-namespace:QConsole.ViewModels.TabSessions"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -85,7 +86,10 @@
                     </StackPanel>
                 </Button>
             </ToolBar>
-            <DataGrid x:Name="DG_Session" Style="{StaticResource DataGridSessions}" ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" 
+            <DataGrid x:Name="DG_Session" 
+                      behav:FocusExtension.IsFocused="{Binding IsDataGridFocused}"
+                      Style="{StaticResource DataGridSessions}" 
+                      ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" 
                       Grid.Row="1" Background="White" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" 
                       LoadingRow="DG_LoadingRow" IsReadOnly="True" Grid.RowSpan="2">
                 <DataGrid.Resources>

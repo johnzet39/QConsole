@@ -65,15 +65,17 @@
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="AccessLayer\Entities\Grant.cs" />
+    <Compile Include="AccessLayer\Entities\LogRow.cs" />
     <Compile Include="AccessLayer\Entities\Session.cs" />
     <Compile Include="AccessLayer\Entities\Layer.cs" />
     <Compile Include="AccessLayer\Entities\User.cs" />
     <Compile Include="AccessLayer\Interfaces\IGrantRepository.cs" />
+    <Compile Include="AccessLayer\Interfaces\ILoggerRepository.cs" />
     <Compile Include="AccessLayer\Interfaces\ISessionRepository.cs" />
     <Compile Include="AccessLayer\Interfaces\ILayerRepository.cs" />
     <Compile Include="AccessLayer\Interfaces\IUserRepository.cs" />
-    <Compile Include="AccessLayer\LoggerDAL.cs" />
     <Compile Include="AccessLayer\Repositories\GrantRepository.cs" />
+    <Compile Include="AccessLayer\Repositories\LoggerRepository.cs" />
     <Compile Include="AccessLayer\Repositories\SessionRepository.cs" />
     <Compile Include="AccessLayer\Repositories\LayerRepository.cs" />
     <Compile Include="AccessLayer\Repositories\UserRepository.cs" />

@@ -1,0 +1,24 @@
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using QConsole.DAL.AccessLayer.Entities;
+
+namespace QConsole.DAL.AccessLayer.Interfaces
+{
+    public interface ILoggerRepository
+    {
+        //LOG LIST main
+        List<LogRow> GetLogList(string ExtraQueryFull, string FirstRowsQuery);
+        //build date string subquery
+        string BuildExtraDateString(DateTime? dateFrom, DateTime? dateTo);
+        //build 1000rows string subquery
+        string BuildExtraFirstRowsString();
+        //union extra subquery strings
+        string UnionExtraStrings(IList<string> str);
+        //get column list for combobox
+        List<string> GetColumnsList();
+    }
+}

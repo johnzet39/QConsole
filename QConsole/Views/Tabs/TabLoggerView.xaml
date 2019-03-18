@@ -1,0 +1,217 @@
+﻿<UserControl x:Class="QConsole.Views.Tabs.TabLoggerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QConsole.Views.Tabs"
+             xmlns:converters="clr-namespace:QConsole.Converters"
+             xmlns:Properties="clr-namespace:QConsole.Properties"
+             xmlns:behav="clr-namespace:QConsole.Behaviors"
+             xmlns:QControls="clr-namespace:QWpfControls;assembly=QWpfControls"
+             xmlns:vm="clr-namespace:QConsole.ViewModels.TabLogger"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:LoggerViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:CompareDateToBrushConverter x:Key="CompareDateToBrushConverter"/>
+        <converters:ComboboxItemDisableConverter x:Key="ComboboxItemDisableConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" InvertVisibility="True"/>
+        
+        <!--Colors-->
+        <SolidColorBrush Color="#FFFDE9E9" x:Key="color_red" />
+        <SolidColorBrush Color="#FFF1FFED" x:Key="color_green" />
+
+        <SolidColorBrush Color="#FFD4E5FB" x:Key="color_mouse_over" />
+        <SolidColorBrush Color="#FF58A4FF" x:Key="color_row_selected" />
+        <!--Colors_end-->
+
+        <Style x:Key="DataGridLogger" BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid">
+            <Setter Property="AlternatingRowBackground" Value="White"/>
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style  TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Action}" Value="INSERT">
+                                <Setter Property="Background" Value="{StaticResource color_green}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Action}" Value="DELETE">
+                                <Setter Property="Background" Value="{StaticResource color_red}"/>
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver"  Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource color_row_selected}" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Background" Value="{StaticResource color_mouse_over}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ExtraQueryStyle" TargetType="TextBox">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasError}" Value="true">
+                    <Setter Property="Background" Value="MistyRose"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <ToolBarTray Background="Transparent" x:Name="ToolBTray">
+            <ToolBarTray.Resources>
+                <Style TargetType="{x:Type ToolBar}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar x:Name="ToolBar1">
+                <Button ToolTip="Свойства элемента" 
+                        Command="{Binding ShowPropertyCommand}" 
+                        IsEnabled="{Binding SelectedItems.Count, ElementName=DG_Logger}">
+                    <Image Source="../../Icons/OpenTopic_16x.png" />
+                </Button>
+                <Button Command="Copy" ToolTip="Копировать">
+                    <Image Source="../../Icons/Copy_16x.png" />
+                </Button>
+                <Button TabIndex="0" ToolBar.OverflowMode="Never" Command="{Binding RefreshCommand}" x:Name="btnRefresh_TabLogger" ToolTip="Обновить" >
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../Icons/Refresh_16x.png"/>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+
+            <ToolBar  x:Name="ToolBar2" >
+                <ToggleButton x:Name="chkLoggerRows" 
+                              IsChecked="{Binding OnlyLastRows}"
+                              Command="{Binding RefreshCommand}"
+                              ToolTip="Показать только последние 1000 записей"  ToolBar.OverflowMode="Never">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Image Source="../../Icons/LastHistoryCommand_16x.png"/>
+                    </StackPanel>
+                </ToggleButton>
+                <Separator/>
+                <StackPanel Orientation="Horizontal" ToolBar.OverflowMode="Never">
+                    <TextBlock Text="с:" Margin="5 0 5 0" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpDateFrom" SelectedDate="{Binding DateFrom}" PreviewTextInput="Date_PreviewTextInput"/>
+                    <TextBlock Text="по:" Margin="5 0 5 0" VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dpDateTo" SelectedDate="{Binding DateTo}" PreviewTextInput="Date_PreviewTextInput"/>
+                    <Button x:Name="btnLoggerDateX" ToolTip = "Очистить поля с датой" Padding="0" Height="16" Width="16" Margin="5 0 5 0"  Background="{x:Null}" BorderBrush="{x:Null}">
+                        <StackPanel Orientation="Horizontal" >
+                            <Image Source="../../Icons/RemoveCommand_16x.png"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <Separator/>
+
+                <StackPanel Orientation="Horizontal" ToolBar.OverflowMode="Never">
+                    <!--<QControls:TextBoxWithClear Focusable="True" Text="{Binding ExtraQuery}" x:Name="txbExtraQuery" Margin="5,0,0,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия" />-->
+                    <TextBox Focusable="True" Text="{Binding ExtraQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ExtraQueryStyle}"  x:Name="txbExtraQuery" Margin="5,0,0,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding RefreshCommand}" Key="Enter"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <ComboBox x:Name="cb_Columns" 
+                              ItemsSource="{Binding ColumnsList}" 
+                              SelectionChanged="cb_Columns_SelectionChanged" 
+                              Loaded="Cb_Columns_Loaded"
+                              Width="Auto" MinWidth="50" ToolBar.OverflowMode="AsNeeded" IsReadOnly="True"  HorizontalContentAlignment="Stretch" >
+                        <ComboBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ComboBoxItem}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Content, Converter={StaticResource ComboboxItemDisableConverter}, RelativeSource={RelativeSource Self}}" Value="true">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ComboBox.ItemContainerStyle>
+                    </ComboBox>
+                </StackPanel>
+            </ToolBar>
+        </ToolBarTray>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" Visibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=chkLoggerRows}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Button x:Name='FirstButton' Command="{Binding FirstPageCommand}"  Margin="0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../Icons/first_button.png"/>
+                    </StackPanel>
+                </Button>
+                <Button  x:Name='PreviousButton' Command="{Binding PreviousPageCommand}"  Margin="0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../Icons/previous_button.png"/>
+                    </StackPanel>
+                </Button>
+                <StackPanel Orientation='Horizontal' HorizontalAlignment='Right'>
+                    <Label x:Name='PageInfo' Content="{Binding PageInfo}" Margin="5,0,5,0"/>
+                </StackPanel>
+                <Button x:Name='NextButton' Command="{Binding NextPageCommand}"  Margin="0" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../Icons/next_button.png"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name='LastButton' Command="{Binding LastPageCommand}"  Margin="0"  Padding="0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../Icons/last_button.png"/>
+                    </StackPanel>
+                </Button>
+                <ComboBox x:Name='NumberOfRecords' ItemsSource="{Binding NumbersOfRecords}" SelectedItem="{Binding NumberOfRecPerPage}"  Margin="5,0"/>
+            </StackPanel>
+        </Grid>
+        <DataGrid x:Name="DG_Logger" 
+                  behav:FocusExtension.IsFocused="{Binding IsDataGridFocused}"
+                  ItemsSource="{Binding LogRowsList}"
+                  SelectedItem="{Binding SelectedLogRow}"
+                  Style="{StaticResource DataGridLogger}" 
+                  ClipboardCopyMode="IncludeHeader" Grid.Row="2" Grid.ColumnSpan="3" Background="White" Margin="0" AutoGenerateColumns="False"  SelectionMode="Extended" IsReadOnly="True"  LoadingRow="DG_LoadingRow" >
+            <DataGrid.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" 
+                                Command="{Binding ShowPropertyCommand}" 
+                                CommandParameter="{Binding ElementName=DG_Logger, Path=SelectedItem}"    />
+            </DataGrid.InputBindings>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="gid" Binding="{Binding Gid}"/>
+                <DataGridTextColumn Header="Операция" Binding="{Binding Action}"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding Username}"/>
+                <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
+                <DataGridTextColumn Header="Дата изм." Binding="{Binding Datechange, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
+                <DataGridTextColumn Header="Таблица" Binding="{Binding Tablename}" />
+                <DataGridTextColumn Header="gidnum" Binding="{Binding Gidnum}" />
+                <DataGridTextColumn Header="Содержание" Binding="{Binding Context}" Width="*" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Command="Copy">
+                        <MenuItem.Icon>
+                            <Image Source="../../Icons/Copy_16x.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>

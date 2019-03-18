@@ -1,33 +1,26 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using Npgsql;
+using QConsole.DAL.AccessLayer.Entities;
+using QConsole.DAL.AccessLayer.Interfaces;
 
-namespace QConsole.DAL.AccessLayer
+namespace QConsole.DAL.AccessLayer.Repositories
 {
-    public class LogRow
-    {
-        public string Gid{ get; set; }
-        public string Action{ get; set; }
-        public string Username{ get; set; }
-        public string Address{ get; set; }
-        public DateTime Datechange { get; set; }
-        public string Tablename{ get; set; }
-        public string Gidnum{ get; set; }
-        public string Context{ get; set; }
-    }
 
-    public class LoggerDAL
+    public class LoggerRepository : ILoggerRepository
     {
         private string _connectionString;
 
-        public LoggerDAL(string connstring)
+        /// <summary>
+        /// Construcrot
+        /// </summary>
+        public LoggerRepository(string connstring)
         {
             _connectionString = connstring;
         }
+
+
 
         //LOG LIST main
         public List<LogRow> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
@@ -45,28 +38,28 @@ namespace QConsole.DAL.AccessLayer
 
             using (var conn = new NpgsqlConnection(_connectionString))
             {
-                    conn.Open();
-                    using (var command = new NpgsqlCommand(sql_query, conn))
+                conn.Open();
+                using (var command = new NpgsqlCommand(sql_query, conn))
+                {
+                    using (var dataReader = command.ExecuteReader())
                     {
-                        using (var dataReader = command.ExecuteReader())
+                        while (dataReader.Read())
                         {
-                            while (dataReader.Read())
-                            {
-                                var objectpsql = new LogRow();
+                            var objectpsql = new LogRow();
 
-                                objectpsql.Gid = dataReader["Gid"].ToString();
-                                objectpsql.Action = dataReader["Action"].ToString();
-                                objectpsql.Username = dataReader["Username"].ToString();
-                                objectpsql.Address = dataReader["Address"].ToString();
-                                objectpsql.Datechange = DateTime.ParseExact(dataReader["Datechange"].ToString(), "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
-                                objectpsql.Tablename = dataReader["Tablename"].ToString();
-                                objectpsql.Gidnum = dataReader["Gidnum"].ToString();
-                                objectpsql.Context = dataReader["Context"].ToString();
+                            objectpsql.Gid = dataReader["Gid"].ToString();
+                            objectpsql.Action = dataReader["Action"].ToString();
+                            objectpsql.Username = dataReader["Username"].ToString();
+                            objectpsql.Address = dataReader["Address"].ToString();
+                            objectpsql.Datechange = DateTime.ParseExact(dataReader["Datechange"].ToString(), "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            objectpsql.Tablename = dataReader["Tablename"].ToString();
+                            objectpsql.Gidnum = dataReader["Gidnum"].ToString();
+                            objectpsql.Context = dataReader["Context"].ToString();
 
-                                listOfObjects.Add(objectpsql);
-                            }
+                            listOfObjects.Add(objectpsql);
                         }
                     }
+                }
 
             }
             return listOfObjects;

@@ -17,8 +17,6 @@ namespace QConsole.ViewModels
         {
             Tabs = new ObservableCollection<ITab>();
             AddTabs();
-
-            //IsVisibleLogPanel = Properties.Settings.Default.LogPanelVisibility;
         }
 
         private void AddTabs()
@@ -27,54 +25,11 @@ namespace QConsole.ViewModels
             Tabs.Add(new UserTab());
             Tabs.Add(new LayerTab());
             Tabs.Add(new GrantTab());
+            Tabs.Add(new LoggerTab());
         }
 
         public ICollection<ITab> Tabs { get; }
         public string Title { get; set; }
 
-
-
-        //private Visibility _isVisibleLogPanel;
-        //public Visibility IsVisibleLogPanel
-        //{
-        //    get
-        //    {
-        //        return _isVisibleLogPanel;
-        //    }
-        //    set
-        //    {
-        //        _isVisibleLogPanel = value;
-        //        Properties.Settings.Default.LogPanelVisibility = value;
-
-        //        OnPropertyChanged("IsVisibleLogPanel");
-        //    }
-        //}
-
-        //private RelayCommand _closeOrShowLogPanelCommand;
-        //public RelayCommand CloseOrShowLogPanelCommand
-        //{
-        //    get
-        //    {
-        //        return _closeOrShowLogPanelCommand ??
-        //          (_closeOrShowLogPanelCommand = new RelayCommand(obj =>
-        //          {
-        //              CloseOrShowLogPanel();
-        //          }));
-        //    }
-        //}
-
-        //private void CloseOrShowLogPanel()
-        //{
-        //    if (IsVisibleLogPanel == Visibility.Collapsed)
-        //    {
-        //        Console.WriteLine("set visible");
-        //        IsVisibleLogPanel = Visibility.Visible;
-        //    }
-        //    else if (IsVisibleLogPanel == Visibility.Visible)
-        //    {
-        //        Console.WriteLine("set collapsed");
-        //        IsVisibleLogPanel = Visibility.Collapsed;
-        //    }
-        //}
     }
 }

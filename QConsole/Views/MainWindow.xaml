@@ -84,6 +84,9 @@
                 <DataTemplate DataType="{x:Type modelsTab:GrantTab}">
                     <ViewsTabs:TabGrantsView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type modelsTab:LoggerTab}">
+                    <ViewsTabs:TabLoggerView />
+                </DataTemplate>
             </TabControl.Resources>
             
             <TabControl.ItemTemplate>
