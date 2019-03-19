@@ -200,7 +200,6 @@ namespace QConsole.ViewModels.TabLogger
             PopulateComboBoxAttributes();
             NumberOfRecPerPage = 250;//Current number of rows in pages
 
-
             RefreshTab();
         }
 

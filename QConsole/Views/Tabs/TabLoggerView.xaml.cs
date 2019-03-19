@@ -42,7 +42,6 @@ namespace QConsole.Views.Tabs
                 txbExtraQuery.Text = txbExtraQuery.Text + "\"" + cb.SelectedItem + "\"";
                 cb.SelectedIndex = 0;
                 txbExtraQuery.Focus();
-                txbExtraQuery.CaretIndex = txbExtraQuery.Text.Length;
             }
         }
 

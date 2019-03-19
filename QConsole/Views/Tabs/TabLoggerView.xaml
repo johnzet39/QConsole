@@ -120,12 +120,30 @@
                 <Separator/>
 
                 <StackPanel Orientation="Horizontal" ToolBar.OverflowMode="Never">
-                    <!--<QControls:TextBoxWithClear Focusable="True" Text="{Binding ExtraQuery}" x:Name="txbExtraQuery" Margin="5,0,0,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия" />-->
-                    <TextBox Focusable="True" Text="{Binding ExtraQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ExtraQueryStyle}"  x:Name="txbExtraQuery" Margin="5,0,0,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия">
+                    <QControls:TextBoxWithClear Text="{Binding ExtraQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="txbExtraQuery" Margin="5,0,5,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия" >
+                        <QControls:TextBoxWithClear.InputBindings>
+                            <KeyBinding Command="{Binding RefreshCommand}" Key="Enter"/>
+                        </QControls:TextBoxWithClear.InputBindings>
+                        
+                        <QControls:TextBoxWithClear.Style>
+                            <Style TargetType="{x:Type QControls:TextBoxWithClear}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasError}" Value="true">
+                                        <!--<Setter Property="Background" Value="MistyRose"/>-->
+                                        <Setter Property="BorderBrush" Value="Red"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </QControls:TextBoxWithClear.Style>
+                        
+                    </QControls:TextBoxWithClear>
+
+                    <!--<TextBox Focusable="True" Text="{Binding ExtraQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource ExtraQueryStyle}"  x:Name="txbExtraQuery" Margin="5,0,0,0" Width="400" ToolBar.OverflowMode="AsNeeded" ToolTip="Дополнительные условия">
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding RefreshCommand}" Key="Enter"/>
                         </TextBox.InputBindings>
-                    </TextBox>
+                    </TextBox>-->
                     <ComboBox x:Name="cb_Columns" 
                               ItemsSource="{Binding ColumnsList}" 
                               SelectionChanged="cb_Columns_SelectionChanged" 

@@ -15,7 +15,7 @@
             <!--<Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>-->
             <Setter Property="BorderBrush" Value="#FFDADADA"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Margin" Value="1,1"/>
+            <Setter Property="Margin" Value="0,0"/>
             <Setter Property="Padding" Value="2"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
@@ -48,9 +48,9 @@
     </UserControl.Resources>
 
     <Grid >
-        <!--<TextBox x:Name="tBox" Style="{DynamicResource TextBoxWithClearControlTemplate}" Padding="1,0,15,0" Text="{Binding Text, RelativeSource={RelativeSource Mode=TemplatedParent}, Mode=TwoWay}"/>-->
-        <TextBox x:Name="tBox" Style="{DynamicResource TextBoxWithClearControlTemplate}" Padding="1,0,15,0" Text="{Binding Path=Text, ElementName=MyTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button Width="12" Height="12" Opacity="0.5"  HorizontalAlignment="Right" Margin="5,0"  Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" Click="Button_Click">
+        <!--<TextBox x:Name="tBox" Style="{DynamicResource TextBoxWithClearControlTemplate}" Padding="1,0,15,0" Text="{Binding Path=Text, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}"/>-->
+        <TextBox x:Name="tBox" Style="{DynamicResource TextBoxWithClearControlTemplate}" Padding="1,0,15,0" Text="{Binding Path=Text, ElementName=MyTextBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TBox_TextChanged"/>
+        <Button x:Name="ClearButton"  Width="16" Height="16" Opacity="1"  HorizontalAlignment="Right" Margin="5,0"  Background="{x:Null}" BorderThickness="0" BorderBrush="{x:Null}" Click="Button_Click">
             <StackPanel>
                 <Image Source="Icons/close.png"/>
             </StackPanel>

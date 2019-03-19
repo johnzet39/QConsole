@@ -21,11 +21,12 @@ namespace QWpfControls
         public TextBoxWithClear()
         {
             InitializeComponent();
+            //this.FocusableChanged += new DependencyPropertyChangedEventHandler(TextBoxWithClear_IsVisibleChanged);
+            ClearButton.Visibility = Visibility.Collapsed;
         }
 
 
         //Using a DependencyProperty as the backing store for Text.This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBoxWithClear), new FrameworkPropertyMetadata("gidnum = 1", new PropertyChangedCallback(TextChanged)));
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(TextBoxWithClear), new PropertyMetadata(""));
         public string Text
         {
@@ -33,15 +34,12 @@ namespace QWpfControls
             set { SetValue(TextProperty, value); }
         }
 
-        private static void TextChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
-        {
-            TextBoxWithClear tbwc = (TextBoxWithClear)sender;
-            string text = tbwc.Text;
-            if (e.Property == TextProperty)
-                text = (string)e.NewValue;
 
-            tbwc.Text = text;
-        }
+        //public new void Focus()
+        //{
+        //    tBox.Focus();
+        //    tBox.CaretIndex = tBox.Text.Length;
+        //}
 
 
         // Using a DependencyProperty as the backing store for CaretIndex.  This enables animation, styling, binding, etc...
@@ -61,19 +59,26 @@ namespace QWpfControls
         }
         // ----------------------------------------????
         // Set focus to textbox
-        void TextBoxWithClear_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        public void TextBoxWithClear_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue == true)
             {
                 Dispatcher.BeginInvoke(
-                    DispatcherPriority.ContextIdle,
-                    new Action(delegate ()
-                    {
-                        tBox.Focus();
-                    }));
+                DispatcherPriority.ContextIdle,
+                new Action(delegate ()
+                {
+                    tBox.Focus();
+                }));
             }
         }
 
+        private void TBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (tBox.Text.Length > 0)
+                ClearButton.Visibility = Visibility.Visible;
+            else
+                ClearButton.Visibility = Visibility.Collapsed;
+        }
     }
 
 

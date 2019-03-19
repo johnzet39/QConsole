@@ -80,7 +80,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\close.png" />
+    <Resource Include="Icons\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
