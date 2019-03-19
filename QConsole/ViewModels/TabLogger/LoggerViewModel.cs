@@ -188,21 +188,6 @@ namespace QConsole.ViewModels.TabLogger
         }
 
 
-        private bool _isDataGridFocused;
-        public bool IsDataGridFocused
-        {
-            get
-            {
-                return _isDataGridFocused;
-            }
-            set
-            {
-                _isDataGridFocused = value;
-                OnPropertyChanged("IsDataGridFocused");
-            }
-        }
-
-
 
         /// <summary>
         /// Constrictor
@@ -235,7 +220,6 @@ namespace QConsole.ViewModels.TabLogger
             if (CurLogRow != null)
             {
                 SelectedLogRow = LogRowsList.Where(p => p.Gid == CurLogRow.Gid).DefaultIfEmpty().First();
-                IsDataGridFocused = true;
             }
         }
 

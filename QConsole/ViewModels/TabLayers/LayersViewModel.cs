@@ -20,6 +20,7 @@ namespace QConsole.ViewModels.TabLayers
     class LayersViewModel : BaseViewModel
     {
         private readonly string _connectionString = Common.ConnectionStrings.ConnectionString;
+        private ILayerService service;
 
         // Refresh button command.
         private RelayCommand refreshCommand;
@@ -75,7 +76,7 @@ namespace QConsole.ViewModels.TabLayers
             }
         }
 
-        //Selected User
+        //Selected Layer
         private Layer _selectedLayer;
         public Layer SelectedLayer
         {
@@ -90,7 +91,7 @@ namespace QConsole.ViewModels.TabLayers
             }
         }
 
-        //Selected User
+        //Selected Layer
         private Layer _selectedDicts;
         public Layer SelectedDict
         {
@@ -116,7 +117,7 @@ namespace QConsole.ViewModels.TabLayers
 
         private void GetLayers()
         {
-            ILayerService service = new LayerService(_connectionString);
+            service = new LayerService(_connectionString);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LayerDTO, Layer>()).CreateMapper();
             var layers = mapper.Map<IEnumerable<LayerDTO>, List<Layer>>(service.GetLayers());
             LayersList = new ObservableCollection<Layer>(layers);
@@ -124,7 +125,7 @@ namespace QConsole.ViewModels.TabLayers
 
         private void GetDicts()
         {
-            ILayerService service = new LayerService(_connectionString);
+            service = new LayerService(_connectionString);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LayerDTO, Layer>()).CreateMapper();
             var layers = mapper.Map<IEnumerable<LayerDTO>, List<Layer>>(service.GetDicts());
             DictsList = new ObservableCollection<Layer>(layers);

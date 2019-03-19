@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:QConsole.ViewModels.TabLayers"
+             xmlns:behav="clr-namespace:QConsole.Behaviors"
              xmlns:local="clr-namespace:QConsole.Views.Tabs"
              xmlns:Commands="clr-namespace:QConsole.Commands"
              mc:Ignorable="d" 
@@ -49,6 +50,7 @@
         <DataGrid x:Name="DG_Layers"
                   ItemsSource="{Binding LayersList}"
                   SelectedItem="{Binding SelectedLayer}"
+                  behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Layers}"
                   Grid.Row="1" Grid.Column="0" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow" IsReadOnly="True">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" 

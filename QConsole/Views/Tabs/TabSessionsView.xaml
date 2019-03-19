@@ -87,7 +87,7 @@
                 </Button>
             </ToolBar>
             <DataGrid x:Name="DG_Session" 
-                      behav:FocusExtension.IsFocused="{Binding IsDataGridFocused}"
+                      behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Session}"
                       Style="{StaticResource DataGridSessions}" 
                       ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" 
                       Grid.Row="1" Background="White" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" 

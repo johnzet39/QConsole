@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:QConsole.Views.Tabs"
              xmlns:vm="clr-namespace:QConsole.ViewModels.TabUsers"
              xmlns:ext="clr-namespace:QConsole.Ext"
+             xmlns:behav="clr-namespace:QConsole.Behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              >
@@ -81,7 +82,10 @@
                     </StackPanel>
                 </Button>
             </ToolBar>
-            <DataGrid x:Name="DG_Users"  Style="{StaticResource DataGridUsersStyle}" ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}" Grid.Row="1" Grid.Column="0"  Margin="0" AutoGenerateColumns="False"  SelectionMode="Single" IsReadOnly="True" LoadingRow="DG_LoadingRow">
+            <DataGrid x:Name="DG_Users"  
+                      Style="{StaticResource DataGridUsersStyle}" 
+                      behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Users}"
+                      ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}" Grid.Row="1" Grid.Column="0"  Margin="0" AutoGenerateColumns="False"  SelectionMode="Single" IsReadOnly="True" LoadingRow="DG_LoadingRow">
                 <DataGrid.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" 
                                 Command="{Binding EditRoleCommand}"/>
