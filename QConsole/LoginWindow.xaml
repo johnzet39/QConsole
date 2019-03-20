@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QConsole"
         mc:Ignorable="d"
-        Title="QConsole. Авторизация" Icon="icons/icon.ico" WindowStyle="ToolWindow" SizeToContent="Height" MaxHeight="480" MaxWidth="800" Width="500" MinHeight="300" MinWidth="500" WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}" Closed="Window_Closed" Loaded="Window_Loaded" >
+        Title="QConsole. Авторизация" Icon="icons/icon.ico" WindowStyle="ToolWindow" SizeToContent="Height" MaxHeight="480" MaxWidth="800" Width="500" MinHeight="300" MinWidth="500" WindowStartupLocation="CenterScreen"  Closed="Window_Closed" Loaded="Window_Loaded" >
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

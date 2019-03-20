@@ -12,7 +12,6 @@ namespace QConsole.ViewModels.TabLogger
     class LoggerPropertyWindowViewModel : BaseViewModel
     {
         DisplayRootRegistry DisplayRootRegistry;
-        ILoggerService _loggerService;
         IList<LogRow> ListHist;
         LogRow SelectedLogRow;
 

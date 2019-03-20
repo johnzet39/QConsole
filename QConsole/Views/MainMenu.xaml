@@ -16,7 +16,7 @@
     
     <UserControl.Resources>
         <converters:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter"/>
-        
+
         <SolidColorBrush x:Key="Menu.Static.Background" Color="#FFF0F0F0"/>
         <Style x:Key="MainMenuTemplate" TargetType="{x:Type Menu}">
             <Setter Property="Background" Value="{StaticResource Menu.Static.Background}"/>
@@ -39,7 +39,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Menu Grid.Row="0" Style="{DynamicResource MainMenuTemplate}">
+        <Menu Grid.Row="0" Style="{DynamicResource MainMenuTemplate}" >
             <MenuItem Header="_Файл">
                 <MenuItem x:Name="subMenuSettings" Header="_Настройки" 
                           Command="{Binding ShowSettingsWindowCommand}">
@@ -57,12 +57,13 @@
             <MenuItem Header="_Вид">
                 <MenuItem x:Name="subMenuLog" Header="Панель вывода запросов" 
                           IsChecked = "{Binding LogPanelVisibility, Converter={StaticResource VisibilityToBooleanConverter}, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                          Click="SubMenuLog_Click"
-                          >
+                          Click="SubMenuLog_Click">
                     <MenuItem.Icon>
                         <Image Source="../icons/ListView_16x.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Новая SQL вкладка"
+                      Command="{Binding DataContext.NewTabCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             </MenuItem>
             <MenuItem Header="_Справка">
                 <MenuItem Header="_Проверить наличие новой версии..." />
@@ -70,6 +71,8 @@
                 <MenuItem Header="_О программе..." 
                           Command="{Binding ShowAboutWindowCommand}"/>
             </MenuItem>
+            
+
         </Menu>
     </Grid>
 </UserControl>

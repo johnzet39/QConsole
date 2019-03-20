@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="QConsole.Views.Tabs.TabQueryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:QConsole.ViewModels.TabQuery"
+             xmlns:ext="clr-namespace:QConsole.Ext"
+             xmlns:Properties="clr-namespace:QConsole.Properties"
+             xmlns:local="clr-namespace:QConsole.Views.Tabs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <vm:QueriesViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="{Binding TabQuery_SplitterMain, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" MinHeight="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <ToolBarTray Background="Transparent" x:Name="ToolBTray">
+            <ToolBarTray.Resources>
+                <Style TargetType="{x:Type ToolBar}">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Style>
+                <Style TargetType="Image">
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ToolBarTray.Resources>
+            <ToolBar x:Name="ToolBar1">
+                <Button ToolTip="Выполнить запрос" 
+                        Command="{Binding ExecuteQueryCommand}">
+                    <Image Source="../../Icons/RunQuery_16x.png" />
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <TextBox Grid.Row="1" x:Name="tb_Query" AcceptsReturn="True"
+                 Text="{Binding QueryString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 ext:TextBoxHelper.SelectedText="{Binding SelectedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 SelectionChanged="Tb_Query_SelectionChanged"
+                > 
+        </TextBox>
+        <GridSplitter Grid.Row="2" Height="5" HorizontalAlignment="Stretch"/>
+        <DataGrid Grid.Row="3" 
+                  ItemsSource="{Binding ExecuteResult}"
+                  Background="White">
+        </DataGrid>
+    </Grid>
+</UserControl>

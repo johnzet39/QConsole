@@ -5,7 +5,7 @@
              StartupUri="LoginWindow.xaml"
              ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
-        <Style x:Key="WindowStyle" TargetType="Window">
+        <Style TargetType="Window">
             <Setter Property="Icon" Value="Icons/icon.ico"/>
         </Style>
 
