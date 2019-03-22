@@ -96,12 +96,10 @@ namespace QConsole.ViewModels.TabSessions
             set
             {
                 _sessionsCount = value;
-                //if (SeriesCollection == null && value > 0)
-                //{
-                //    CreatePlot();
-                //}
-                //if (SeriesCollection != null && value > 0)
+                App.Current.Dispatcher.Invoke(() =>
+                {
                     AddPlotPoint();
+                });
                 OnPropertyChanged("SessionsCount");
             }
         }
