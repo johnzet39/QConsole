@@ -8,6 +8,8 @@
              xmlns:local="clr-namespace:QConsole.Views.Tabs"
              xmlns:behav="clr-namespace:QConsole.Behaviors"
              xmlns:vm="clr-namespace:QConsole.ViewModels.TabSessions"
+             xmlns:Views="clr-namespace:QConsole.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -45,14 +47,14 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    
+
 
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
             <ToolBar Background="Transparent">
                 <ToolBar.Resources>
@@ -105,6 +107,19 @@
                     <DataGridTextColumn Header="Адрес клиента" Binding="{Binding Client_addr}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </Grid>
+
+        <lvc:CartesianChart Grid.Row="3" 
+                            Series="{Binding SeriesCollection}" 
+                            LegendLocation="None"
+                            AnimationsSpeed="0:0:0.5">
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Сессии" LabelFormatter="{Binding YFormatter}" MinValue="0"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis  Labels="{Binding Labels}" IsEnabled="False" ShowLabels="True" ></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
     </Grid>
+        
 </UserControl>
