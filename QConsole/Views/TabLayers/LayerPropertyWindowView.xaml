@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QConsole.Views.TabLayers"
         mc:Ignorable="d"
-        Title="Свойства слоя" Height="250" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
+        Title="Свойства слоя" Height="250" Width="500" SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

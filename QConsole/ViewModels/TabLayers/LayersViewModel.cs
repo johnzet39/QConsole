@@ -106,6 +106,18 @@ namespace QConsole.ViewModels.TabLayers
             }
         }
 
+        //
+        private bool _isFocused;
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set
+            {
+                _isFocused = value;
+                OnPropertyChanged(("IsFocused"));
+            }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -154,6 +166,8 @@ namespace QConsole.ViewModels.TabLayers
                 SelectedDict = DictsList.Where(p => p.Table_schema == cur_dict.Table_schema)
                                           .Where(p => p.Table_name == cur_dict.Table_name).DefaultIfEmpty().First();
             }
+
+            IsFocused = true;
         }
 
         private async void ShowPropertyAsync(object selectedRow)

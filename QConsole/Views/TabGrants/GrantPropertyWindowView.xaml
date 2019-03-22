@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QConsole.Views.TabGrants"
         mc:Ignorable="d"
-        Title="Привилегии" Height="250" Width="250" MinHeight="250" MinWidth="200"  WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
+        Title="Привилегии" Height="250" Width="250" MinHeight="250" MinWidth="200"  WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

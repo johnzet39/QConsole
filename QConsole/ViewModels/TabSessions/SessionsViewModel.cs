@@ -143,10 +143,14 @@ namespace QConsole.ViewModels.TabSessions
             if ((bool)state)
             {
                 SetTimer(); ;
+
+                SetEnabledPlot();//Change color
             }
             else
             {
                 RemoveTimer();
+
+                SetDisabledPlot();//Change color
             }
         }
 
@@ -187,16 +191,42 @@ namespace QConsole.ViewModels.TabSessions
             {
                 Title = "Cессии",
                 Values = new ChartValues<int>(),
-                //Values = new ChartValues<int> { SessionsCount },
                 PointGeometry = DefaultGeometries.Circle,
                 PointGeometrySize = 4,
                 LineSmoothness = 0,
+                StrokeThickness = 1.5
                 //Stroke = new SolidColorBrush(Colors.Red),
                 //Fill = new SolidColorBrush(Colors.Red)
             });
 
             GenerateLabels();
             YFormatter = value => value.ToString();
+        }
+
+        private void SetEnabledPlot()
+        {
+            var Serie1 = SeriesCollection[0] as LineSeries;
+            Serie1.Fill = new SolidColorBrush
+            {
+                Color = System.Windows.Media.Color.FromArgb(50 , 33, 149, 242)
+            };
+            Serie1.Stroke = new SolidColorBrush
+            {
+                Color = System.Windows.Media.Color.FromArgb(190, 33, 149, 242)
+            };
+        }
+
+        private void SetDisabledPlot()
+        {
+            var Serie1 = SeriesCollection[0] as LineSeries;
+            Serie1.Fill = new SolidColorBrush
+            {
+                Color = System.Windows.Media.Color.FromArgb(50, 150, 150, 150)
+            };
+            Serie1.Stroke = new SolidColorBrush
+            {
+                Color = System.Windows.Media.Color.FromArgb(150, 33, 149, 242)
+            };
         }
 
         private void GenerateLabels()
@@ -218,8 +248,18 @@ namespace QConsole.ViewModels.TabSessions
                 Serie1.Values.RemoveAt(0);
                 values.Add(SessionsCount);
 
+                // Add infinite label
+                //Labels.RemoveAt(0);
+                //Labels.Add((Int32.Parse(Labels.Last()) + _timerInterval).ToString());
+
+                string newlabel;
+                if (Int32.Parse(Labels.Last()) == 86400)
+                    newlabel = "1";
+                else
+                    newlabel = (Int32.Parse(Labels.Last()) + _timerInterval).ToString();
                 Labels.RemoveAt(0);
-                Labels.Add((Int32.Parse(Labels.Last()) + _timerInterval).ToString());
+                Labels.Add(newlabel);
+
             }
             else
             {

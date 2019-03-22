@@ -45,7 +45,7 @@
             </ToolBar>
         </ToolBarTray>
 
-        <TextBox Grid.Row="1" x:Name="tb_Query" AcceptsReturn="True"
+        <TextBox Grid.Row="1" x:Name="tb_Query" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"
                  Text="{Binding QueryString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  ext:TextBoxHelper.SelectedText="{Binding SelectedText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  SelectionChanged="Tb_Query_SelectionChanged"

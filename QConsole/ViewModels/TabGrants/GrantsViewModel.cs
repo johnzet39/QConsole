@@ -183,6 +183,17 @@ namespace QConsole.ViewModels.TabGrants
             }
         }
 
+        private bool _isFocused;
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set
+            {
+                _isFocused = value;
+                OnPropertyChanged(("IsFocused"));
+            }
+        }
+
 
 
         /// <summary>
@@ -261,6 +272,8 @@ namespace QConsole.ViewModels.TabGrants
                 SelectedGrantDict = GrantDictsList.Where(p => p.Table_schema == cur_dict.Table_schema)
                                                   .Where(p => p.Table_name == cur_dict.Table_name).DefaultIfEmpty().First();
             }
+
+            IsFocused = true;
         }
 
         private async void ShowPropertyRoleAsync(object selectedRow)

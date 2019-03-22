@@ -198,7 +198,7 @@
             </StackPanel>
         </Grid>
         <DataGrid x:Name="DG_Logger" 
-                  behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Logger}"
+                  behav:FocusExtension.IsFocused="{Binding IsFocused}"
                   ItemsSource="{Binding LogRowsList}"
                   SelectedItem="{Binding SelectedLogRow}"
                   Style="{StaticResource DataGridLogger}" 

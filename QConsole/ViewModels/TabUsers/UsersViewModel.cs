@@ -169,6 +169,18 @@ namespace QConsole.ViewModels.TabUsers
             }
         }
 
+        //
+        private bool _isUserDataGridFocused;
+        public bool IsUserDataGridFocused
+        {
+            get => _isUserDataGridFocused;
+            set
+            {
+                _isUserDataGridFocused = value;
+                OnPropertyChanged(("IsUserDataGridFocused"));
+            }
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -188,6 +200,7 @@ namespace QConsole.ViewModels.TabUsers
             {
                 SelectedUser = UsersList.Where(p => p.Usesysid == cur_row.Usesysid).DefaultIfEmpty().First();
             }
+            IsUserDataGridFocused = true;
         }
 
         // Get sessions async
@@ -199,6 +212,7 @@ namespace QConsole.ViewModels.TabUsers
             {
                 SelectedUser = UsersList.Where(p => p.Usename == username).DefaultIfEmpty().First();
             }
+            IsUserDataGridFocused = true;
         }
 
         private void GetUsers()

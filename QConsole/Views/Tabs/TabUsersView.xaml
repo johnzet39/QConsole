@@ -84,7 +84,7 @@
             </ToolBar>
             <DataGrid x:Name="DG_Users"  
                       Style="{StaticResource DataGridUsersStyle}" 
-                      behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Users}"
+                      behav:FocusExtension.IsFocused="{Binding IsUserDataGridFocused}"
                       ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}" Grid.Row="1" Grid.Column="0"  Margin="0" AutoGenerateColumns="False"  SelectionMode="Single" IsReadOnly="True" LoadingRow="DG_LoadingRow">
                 <DataGrid.InputBindings>
                     <MouseBinding Gesture="LeftDoubleClick" 

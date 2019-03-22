@@ -187,6 +187,17 @@ namespace QConsole.ViewModels.TabLogger
             }
         }
 
+        private bool _isFocused;
+        public bool IsFocused
+        {
+            get => _isFocused;
+            set
+            {
+                _isFocused = value;
+                OnPropertyChanged(("IsFocused"));
+            }
+        }
+
 
 
         /// <summary>
@@ -220,6 +231,8 @@ namespace QConsole.ViewModels.TabLogger
             {
                 SelectedLogRow = LogRowsList.Where(p => p.Gid == CurLogRow.Gid).DefaultIfEmpty().First();
             }
+
+            IsFocused = true;
         }
 
         private void GetLogRowsList()

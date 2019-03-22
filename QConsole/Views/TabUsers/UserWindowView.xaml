@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:QConsole.Views.TabUsers"
         xmlns:converters="clr-namespace:QConsole.Converters"
         mc:Ignorable="d"
-        Title="Пользователь/Роль" Height="350" Width="600" SizeToContent="Height" WindowStartupLocation="CenterScreen" Style="{StaticResource WindowStyle}">
+        Title="Пользователь/Роль" Height="350" Width="600" SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:BooleanToVisibilityConverter x:Key="b2v" InvertVisibility="True" />
         <converters:MultiParametersConverter x:Key="mpc" />

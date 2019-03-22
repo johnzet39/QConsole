@@ -50,7 +50,7 @@
         <DataGrid x:Name="DG_Layers"
                   ItemsSource="{Binding LayersList}"
                   SelectedItem="{Binding SelectedLayer}"
-                  behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Layers}"
+                  behav:FocusExtension.IsFocused="{Binding IsFocused}"
                   Grid.Row="1" Grid.Column="0" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" LoadingRow="DG_LoadingRow" IsReadOnly="True">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" 

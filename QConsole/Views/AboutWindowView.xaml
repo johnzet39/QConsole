@@ -8,7 +8,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Title="О программе" Height="260.276" Width="476.801" AllowsTransparency="True" Style="{StaticResource WindowStyle}" Icon="../icons/icon.ico"
+        Title="О программе" Height="260.276" Width="476.801" AllowsTransparency="True" Icon="../icons/icon.ico"
         >
     <Window.Resources>
     </Window.Resources>

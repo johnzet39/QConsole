@@ -18,6 +18,7 @@
     <UserControl.Resources>
         <converters:BooleanToBrushConverter x:Key="BooleanToBrushConverter"/>
         <converters:CompareDateToBrushConverter x:Key="CompareDateToBrushConverter"/>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" InvertVisibility="False"/>
 
         <Style x:Key="DataGridSessions" BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid">
             <Setter Property="RowStyle">
@@ -54,7 +55,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="150"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <ToolBar Background="Transparent">
                 <ToolBar.Resources>
@@ -88,15 +89,13 @@
                     </StackPanel>
                 </Button>
             </ToolBar>
-            <DataGrid x:Name="DG_Session" 
-                      behav:FocusExtension.IsFocused="{Binding SelectedItems.Count, ElementName=DG_Session}"
+        <DataGrid x:Name="DG_Session" Grid.Row="1"
                       Style="{StaticResource DataGridSessions}" 
                       ItemsSource="{Binding SessionsList}" SelectedItem="{Binding SelectedSession}" 
-                      Grid.Row="1" Background="White" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" 
+                       Background="White" Margin="0" SelectionMode="Single" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" 
                       LoadingRow="DG_LoadingRow" IsReadOnly="True" Grid.RowSpan="2">
                 <DataGrid.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
-                    <!--<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FF58A4FF"/>-->
+                    <!--<SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>-->
                 </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="pid" Binding="{Binding Pid}"/>
@@ -106,17 +105,19 @@
                     <DataGridTextColumn Header="Описание" Binding="{Binding Descript}"/>
                     <DataGridTextColumn Header="Адрес клиента" Binding="{Binding Client_addr}" Width="*"/>
                 </DataGrid.Columns>
-            </DataGrid>
+        </DataGrid>
 
         <lvc:CartesianChart Grid.Row="3" 
+                            Height="100"
                             Series="{Binding SeriesCollection}" 
                             LegendLocation="None"
                             AnimationsSpeed="0:0:0.5">
+                            <!--Visibility="{Binding IsChecked, ElementName=BtnTimerEnable, Converter={StaticResource BooleanToVisibilityConverter}}"-->
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Сессии" LabelFormatter="{Binding YFormatter}" MinValue="0"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis  Labels="{Binding Labels}" IsEnabled="False" ShowLabels="True" ></lvc:Axis>
+                <lvc:Axis  Labels="{Binding Labels}" IsEnabled="False" ShowLabels="True"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
