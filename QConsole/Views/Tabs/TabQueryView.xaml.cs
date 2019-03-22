@@ -29,6 +29,10 @@ namespace QConsole.Views.Tabs
         private void Tb_Query_SelectionChanged(object sender, RoutedEventArgs e)
         {
             TextBoxHelper.SetSelectedText(tb_Query, tb_Query.SelectedText);
+
+            int row = tb_Query.GetLineIndexFromCharacterIndex(tb_Query.CaretIndex);
+            int col = tb_Query.CaretIndex - tb_Query.GetCharacterIndexFromLineIndex(row);
+            lblCursorPosition.Text = "Line " + (row + 1) + ", Char " + (col + 1);
         }
     }
 }

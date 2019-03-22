@@ -21,6 +21,7 @@
             <RowDefinition Height="{Binding TabQuery_SplitterMain, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}" MinHeight="50"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ToolBarTray Background="Transparent" x:Name="ToolBTray">
@@ -55,5 +56,10 @@
                   ItemsSource="{Binding ExecuteResult}"
                   Background="White">
         </DataGrid>
+        <StatusBar Grid.Row="4">
+            <StatusBarItem>
+                <TextBlock Name="lblCursorPosition" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </UserControl>
