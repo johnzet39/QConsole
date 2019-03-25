@@ -41,5 +41,8 @@
     <Setting Name="TabQuery_SplitterMain" Type="System.Windows.GridLength" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
+    <Setting Name="ButtonTimerPeriod" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

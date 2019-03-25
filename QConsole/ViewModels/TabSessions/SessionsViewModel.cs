@@ -22,7 +22,6 @@ namespace QConsole.ViewModels.TabSessions
     {
         private readonly string _connectionString = Common.ConnectionStrings.ConnectionString;
         private static DispatcherTimer aTimer;
-        private readonly int _timerInterval = 2;
 
         // Constructor.
         public SessionsViewModel()
@@ -104,6 +103,23 @@ namespace QConsole.ViewModels.TabSessions
             }
         }
 
+        //Period
+        private int _timerPeriod;
+        public int TimerPeriod
+        {
+            get {
+                _timerPeriod = Int32.Parse(Properties.Settings.Default.ButtonTimerPeriod);
+                return _timerPeriod;
+            }
+            set
+            {
+                _timerPeriod = value;
+                OnPropertyChanged("TimerPeriod");
+                aTimer.Interval = TimeSpan.FromSeconds(value);
+                Properties.Settings.Default.ButtonTimerPeriod = value.ToString();
+            }
+        }
+
 
         // Get sessions async
         private async void GetSessionsAsync()
@@ -159,7 +175,7 @@ namespace QConsole.ViewModels.TabSessions
         {
             aTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(_timerInterval)
+                Interval = TimeSpan.FromSeconds(TimerPeriod)
             };
             aTimer.Tick += OnTimedEvent;
             aTimer.Start();
@@ -195,8 +211,6 @@ namespace QConsole.ViewModels.TabSessions
                 PointGeometrySize = 4,
                 LineSmoothness = 0,
                 StrokeThickness = 1.5
-                //Stroke = new SolidColorBrush(Colors.Red),
-                //Fill = new SolidColorBrush(Colors.Red)
             });
 
             GenerateLabels();
@@ -231,11 +245,13 @@ namespace QConsole.ViewModels.TabSessions
 
         private void GenerateLabels()
         {
-            Labels = new List<string>();
-            for (int i = 0; i < 61 * _timerInterval; i=i + _timerInterval)
-            {
-                Labels.Add(i.ToString());
-            }
+            //Labels = new List<string>();
+            //for (int i = 0; i < 61 * _timerInterval; i=i + _timerInterval)
+            //{
+            //    Labels.Add(i.ToString());
+            //}
+            Labels = new List<string> {"0"};
+
         }
 
         private void AddPlotPoint()
@@ -243,7 +259,7 @@ namespace QConsole.ViewModels.TabSessions
             var Serie1 = SeriesCollection[0];
             var values = Serie1.Values;
 
-            if (values.Count > 60)
+            if (values.Count > 10)
             {
                 Serie1.Values.RemoveAt(0);
                 values.Add(SessionsCount);
@@ -256,7 +272,7 @@ namespace QConsole.ViewModels.TabSessions
                 if (Int32.Parse(Labels.Last()) == 86400)
                     newlabel = "1";
                 else
-                    newlabel = (Int32.Parse(Labels.Last()) + _timerInterval).ToString();
+                    newlabel = (Int32.Parse(Labels.Last()) + TimerPeriod).ToString();
                 Labels.RemoveAt(0);
                 Labels.Add(newlabel);
 
@@ -264,6 +280,7 @@ namespace QConsole.ViewModels.TabSessions
             else
             {
                 Serie1.Values.Add(SessionsCount);
+                Labels.Add((Int32.Parse(Labels.Last()) + TimerPeriod).ToString());
             }
         }
 

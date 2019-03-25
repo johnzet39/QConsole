@@ -10,6 +10,7 @@
              xmlns:vm="clr-namespace:QConsole.ViewModels.TabSessions"
              xmlns:Views="clr-namespace:QConsole.Views"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:QControls="clr-namespace:QWpfControls;assembly=QWpfControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
@@ -72,12 +73,15 @@
                                       CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" 
                                       IsChecked="{Binding ButtonTimerChecked, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
                                       Height="23" VerticalAlignment="Bottom"
-                                      HorizontalAlignment="Left" 
-                                      ToolTip = "Автообновление содержимого вкладки">
+                                      HorizontalAlignment="Left">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Rectangle Width="5" Height="10" VerticalAlignment="Center" Margin="3,0" Stroke="#FF727272"
                                     Fill="{Binding IsChecked, Converter={StaticResource BooleanToBrushConverter}, ElementName=BtnTimerEnable}"/>
-                        <Image Source="../../icons/clock_16xLG.png" Height="16" />
+                        <Image Source="../../icons/clock_16xLG.png" Height="16" ToolTip = "Автообновление содержимого вкладки"/>
+                    <QControls:SpinBox Value="{Binding TimerPeriod, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       IsEnabled="{Binding ElementName=BtnTimerEnable, Path=IsChecked}"
+                                       Margin="2,0,0,0"
+                                       ToolTip="Период автообновления"/>
                     </StackPanel>
                 </ToggleButton>
                 <Separator/>
