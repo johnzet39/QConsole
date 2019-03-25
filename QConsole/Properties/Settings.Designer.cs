@@ -190,5 +190,17 @@ namespace QConsole.Properties {
                 this["ButtonTimerPeriod"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ButtonChartChecked {
+            get {
+                return ((bool)(this["ButtonChartChecked"]));
+            }
+            set {
+                this["ButtonChartChecked"] = value;
+            }
+        }
     }
 }

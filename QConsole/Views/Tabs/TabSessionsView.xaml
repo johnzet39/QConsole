@@ -19,6 +19,7 @@
     <UserControl.Resources>
         <converters:BooleanToBrushConverter x:Key="BooleanToBrushConverter"/>
         <converters:CompareDateToBrushConverter x:Key="CompareDateToBrushConverter"/>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
         <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" InvertVisibility="False"/>
 
         <Style x:Key="DataGridSessions" BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid">
@@ -68,13 +69,14 @@
                         </Style.Triggers>
                     </Style>
                 </ToolBar.Resources>
-                <ToggleButton x:Name="BtnTimerEnable" DockPanel.Dock="Left"
+                <ToggleButton x:Name="BtnTimerEnable"
                                       Command="{Binding TimerCommand}" 
                                       CommandParameter="{Binding IsChecked, RelativeSource={RelativeSource Self}}" 
                                       IsChecked="{Binding ButtonTimerChecked, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
-                                      Height="23" VerticalAlignment="Bottom"
+                                      VerticalContentAlignment="Center"
+                                      VerticalAlignment="Center"
                                       HorizontalAlignment="Left">
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
                         <Rectangle Width="5" Height="10" VerticalAlignment="Center" Margin="3,0" Stroke="#FF727272"
                                     Fill="{Binding IsChecked, Converter={StaticResource BooleanToBrushConverter}, ElementName=BtnTimerEnable}"/>
                         <Image Source="../../icons/clock_16xLG.png" Height="16" ToolTip = "Автообновление содержимого вкладки"/>
@@ -84,12 +86,20 @@
                                        ToolTip="Период автообновления"/>
                     </StackPanel>
                 </ToggleButton>
+                <ToggleButton x:Name="ButtonLineChart"
+                              IsChecked="{Binding ButtonChartChecked, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <Image Source="../../icons/LineChart_16x.png" Height="16" ToolTip = "Отображение графика"/>
+                    </StackPanel>
+                </ToggleButton>
                 <Separator/>
-                <!--<Button TabIndex="0" x:Name="BtnSessionsUpdate" DockPanel.Dock="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="BtnSessionsUpdate_Click" ToolTip="Обновить">-->
-                <Button TabIndex="0" x:Name="BtnSessionsUpdate" Command="{Binding RefreshCommand}" DockPanel.Dock="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="Обновить">
+                <Button TabIndex="0" x:Name="BtnSessionsUpdate" 
+                        Command="{Binding RefreshCommand}" 
+                        IsEnabled="{Binding ElementName=BtnTimerEnable, Path=IsChecked, Converter={StaticResource InverseBooleanConverter}}"
+                        DockPanel.Dock="Right" VerticalAlignment="Bottom" HorizontalAlignment="Right" ToolTip="Обновить">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="../../icons/Refresh_16x.png" Height="16"/>
-                        <!--<TextBlock Text="Обновить"/>-->
                     </StackPanel>
                 </Button>
             </ToolBar>
@@ -115,8 +125,8 @@
                             Height="100"
                             Series="{Binding SeriesCollection}" 
                             LegendLocation="None"
-                            AnimationsSpeed="0:0:0.5">
-                            <!--Visibility="{Binding IsChecked, ElementName=BtnTimerEnable, Converter={StaticResource BooleanToVisibilityConverter}}"-->
+                            Visibility="{Binding IsChecked, ElementName=ButtonLineChart, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            AnimationsSpeed="0:0:0.3">
             <lvc:CartesianChart.AxisY>
                 <lvc:Axis Title="Сессии" LabelFormatter="{Binding YFormatter}" MinValue="0"></lvc:Axis>
             </lvc:CartesianChart.AxisY>

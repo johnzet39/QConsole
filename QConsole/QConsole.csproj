@@ -93,6 +93,7 @@
     <Compile Include="Common\CheckUpdate.cs" />
     <Compile Include="Common\ConnectionStrings.cs" />
     <Compile Include="Converters\MultiParametersConverter.cs" />
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
     <Compile Include="Ext\FocusExtension.cs" />
     <Compile Include="Ext\Paging.cs" />
@@ -348,6 +349,7 @@
   <ItemGroup>
     <Resource Include="Icons\RunQuery_16x.png" />
     <Resource Include="Icons\_tabControl\QueryView_16x.png" />
+    <Resource Include="Icons\LineChart_16x.png" />
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo1.cs</LastGenOutput>

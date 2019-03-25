@@ -11,7 +11,7 @@
         <Style TargetType="RepeatButton">
             <Style.Triggers>
                 <Trigger Property="Button.IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Green"/>
+                    <Setter Property="Foreground" Value="MediumVioletRed"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -30,8 +30,9 @@
         <TextBox Name="NUDTextBox"  Text="{Binding Value, ElementName=MySpinBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" PreviewKeyDown="NUDTextBox_PreviewKeyDown" PreviewKeyUp="NUDTextBox_PreviewKeyUp" 
                  TextChanged="NUDTextBox_TextChanged"
+                 Background="{x:Null}"
                  BorderThickness="0"/>
-        <RepeatButton Name="NUDButtonUP" Grid.Column="1" Grid.Row="0" FontSize="8" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}" BorderThickness="0" Click="NUDButtonUP_Click">5</RepeatButton>
-        <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="8"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  VerticalAlignment="Bottom" Background="{x:Null}" BorderThickness="0" Click="NUDButtonDown_Click">6</RepeatButton>
+        <RepeatButton Name="NUDButtonUP" Grid.Column="1" Grid.Row="0" FontSize="6" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}" BorderThickness="0" Click="NUDButtonUP_Click">5</RepeatButton>
+        <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="6"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  VerticalAlignment="Bottom" Background="{x:Null}" BorderThickness="0" Click="NUDButtonDown_Click">6</RepeatButton>
     </Grid>
 </UserControl>

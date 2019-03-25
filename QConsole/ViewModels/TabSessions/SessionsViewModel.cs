@@ -113,10 +113,10 @@ namespace QConsole.ViewModels.TabSessions
             }
             set
             {
-                _timerPeriod = value;
-                OnPropertyChanged("TimerPeriod");
                 aTimer.Interval = TimeSpan.FromSeconds(value);
                 Properties.Settings.Default.ButtonTimerPeriod = value.ToString();
+                _timerPeriod = value;
+                OnPropertyChanged("TimerPeriod");
             }
         }
 
@@ -200,15 +200,21 @@ namespace QConsole.ViewModels.TabSessions
 
         #region Plot
 
+        // #####################
+        // ####### PLOT ########
+        // #####################
+
+        private readonly int _PlotPointsCount = 100;
+
         private void CreatePlot()
         {
             SeriesCollection = new SeriesCollection();
             SeriesCollection.Add(new LineSeries
             {
                 Title = "Cессии",
-                Values = new ChartValues<int>(),
+                Values = new ChartValues<int>(GenerateStartValues()),
                 PointGeometry = DefaultGeometries.Circle,
-                PointGeometrySize = 4,
+                PointGeometrySize = 3.5,
                 LineSmoothness = 0,
                 StrokeThickness = 1.5
             });
@@ -243,15 +249,24 @@ namespace QConsole.ViewModels.TabSessions
             };
         }
 
+        private IList<int> GenerateStartValues()
+        {
+            IList<int> values = new List<int>();
+            for (int i = 1; i <=_PlotPointsCount; i++)
+            {
+                values.Add(-20);
+            }
+            return values;
+        }
+
         private void GenerateLabels()
         {
-            //Labels = new List<string>();
-            //for (int i = 0; i < 61 * _timerInterval; i=i + _timerInterval)
-            //{
-            //    Labels.Add(i.ToString());
-            //}
-            Labels = new List<string> {"0"};
+            Labels = new List<string>();
 
+            for (int i = _PlotPointsCount * TimerPeriod * -1; i <= 0; i = i + TimerPeriod)
+            {
+                Labels.Add(i.ToString());
+            }
         }
 
         private void AddPlotPoint()
@@ -259,35 +274,22 @@ namespace QConsole.ViewModels.TabSessions
             var Serie1 = SeriesCollection[0];
             var values = Serie1.Values;
 
-            if (values.Count > 10)
-            {
-                Serie1.Values.RemoveAt(0);
-                values.Add(SessionsCount);
+            Serie1.Values.RemoveAt(0);
+            values.Add(SessionsCount);
 
-                // Add infinite label
-                //Labels.RemoveAt(0);
-                //Labels.Add((Int32.Parse(Labels.Last()) + _timerInterval).ToString());
-
-                string newlabel;
-                if (Int32.Parse(Labels.Last()) == 86400)
-                    newlabel = "1";
-                else
-                    newlabel = (Int32.Parse(Labels.Last()) + TimerPeriod).ToString();
-                Labels.RemoveAt(0);
-                Labels.Add(newlabel);
-
-            }
+            string newlabel;
+            if (Int32.Parse(Labels.Last()) == 86400)
+                newlabel = "1";
             else
-            {
-                Serie1.Values.Add(SessionsCount);
-                Labels.Add((Int32.Parse(Labels.Last()) + TimerPeriod).ToString());
-            }
+                newlabel = (Int32.Parse(Labels.Last()) + TimerPeriod).ToString();
+            Labels.RemoveAt(0);
+            Labels.Add(newlabel);
         }
 
         public SeriesCollection SeriesCollection { get; set; }
         public IList<string> Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
 
-        #endregion
+        #endregion Plot
     }
 }
