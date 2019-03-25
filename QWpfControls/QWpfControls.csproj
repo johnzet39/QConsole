@@ -48,10 +48,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="SpinBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TextBoxWithClear.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="SpinBox.xaml.cs">
+      <DependentUpon>SpinBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TextBoxWithClear.xaml.cs">
       <DependentUpon>TextBoxWithClear.xaml</DependentUpon>
     </Compile>

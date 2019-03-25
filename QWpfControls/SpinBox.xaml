@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="QWpfControls.SpinBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:QWpfControls"
+             mc:Ignorable="d" 
+             Name="MySpinBox"
+             d:DesignHeight="50" d:DesignWidth="200">
+    <UserControl.Resources>
+        <Style TargetType="RepeatButton">
+            <Style.Triggers>
+                <Trigger Property="Button.IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Green"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="11" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Name="NUDTextBox"  Text="{Binding Value, ElementName=MySpinBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" TextAlignment="Right" PreviewKeyDown="NUDTextBox_PreviewKeyDown" PreviewKeyUp="NUDTextBox_PreviewKeyUp" 
+                 TextChanged="NUDTextBox_TextChanged"
+                 BorderThickness="0"/>
+        <RepeatButton Name="NUDButtonUP" Grid.Column="1" Grid.Row="0" FontSize="8" FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Background="{x:Null}" BorderThickness="0" Click="NUDButtonUP_Click">5</RepeatButton>
+        <RepeatButton Name="NUDButtonDown"  Grid.Column="1" Grid.Row="1" FontSize="8"  FontFamily="Marlett" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"  VerticalAlignment="Bottom" Background="{x:Null}" BorderThickness="0" Click="NUDButtonDown_Click">6</RepeatButton>
+    </Grid>
+</UserControl>
