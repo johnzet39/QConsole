@@ -78,7 +78,7 @@
                 <TextBox x:Name="tbPort" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
                 <TextBox x:Name="tbBD" Grid.Row="2" Grid.Column="1" IsReadOnly="True"/>
                 <TextBox x:Name="tbUsername" Grid.Row="3" Grid.Column="1" IsReadOnly="True"/>
-                <PasswordBox x:Name="tbPassword" Grid.Row="4" Grid.Column="1" Margin="5" Password="1"/>
+                <PasswordBox x:Name="tbPassword" Grid.Row="4" Grid.Column="1" Margin="5" Password=""/>
             </Grid>
         </GroupBox>
         <DockPanel HorizontalAlignment="Right" Grid.Row="4" Margin="5,5,10,10">
