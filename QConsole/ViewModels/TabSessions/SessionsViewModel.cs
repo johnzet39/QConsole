@@ -254,7 +254,7 @@ namespace QConsole.ViewModels.TabSessions
             IList<int> values = new List<int>();
             for (int i = 1; i <=_PlotPointsCount; i++)
             {
-                values.Add(-20);
+                values.Add(-100);
             }
             return values;
         }
