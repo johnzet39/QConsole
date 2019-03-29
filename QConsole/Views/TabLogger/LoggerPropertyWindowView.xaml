@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:QConsole.Views.TabLogger"
         xmlns:vm="clr-namespace:QConsole.ViewModels.TabLogger"
         mc:Ignorable="d"
-        Title="История изменений" Height="450" Width="800">
+        Title="История изменений" Height="450" Width="800" MinHeight="400" SizeToContent="Height">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition MinWidth="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="100" />
+            <RowDefinition MinHeight="100" Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition MinHeight="100"/>
             <RowDefinition Height="Auto"/>
@@ -23,7 +23,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Text="Текущие изменения" Margin="5"/>
-            <ListBox ItemsSource="{Binding CurrentLogRow}" Grid.Row="1" x:Name="listBoxCurrent" />
+                <ListBox ItemsSource="{Binding CurrentLogRow}" Grid.Row="1" x:Name="listBoxCurrent" />
         </Grid>
         <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch"/>
         <Grid Grid.Row="2" Grid.Column="0">

@@ -154,6 +154,7 @@ namespace QConsole.ViewModels.TabLogger
             {
                 _numberOfRecPerPage = value;
                 OnPropertyChanged("NumberOfRecPerPage");
+                RefreshTab();
             }
         }
 
