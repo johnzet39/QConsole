@@ -40,7 +40,20 @@ namespace QConsole.ViewModels
             }
         }
 
-        
+        private RelayCommand _checkUpdateCommand;
+        public RelayCommand CheckUpdateCommand
+        {
+            get
+            {
+                return _checkUpdateCommand ??
+                  (_checkUpdateCommand = new RelayCommand(obj =>
+                  {
+                      Common.CheckUpdate.CheckUpdatesAsync();
+                  }));
+            }
+        }
+
+
 
         private async void ShowAboutWindowAsync()
         {

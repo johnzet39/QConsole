@@ -66,7 +66,8 @@
                       Command="{Binding DataContext.NewTabCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             </MenuItem>
             <MenuItem Header="_Справка">
-                <MenuItem Header="_Проверить наличие новой версии..." />
+                <MenuItem Header="_Проверить наличие новой версии..." 
+                          Command="{Binding CheckUpdateCommand}"/>
                 <Separator/>
                 <MenuItem Header="_О программе..." 
                           Command="{Binding ShowAboutWindowCommand}"/>
