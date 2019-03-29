@@ -80,7 +80,7 @@ namespace QConsole.ViewModels.TabLogger
         private string BuildStringItem(int i, LogRow row)
         {
             string rowstring = "";
-            rowstring = string.Format("{0}. {1} - {2} ({3})\n   {4}\n\n", i, row.Datechange, row.Username, row.Action, (row.Context).Replace("; ", "\n   "));
+            rowstring = string.Format("{0}. {1} - {2} ({3})\n   {4}\n\n", i, row.Timechange, row.Username, row.Action, (row.Context).Replace("; ", "\n   "));
             return rowstring;
         }
     }

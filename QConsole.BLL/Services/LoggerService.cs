@@ -8,6 +8,8 @@ using QConsole.BLL.DTO;
 using QConsole.BLL.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
 using QConsole.DAL.AccessLayer.Repositories;
+using QConsole.DAL.EF.EDM;
+using QConsole.DAL.EF.UnitOfWork;
 using AutoMapper;
 
 namespace QConsole.BLL.Services
@@ -15,10 +17,14 @@ namespace QConsole.BLL.Services
     public class LoggerService : ILoggerService
     {
         LoggerRepository _loggerRepository;
+        UnitOfWork _unitOfWork;
+        string Conn;
 
         public LoggerService(string conn)
         {
             _loggerRepository = new LoggerRepository(conn);
+            _unitOfWork = new UnitOfWork(conn);
+            Conn = conn;
         }
 
         public string BuildExtraDateString(DateTime? dateFrom, DateTime? dateTo)
@@ -36,15 +42,31 @@ namespace QConsole.BLL.Services
             return _loggerRepository.GetColumnsList();
         }
 
-        public List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
-        }
+        //public List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
+        //{
+        //    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
+        //    return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
+        //}
 
         public string UnionExtraStrings(IList<string> str)
         {
             return _loggerRepository.UnionExtraStrings(str);
+        }
+
+        public List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
+        {
+            if (ExtraQueryFull != null && ExtraQueryFull.Trim().Length == 0 && FirstRowsQuery != null && FirstRowsQuery.Trim().Length == 0)
+            {
+                //EF DAL
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<logtable, LogRowDTO>()).CreateMapper();
+                return mapper.Map<IEnumerable<logtable>, List<LogRowDTO>>(_unitOfWork.LogtableRepository.GetAllOrdered());
+            }
+            else
+            {
+                //AccessLayer DAL
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
+                return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
+            }
         }
     }
 }

@@ -216,7 +216,7 @@
                 <DataGridTextColumn Header="Операция" Binding="{Binding Action}"/>
                 <DataGridTextColumn Header="Пользователь" Binding="{Binding Username}"/>
                 <DataGridTextColumn Header="Адрес" Binding="{Binding Address}"/>
-                <DataGridTextColumn Header="Дата изм." Binding="{Binding Datechange, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
+                <DataGridTextColumn Header="Дата изм." Binding="{Binding Timechange, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
                 <DataGridTextColumn Header="Таблица" Binding="{Binding Tablename}" />
                 <DataGridTextColumn Header="gidnum" Binding="{Binding Gidnum}" />
                 <DataGridTextColumn Header="Содержание" Binding="{Binding Context}" Width="*" />

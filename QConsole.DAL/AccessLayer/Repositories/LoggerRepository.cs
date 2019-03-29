@@ -25,7 +25,7 @@ namespace QConsole.DAL.AccessLayer.Repositories
         //LOG LIST main
         public List<LogRow> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
         {
-            string sql_query = String.Format("SELECT \"gid\", \"action\", \"username\", \"address\", to_char(\"timechange\",'DD.MM.YYYY HH24:MI:SS') as \"datechange\", " +
+            string sql_query = String.Format("SELECT \"gid\", \"action\", \"username\", \"address\", to_char(\"timechange\",'DD.MM.YYYY HH24:MI:SS') as \"timechange\", " +
                                 " \"tablename\", \"gidnum\", \"context\"   FROM logger.logtable {0}  order by timechange DESC {1} ", ExtraQueryFull, FirstRowsQuery);
             return GetListOfObjects(sql_query);
 
@@ -51,7 +51,7 @@ namespace QConsole.DAL.AccessLayer.Repositories
                             objectpsql.Action = dataReader["Action"].ToString();
                             objectpsql.Username = dataReader["Username"].ToString();
                             objectpsql.Address = dataReader["Address"].ToString();
-                            objectpsql.Datechange = DateTime.ParseExact(dataReader["Datechange"].ToString(), "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            objectpsql.Timechange = DateTime.ParseExact(dataReader["Timechange"].ToString(), "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                             objectpsql.Tablename = dataReader["Tablename"].ToString();
                             objectpsql.Gidnum = dataReader["Gidnum"].ToString();
                             objectpsql.Context = dataReader["Context"].ToString();

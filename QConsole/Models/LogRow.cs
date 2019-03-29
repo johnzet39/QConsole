@@ -12,7 +12,7 @@ namespace QConsole.Models
         public string Action { get; set; }
         public string Username { get; set; }
         public string Address { get; set; }
-        public DateTime Datechange { get; set; }
+        public DateTime Timechange { get; set; }
         public string Tablename { get; set; }
         public string Gidnum { get; set; }
         public string Context { get; set; }

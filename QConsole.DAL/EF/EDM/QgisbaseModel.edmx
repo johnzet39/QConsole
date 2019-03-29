@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище MY_BASEModel" Provider="Npgsql" ProviderManifestToken="9.6.3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6005: Тип данных "geometry" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "geom_polygon" в таблице "MY_BASE.logger.logtable" был исключен.
+предупреждение 6005: Тип данных "geometry" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "geom_line" в таблице "MY_BASE.logger.logtable" был исключен.
+предупреждение 6005: Тип данных "geometry" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "geom_point" в таблице "MY_BASE.logger.logtable" был исключен.-->
+        <EntityType Name="logtable">
+          <Key>
+            <PropertyRef Name="gid" />
+          </Key>
+          <Property Name="gid" Type="int4" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="action" Type="text" Nullable="false" />
+          <Property Name="username" Type="text" Nullable="false" />
+          <Property Name="address" Type="text" Nullable="false" />
+          <Property Name="timechange" Type="timestamp" Nullable="false" />
+          <Property Name="tablename" Type="text" Nullable="false" />
+          <Property Name="context" Type="text" />
+          <Property Name="gidnum" Type="int4" />
+          <Property Name="query" Type="text" />
+        </EntityType>
+        <EntityContainer Name="Хранилище MY_BASEModelContainer">
+          <EntitySet Name="logtable" EntityType="Self.logtable" Schema="logger" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MY_BASEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="logtable">
+          <Key>
+            <PropertyRef Name="gid" />
+          </Key>
+          <Property Name="gid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="action" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="timechange" Type="DateTime" Precision="6" Nullable="false" />
+          <Property Name="tablename" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="context" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="gidnum" Type="Int32" />
+          <Property Name="query" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="MY_BASEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="logtable" EntityType="Self.logtable" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MY_BASEModelContainer" CdmEntityContainer="MY_BASEEntities">
+          <EntitySetMapping Name="logtable">
+            <EntityTypeMapping TypeName="MY_BASEModel.logtable">
+              <MappingFragment StoreEntitySet="logtable">
+                <ScalarProperty Name="gid" ColumnName="gid" />
+                <ScalarProperty Name="action" ColumnName="action" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="timechange" ColumnName="timechange" />
+                <ScalarProperty Name="tablename" ColumnName="tablename" />
+                <ScalarProperty Name="context" ColumnName="context" />
+                <ScalarProperty Name="gidnum" ColumnName="gidnum" />
+                <ScalarProperty Name="query" ColumnName="query" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
