@@ -14,6 +14,7 @@ namespace QConsole.Models
         public string Address { get; set; }
         public DateTime Timechange { get; set; }
         public string Tablename { get; set; }
+        public string Tableschema { get; set; }
         public string Gidnum { get; set; }
         public string Context { get; set; }
     }

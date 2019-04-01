@@ -25,8 +25,9 @@ namespace QConsole.DAL.AccessLayer.Repositories
         //LOG LIST main
         public List<LogRow> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
         {
-            string sql_query = String.Format("SELECT \"gid\", \"action\", \"username\", \"address\", to_char(\"timechange\",'DD.MM.YYYY HH24:MI:SS') as \"timechange\", " +
-                                " \"tablename\", \"gidnum\", \"context\"   FROM logger.logtable {0}  order by timechange DESC {1} ", ExtraQueryFull, FirstRowsQuery);
+             string sql_query = String.Format("SELECT \"gid\", \"action\", \"username\", \"address\", to_char(\"timechange\",'DD.MM.YYYY HH24:MI:SS') as \"timechange\", " +
+                                " \"tableschema\", \"tablename\", \"gidnum\", \"context\"   FROM logger.logtable {0}  order by gid DESC {1} ", ExtraQueryFull, FirstRowsQuery);
+
             return GetListOfObjects(sql_query);
 
         }
@@ -52,6 +53,7 @@ namespace QConsole.DAL.AccessLayer.Repositories
                             objectpsql.Username = dataReader["Username"].ToString();
                             objectpsql.Address = dataReader["Address"].ToString();
                             objectpsql.Timechange = DateTime.ParseExact(dataReader["Timechange"].ToString(), "dd.MM.yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+                            objectpsql.Tableschema = dataReader["Tableschema"].ToString();
                             objectpsql.Tablename = dataReader["Tablename"].ToString();
                             objectpsql.Gidnum = dataReader["Gidnum"].ToString();
                             objectpsql.Context = dataReader["Context"].ToString();
@@ -99,7 +101,7 @@ namespace QConsole.DAL.AccessLayer.Repositories
         //get column list for combobox
         public List<string> GetColumnsList()
         {
-            return new List<string>() { "gid", "action", "username", "address", "tablename", "gidnum", "context" };
+            return new List<string>() { "gid", "action", "username", "address", "tableschema", "tablename",  "gidnum", "context" };
         }
     }
 }
