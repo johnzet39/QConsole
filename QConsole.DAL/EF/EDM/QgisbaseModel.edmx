@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище BASEEntities" Provider="Npgsql" ProviderManifestToken="9.6.3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище MY_BASEModel" Provider="Npgsql" ProviderManifestToken="9.6.3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6005: Тип данных "geometry" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "geom_polygon" в таблице "MY_BASE.logger.logtable" был исключен.
 предупреждение 6005: Тип данных "geometry" в настоящее время не поддерживается для целевой версии платформы Entity Framework; столбец "geom_line" в таблице "MY_BASE.logger.logtable" был исключен.
@@ -22,16 +22,15 @@
           <Property Name="context" Type="text" />
           <Property Name="gidnum" Type="int4" />
           <Property Name="query" Type="text" />
-          <Property Name="tableschema" Type="text" />
         </EntityType>
-        <EntityContainer Name="Хранилище BASEEntitiesContainer">
+        <EntityContainer Name="Хранилище MY_BASEModelContainer">
           <EntitySet Name="logtable" EntityType="Self.logtable" Schema="logger" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BASEEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MY_BASEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="logtable">
           <Key>
             <PropertyRef Name="gid" />
@@ -45,9 +44,8 @@
           <Property Name="context" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="gidnum" Type="Int32" />
           <Property Name="query" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="tableschema" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MY_BASEEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="logtable" EntityType="Self.logtable" />
         </EntityContainer>
       </Schema>
@@ -55,9 +53,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище BASEEntitiesContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище MY_BASEModelContainer" CdmEntityContainer="MY_BASEEntities">
           <EntitySetMapping Name="logtable">
-            <EntityTypeMapping TypeName="BASEEntities.logtable">
+            <EntityTypeMapping TypeName="MY_BASEModel.logtable">
               <MappingFragment StoreEntitySet="logtable">
                 <ScalarProperty Name="gid" ColumnName="gid" />
                 <ScalarProperty Name="action" ColumnName="action" />
@@ -68,7 +66,6 @@
                 <ScalarProperty Name="context" ColumnName="context" />
                 <ScalarProperty Name="gidnum" ColumnName="gidnum" />
                 <ScalarProperty Name="query" ColumnName="query" />
-                <ScalarProperty Name="tableschema" ColumnName="tableschema" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

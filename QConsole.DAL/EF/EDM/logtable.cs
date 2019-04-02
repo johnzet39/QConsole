@@ -23,6 +23,5 @@ namespace QConsole.DAL.EF.EDM
         public string context { get; set; }
         public Nullable<int> gidnum { get; set; }
         public string query { get; set; }
-        public string tableschema { get; set; }
     }
 }

@@ -12,18 +12,18 @@ namespace QConsole.DAL.EF.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
-        private readonly BaseEntities _dbContext;
+        private readonly MY_BASEEntities _dbContext;
 
         #region Repositories
         //public IRepository<logtable> LogtableRepository => 
         //    new GenericRepository<logtable>(_dbContext);
-        public LogtableRepository LogtableRepository =>
+        public ILogtableRepository LogtableRepository =>
             new LogtableRepository(_dbContext);
         #endregion
 
         public UnitOfWork(string conn)
         {
-            _dbContext = new BaseEntities(conn);
+            _dbContext = new MY_BASEEntities(conn);
         }
 
         public void RejectChanges()
