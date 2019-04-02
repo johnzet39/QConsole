@@ -21,6 +21,13 @@ using System.Windows.Media;
 
 namespace QConsole.ViewModels.TabStats
 {
+    enum RefreshMode
+    {
+        All = 0,
+        Periods = 1,
+        Year = 2
+    }
+
     class StatsViewModel : BaseViewModel
     {
         private readonly string _connectionString = Common.ConnectionStrings.ConnectionString;
@@ -39,7 +46,7 @@ namespace QConsole.ViewModels.TabStats
             CreatePlotCountOperations();
             CreatePlotCountInserts();
             CreatePlotCountInsertsYear();
-            RefreshTab();
+            RefreshTab(RefreshMode.All);
         }
 
         public int PeriodDays
@@ -72,24 +79,42 @@ namespace QConsole.ViewModels.TabStats
                 return refreshCommand ??
                   (refreshCommand = new RelayCommand(obj =>
                   {
-                      RefreshTab();
+                      RefreshTab(RefreshMode.Periods);
                   }));
             }
         }
 
-        private void RefreshTab()
+        // Refresh button command.
+        private RelayCommand refreshYearCommand;
+        public RelayCommand RefreshYearCommand
         {
-            RefreshTabAsync();
+            get
+            {
+                return refreshYearCommand ??
+                  (refreshYearCommand = new RelayCommand(obj =>
+                  {
+                      RefreshTab(RefreshMode.Year);
+                  }));
+            }
         }
 
-        private async void RefreshTabAsync()
+        private void RefreshTab(RefreshMode refreshMode)
+        {
+            RefreshTabAsync(refreshMode);
+        }
+
+        private async void RefreshTabAsync(RefreshMode refreshMode = RefreshMode.All)
         {
             await Task.Run(() => GetLayers());
 
             //App.Current.Dispatcher.BeginInvoke(new Action(this.RefreshPlotCountOfPeriod));
-            RefreshPlotCountInserts();
-            RefreshPlotCountInsertsYear();
-            RefreshPlotCountOperations();
+            if (refreshMode == RefreshMode.All || refreshMode == RefreshMode.Periods)
+            {
+                RefreshPlotCountInserts();
+                RefreshPlotCountOperations();
+            }
+            if (refreshMode == RefreshMode.All || refreshMode == RefreshMode.Year)
+                RefreshPlotCountInsertsYear();
         }
 
         private void GetLayers()
@@ -204,8 +229,6 @@ namespace QConsole.ViewModels.TabStats
         // #####################
         #region Plot inserts year
 
-        //Func<ChartPoint, string> labelPoint;
-
         private void CreatePlotCountInsertsYear()
         {
 
@@ -240,23 +263,28 @@ namespace QConsole.ViewModels.TabStats
 
                 foreach (Layer layer in layerList)
                 {
+                    bool IsHasNew = false;//if has count of inserts > 0, then add Line in collection
                     var values = new ChartValues<int>();
                     foreach (Tuple<int, int> date in dateList)
                     {
                         int count = loggerService.GetCountInsertsMonth(layer.Table_schema, layer.Table_name, date.Item1, date.Item2);
                         values.Add(count);
+                        if (count > 0)
+                            IsHasNew = true;
                     }
 
-                    LineSeries lineSeries = new LineSeries
+                    if (IsHasNew)
                     {
-                        Title = layer.Table_name,
-                        Values = values,
-                        PointGeometry = DefaultGeometries.Square,
-                        PointGeometrySize = 10,
-                        LineSmoothness = .5
-                    };
-
-                    SeriesCountInsertsYearCollection.Add(lineSeries);
+                        LineSeries lineSeries = new LineSeries
+                        {
+                            Title = layer.Table_name,
+                            Values = values,
+                            PointGeometry = DefaultGeometries.Square,
+                            PointGeometrySize = 10,
+                            LineSmoothness = .5
+                        };
+                        SeriesCountInsertsYearCollection.Add(lineSeries);
+                    }
                 }
             }
         }

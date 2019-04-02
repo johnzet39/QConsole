@@ -129,6 +129,12 @@
                     </lvc:CartesianChart>
                 </Border>
 
+                <Button TabIndex="1" Grid.Row="1" Grid.Column="0"  Command="{Binding RefreshYearCommand}" ToolTip="Обновить" BorderThickness="0" Background="White" Width="25" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="../../icons/Refresh_16x.png" Height="16"/>
+                    </StackPanel>
+                </Button>
+
             </Grid>
             
                 
