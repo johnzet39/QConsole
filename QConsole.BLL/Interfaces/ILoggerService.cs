@@ -24,5 +24,7 @@ namespace QConsole.BLL.Interfaces
         int GetCountByOperation(string operation, int period);
         //get count of inserts
         int GetCountInserts(string schema, string layer, int period);
+        //get count of inserts in month
+        int GetCountInsertsMonth(string schema, string layer, int month, int year);
     }
 }

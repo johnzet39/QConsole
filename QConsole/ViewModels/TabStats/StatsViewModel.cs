@@ -37,7 +37,8 @@ namespace QConsole.ViewModels.TabStats
             PeriodDays = 30;
             Console.WriteLine("stats: " + this.GetHashCode());
             CreatePlotCountOperations();
-            CreatePlotCountOfPeriod();
+            CreatePlotCountInserts();
+            CreatePlotCountInsertsYear();
             RefreshTab();
         }
 
@@ -48,6 +49,17 @@ namespace QConsole.ViewModels.TabStats
             {
                 periodDays = value;
                 OnPropertyChanged(("PeriodDays"));
+            }
+        }
+
+        private int _totalCountInserts;
+        public int TotalCountInserts
+        {
+            get => _totalCountInserts;
+            set
+            {
+                _totalCountInserts = value;
+                OnPropertyChanged(("TotalCountInserts"));
             }
         }
 
@@ -76,6 +88,7 @@ namespace QConsole.ViewModels.TabStats
 
             //App.Current.Dispatcher.BeginInvoke(new Action(this.RefreshPlotCountOfPeriod));
             RefreshPlotCountInserts();
+            RefreshPlotCountInsertsYear();
             RefreshPlotCountOperations();
         }
 
@@ -139,19 +152,19 @@ namespace QConsole.ViewModels.TabStats
 
         //Func<ChartPoint, string> labelPoint;
 
-        private void CreatePlotCountOfPeriod()
+        private void CreatePlotCountInserts()
         {
+            
             SeriesCountInsertsCollection = new SeriesCollection();
             //labelPoint = chartPoint =>
             //    string.Format("{0} \n ({1:P})", chartPoint.Y, chartPoint.Participation);
         }
 
-
         private void RefreshPlotCountInserts()
         {
             if (SeriesCountInsertsCollection != null)
             {
-
+                TotalCountInserts = 0;
                 foreach (var series in SeriesCountInsertsCollection)
                 {
                     SeriesCountInsertsCollection.Remove(series);
@@ -165,21 +178,92 @@ namespace QConsole.ViewModels.TabStats
 
                     if (count > 0)
                     {
-                        PieSeries pieSeries = new PieSeries
+                        RowSeries pieSeries = new RowSeries
                         {
-                            Title = layer.Table_name +
-                                        (layer.Descript != String.Empty && layer.Descript != null ? (string.Format("\n({0})", layer.Descript)) : ""),
+                            Title = layer.Table_name
+                                        //+ (layer.Descript != String.Empty && layer.Descript != null ? (string.Format("\n({0})", layer.Descript)) : "")
+                                        ,
                             Values = new ChartValues<ObservableValue> { new ObservableValue(count) },
                             DataLabels = true
                             //LabelPoint = labelPoint,
                         };
                         SeriesCountInsertsCollection.Add(pieSeries);
+                        TotalCountInserts += count;
                     }
                 }
             }
         }
 
         public SeriesCollection SeriesCountInsertsCollection { get; set; }
+
+        #endregion
+
+
+        // #####################
+        // ####### PLOTS inserts year#######
+        // #####################
+        #region Plot inserts year
+
+        //Func<ChartPoint, string> labelPoint;
+
+        private void CreatePlotCountInsertsYear()
+        {
+
+            SeriesCountInsertsYearCollection = new SeriesCollection();
+
+            dateList = new List<Tuple<int, int>>();
+            LabelsYears = new List<string>();
+            for (int i = 11; i >= 0; i--)
+            {
+                DateTime date = DateTime.Now.AddMonths(-i);
+                int month = date.Month;
+                int year = date.Year;
+                dateList.Add(new Tuple<int, int>(month, year));
+            }
+            for (int j = 0; j < dateList.Count; j++)
+            {
+                LabelsYears.Add(dateList[j].Item1 + "." + dateList[j].Item2);
+            }
+        }
+
+        private void RefreshPlotCountInsertsYear()
+        {
+            if (SeriesCountInsertsYearCollection != null)
+            {
+                TotalCountInserts = 0;
+                foreach (var series in SeriesCountInsertsYearCollection)
+                {
+                    SeriesCountInsertsYearCollection.Remove(series);
+                }
+
+                loggerService = new LoggerService(_connectionString);
+
+                foreach (Layer layer in layerList)
+                {
+                    var values = new ChartValues<int>();
+                    foreach (Tuple<int, int> date in dateList)
+                    {
+                        int count = loggerService.GetCountInsertsMonth(layer.Table_schema, layer.Table_name, date.Item1, date.Item2);
+                        values.Add(count);
+                    }
+
+                    LineSeries lineSeries = new LineSeries
+                    {
+                        Title = layer.Table_name,
+                        Values = values,
+                        PointGeometry = DefaultGeometries.Square,
+                        PointGeometrySize = 10,
+                        LineSmoothness = .5
+                    };
+
+                    SeriesCountInsertsYearCollection.Add(lineSeries);
+                }
+            }
+        }
+
+        List<Tuple<int, int>> dateList;
+        public List<string> LabelsYears { get; set; }
+        public SeriesCollection SeriesCountInsertsYearCollection { get; set; }
 
         #endregion
     }

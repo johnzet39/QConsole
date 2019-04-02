@@ -81,5 +81,11 @@ namespace QConsole.BLL.Services
             var count = _unitOfWork.LogtableRepository.GetCountInserts(schema, layer, period);
             return count;
         }
+
+        public int GetCountInsertsMonth(string schema, string layer, int month, int year)
+        {
+            var count = _unitOfWork.LogtableRepository.GetCountInsertsMonth(schema, layer, month, year);
+            return count;
+        }
     }
 }

@@ -54,19 +54,20 @@
                 <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Margin="5">
                     <StackPanel>
                         <!--&#10;-->
-                        <TextBlock Text="{Binding StringFormat=Количество выполненных операций за последние {0} дней, Path=PeriodDays}"  TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
-                        <lvc:PieChart Name="Chart" Grid.Row="1" Series="{Binding SeriesCountOperationsCollection}"  MinWidth="600" MinHeight="400"
-                                      LegendLocation="Right" InnerRadius="50"  Margin="5 15">
+                        <TextBlock Text="{Binding StringFormat=Выполненных операций за последние {0} дней, Path=PeriodDays}"  TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="13" FontWeight="Medium" />
+                        <lvc:PieChart Name="Chart" Grid.Row="1" Series="{Binding SeriesCountOperationsCollection}"  MinWidth="400" MinHeight="400"
+                                      LegendLocation="Right" InnerRadius="100"  Margin="5 15">
                             <lvc:PieChart.ChartLegend>
-                                <lvc:DefaultLegend BulletSize="20" ></lvc:DefaultLegend>
+                                <lvc:DefaultLegend BulletSize="15" ></lvc:DefaultLegend>
                             </lvc:PieChart.ChartLegend>
                             <lvc:PieChart.DataTooltip >
-                                <lvc:DefaultTooltip BulletSize="20" SelectionMode="OnlySender"></lvc:DefaultTooltip>
+                                <lvc:DefaultTooltip BulletSize="15" SelectionMode="OnlySender"></lvc:DefaultTooltip>
                             </lvc:PieChart.DataTooltip>
                             
                             <lvc:PieChart.Resources>
                                 <Style TargetType="lvc:PieSeries">
                                     <Setter Property="LabelPosition" Value="InsideSlice"/>
+                                    <Setter Property="FontSize" Value="14"/>
                                     <Setter Property="Foreground" Value="White"/>
                                     <Setter Property="StrokeThickness" Value="1"/>
                                     <Setter Property="Stroke" Value="White"/>
@@ -78,26 +79,54 @@
 
                 <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Margin="5">
                     <StackPanel>
-                        <TextBlock Text="{Binding StringFormat=Количество новых записей в слоях за последние {0} дней, Path=PeriodDays}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
-                        <lvc:PieChart Name="Chart2" Grid.Row="1" Series="{Binding SeriesCountInsertsCollection}"  MinWidth="600" MinHeight="400"
-                                      LegendLocation="Right" InnerRadius="50"  Margin="5 15">
-                            <lvc:PieChart.ChartLegend>
-                                <lvc:DefaultLegend BulletSize="20" ></lvc:DefaultLegend>
-                            </lvc:PieChart.ChartLegend>
-                            <lvc:PieChart.DataTooltip >
-                                <lvc:DefaultTooltip BulletSize="20" SelectionMode="OnlySender"></lvc:DefaultTooltip>
-                            </lvc:PieChart.DataTooltip>
+                        <TextBlock TextWrapping="Wrap"  HorizontalAlignment="Center" Margin="5" FontSize="13" FontWeight="Medium">
+                                <Run Text="Новых записей в слоях за последние "/>
+                                <Run Text="{Binding PeriodDays}"/>
+                                <Run Text=" дней: "/>
+                                <Run Text="{Binding TotalCountInserts}"/>
+                        </TextBlock>
+                        <!--<TextBlock Text="{Binding StringFormat=Количество новых записей в слоях за последние {0} дней, Path=PeriodDays}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="13" FontWeight="Medium" />-->
 
-                            <lvc:PieChart.Resources>
+                        <lvc:CartesianChart  Name="Chart2" Grid.Row="1" Series="{Binding SeriesCountInsertsCollection}"  MinWidth="400" MinHeight="400"  
+                                      LegendLocation="Left"  Margin="5 15">
+                            <lvc:CartesianChart.ChartLegend>
+                                <lvc:DefaultLegend BulletSize="15"></lvc:DefaultLegend>
+                            </lvc:CartesianChart.ChartLegend>
+                            <lvc:CartesianChart.DataTooltip >
+                                <lvc:DefaultTooltip BulletSize="15" SelectionMode="OnlySender"></lvc:DefaultTooltip>
+                            </lvc:CartesianChart.DataTooltip>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Таблицы" ShowLabels="False"></lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+
+                            <lvc:CartesianChart.Resources>
                                 <Style TargetType="lvc:PieSeries">
                                     <Setter Property="LabelPosition" Value="InsideSlice"/>
+                                    <Setter Property="FontSize" Value="14"/>
                                     <Setter Property="Foreground" Value="White"/>
-                                    <Setter Property="StrokeThickness" Value="1"/>
+                                    <Setter Property="StrokeThickness" Value="0"/>
                                     <Setter Property="Stroke" Value="White"/>
                                 </Style>
-                            </lvc:PieChart.Resources>
-                        </lvc:PieChart>
+                            </lvc:CartesianChart.Resources>
+                        </lvc:CartesianChart>
+
+                        
+
                     </StackPanel>
+                </Border>
+
+                <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Margin="5" >
+                    <lvc:CartesianChart Series="{Binding SeriesCountInsertsYearCollection}" Grid.Row="1" Margin="5,0" Grid.Column="0" Grid.ColumnSpan="2" LegendLocation="Right" >
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis Title="Inserts" MinValue="0"></lvc:Axis>
+                        </lvc:CartesianChart.AxisY>
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis Title="Месяц" Labels="{Binding LabelsYears}"></lvc:Axis>
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.ChartLegend>
+                            <lvc:DefaultLegend BulletSize="10" ></lvc:DefaultLegend>
+                        </lvc:CartesianChart.ChartLegend>
+                    </lvc:CartesianChart>
                 </Border>
 
             </Grid>
