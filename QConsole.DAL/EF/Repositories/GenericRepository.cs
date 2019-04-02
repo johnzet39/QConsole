@@ -1,4 +1,5 @@
 ﻿using QConsole.DAL.EF.EDM;
+using QConsole.DAL.EF.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
