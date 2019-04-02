@@ -9,20 +9,47 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.EF.Repositories
 {
-    class LogtableRepository : ILogtableRepository
+    public class LogtableRepository : IRepository<logtable>
     {
-        MY_BASEEntities _context;
-        DbSet<logtable> _dbSet;
+        BaseEntities _context;
+        //DbSet<logtable> _dbSet;
 
         public LogtableRepository(DbContext _dbContext)
         {
-            _context = _dbContext as MY_BASEEntities;
+            _context = _dbContext as BaseEntities;
+        }
+
+        public IEnumerable<logtable> GetAll()
+        {
+            return _context.logtable.ToList();
         }
 
         public IEnumerable<logtable> GetAllOrdered()
         {
-            var logrows = _context.logtable.AsNoTracking().OrderByDescending(r => r.timechange);
+            var logrows = _context.logtable.AsNoTracking().OrderByDescending(r => r.gid);
             return logrows.ToList();
+        }
+
+        public int GetCountByOperation(string operation, int period)
+        {
+            DateTime date = DateTime.Now.AddDays(-period);
+            var count = _context.logtable.AsNoTracking()
+                .Where(o => o.action.ToUpper() == operation.ToUpper())
+                .Where(o => o.timechange > date)
+                .Count();
+            return count;
+        }
+
+        public int GetCountInserts(string schema, string layer, int period)
+        {
+            DateTime date = DateTime.Now.AddDays(-period);
+            var count = _context.logtable.AsNoTracking()
+                .Where(o => o.tablename == layer)
+                .Where(o => o.tableschema == schema)
+                .Where(o => o.action.ToUpper() == "INSERT")
+                .Where(o => o.timechange > date)
+                .Count();
+            return count;
         }
     }
 }

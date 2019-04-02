@@ -38,6 +38,7 @@ namespace QConsole.ViewModels
             Tabs.Add(new UserTab());
             Tabs.Add(new LayerTab());
             Tabs.Add(new GrantTab());
+            Tabs.Add(new StatsTab());
             Tabs.Add(new LoggerTab());
         }
 

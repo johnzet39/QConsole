@@ -26,6 +26,11 @@ namespace QConsole.BLL.Services
             return _layerRepository.ChangeLayer(tableschema, tablename, descript, isupdater, islogger);
         }
 
+        public int GetCountOfPeriod(string tableshcema, string tablename, int days)
+        {
+            return _layerRepository.GetCountOfPeriod(tableshcema, tablename, days);
+        }
+
         public List<LayerDTO> GetDicts()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerDTO>()).CreateMapper();

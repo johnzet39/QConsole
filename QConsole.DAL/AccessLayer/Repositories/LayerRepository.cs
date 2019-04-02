@@ -161,5 +161,22 @@ namespace QConsole.DAL.AccessLayer.Repositories
                 throw new Exception(current_query + "\nException: " + ex.Message.ToString());
             }
         }
+
+        public int GetCountOfPeriod(string tableshcema, string tablename, int days)
+        {
+            int count = 0;
+            string sql_query = String.Format("SELECT count(*) from {0}.{1} where update_time > now() - INTERVAL '{2} DAYS'", tableshcema, tablename, days.ToString());
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand(sql_query, conn))
+                {
+                    count = Int32.Parse(command.ExecuteScalar().ToString());
+                }
+            }
+
+            return count;
+        }
     }
 }

@@ -11,12 +11,13 @@ using QConsole.DAL.AccessLayer.Repositories;
 using QConsole.DAL.EF.EDM;
 using QConsole.DAL.EF.UnitOfWork;
 using AutoMapper;
+using QConsole.DAL.AccessLayer.Interfaces;
 
 namespace QConsole.BLL.Services
 {
     public class LoggerService : ILoggerService
     {
-        LoggerRepository _loggerRepository;
+        ILoggerRepository _loggerRepository;
         UnitOfWork _unitOfWork;
         string Conn;
 
@@ -67,6 +68,18 @@ namespace QConsole.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
                 return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
             }
+        }
+
+        public int GetCountByOperation(string operation, int period)
+        {
+            var count = _unitOfWork.LogtableRepository.GetCountByOperation(operation, period);
+            return count;
+        }
+
+        public int GetCountInserts(string schema, string layer, int period)
+        {
+            var count = _unitOfWork.LogtableRepository.GetCountInserts(schema, layer, period);
+            return count;
         }
     }
 }

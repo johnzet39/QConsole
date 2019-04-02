@@ -125,9 +125,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QgisbaseModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="EF\Interfaces\ILogtableRepository.cs" />
     <Compile Include="EF\Repositories\GenericRepository.cs" />
-    <Compile Include="EF\Repositories\IRepository.cs" />
+    <Compile Include="EF\Interfaces\IRepository.cs" />
     <Compile Include="EF\Repositories\LogtableRepository.cs" />
     <Compile Include="EF\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="EF\UnitOfWork\UnitOfWork.cs" />
@@ -162,7 +161,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AccessLayer\UnitOfWork\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

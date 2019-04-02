@@ -20,5 +20,9 @@ namespace QConsole.BLL.Interfaces
         string UnionExtraStrings(IList<string> str);
         //get column list for combobox
         List<string> GetColumnsList();
+        //get count of rows with selected OPERATION type
+        int GetCountByOperation(string operation, int period);
+        //get count of inserts
+        int GetCountInserts(string schema, string layer, int period);
     }
 }
