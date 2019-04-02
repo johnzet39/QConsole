@@ -48,23 +48,14 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Margin="5">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <StackPanel>
                         <!--&#10;-->
-                        <TextBox Grid.Column="1" Text="{Binding StringFormat= aaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaa  Количество выполненных операций за последние {0} дней, Path=PeriodDays}"  TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
-                        <lvc:PieChart Name="Chart" Grid.Row="1" Grid.ColumnSpan="3" Series="{Binding SeriesCountOperationsCollection}"  MinWidth="600" MinHeight="400"
+                        <TextBlock Text="{Binding StringFormat=Количество выполненных операций за последние {0} дней, Path=PeriodDays}"  TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
+                        <lvc:PieChart Name="Chart" Grid.Row="1" Series="{Binding SeriesCountOperationsCollection}"  MinWidth="600" MinHeight="400"
                                       LegendLocation="Right" InnerRadius="50"  Margin="5 15">
                             <lvc:PieChart.ChartLegend>
                                 <lvc:DefaultLegend BulletSize="20" ></lvc:DefaultLegend>
@@ -82,12 +73,12 @@
                                 </Style>
                             </lvc:PieChart.Resources>
                         </lvc:PieChart>
-                    </Grid>
+                    </StackPanel>
                 </Border>
 
                 <Border Grid.Row="0" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" CornerRadius="5" Margin="5">
                     <StackPanel>
-                        <TextBlock Text="{Binding StringFormat=Количество новых записей в слоях за последние {0} дней, Path=PeriodDays}" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
+                        <TextBlock Text="{Binding StringFormat=Количество новых записей в слоях за последние {0} дней, Path=PeriodDays}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="16" FontWeight="Medium" />
                         <lvc:PieChart Name="Chart2" Grid.Row="1" Series="{Binding SeriesCountInsertsCollection}"  MinWidth="600" MinHeight="400"
                                       LegendLocation="Right" InnerRadius="50"  Margin="5 15">
                             <lvc:PieChart.ChartLegend>

@@ -108,22 +108,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EF\EDM\logtable.cs">
-      <DependentUpon>QgisbaseModel.tt</DependentUpon>
+      <DependentUpon>QgisBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\EDM\QgisbaseModel.Context.cs">
+    <Compile Include="EF\EDM\QgisBaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QgisbaseModel.Context.tt</DependentUpon>
+      <DependentUpon>QgisBaseModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\EDM\QgisbaseModel.cs">
+    <Compile Include="EF\EDM\QgisBaseModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QgisbaseModel.tt</DependentUpon>
+      <DependentUpon>QgisBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\EDM\QgisbaseModel.Designer.cs">
+    <Compile Include="EF\EDM\QgisBaseModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>QgisbaseModel.edmx</DependentUpon>
+      <DependentUpon>QgisBaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="EF\Repositories\GenericRepository.cs" />
     <Compile Include="EF\Interfaces\IRepository.cs" />
@@ -148,12 +148,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
-    <EntityDeploy Include="EF\EDM\QgisbaseModel.edmx">
+    <EntityDeploy Include="EF\EDM\QgisBaseModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>QgisbaseModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>QgisBaseModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\EDM\QgisbaseModel.edmx.diagram">
-      <DependentUpon>QgisbaseModel.edmx</DependentUpon>
+    <None Include="EF\EDM\QgisBaseModel.edmx.diagram">
+      <DependentUpon>QgisBaseModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -168,15 +168,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EF\EDM\QgisbaseModel.Context.tt">
+    <Content Include="EF\EDM\QgisBaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QgisbaseModel.edmx</DependentUpon>
-      <LastGenOutput>QgisbaseModel.Context.cs</LastGenOutput>
+      <DependentUpon>QgisBaseModel.edmx</DependentUpon>
+      <LastGenOutput>QgisBaseModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EF\EDM\QgisbaseModel.tt">
+    <Content Include="EF\EDM\QgisBaseModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QgisbaseModel.edmx</DependentUpon>
-      <LastGenOutput>QgisbaseModel.cs</LastGenOutput>
+      <DependentUpon>QgisBaseModel.edmx</DependentUpon>
+      <LastGenOutput>QgisBaseModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
