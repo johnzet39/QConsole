@@ -60,8 +60,7 @@ namespace QConsole.DAL.EF.Repositories
                 .Where(o => o.tablename == layer)
                 .Where(o => o.tableschema == schema)
                 .Where(o => o.action.ToUpper() == "INSERT")
-                .Where(o => o.timechange.Month == month)
-                .Where(o => o.timechange.Year == year)
+                .Where(o => o.timechange.Year == year && o.timechange.Month == month)
                 .Count();
             return count;
         }
