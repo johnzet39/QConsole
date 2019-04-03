@@ -43,12 +43,12 @@ namespace QConsole.DAL.EF.Repositories
         public int GetCountInserts(string schema, string layer, int period)
         {
             int count = 0;
-            DateTime date = DateTime.Now.AddDays(-period);
+            DateTime date = DateTime.Now.AddDays(-period).Date;
             count = _context.logtable.AsNoTracking()
                 .Where(o => o.tablename == layer)
                 .Where(o => o.tableschema == schema)
                 .Where(o => o.action.ToUpper() == "INSERT")
-                .Where(o => o.timechange > date)
+                .Where(o => o.timechange >= date)
                 .Count();
             return count;
         }
