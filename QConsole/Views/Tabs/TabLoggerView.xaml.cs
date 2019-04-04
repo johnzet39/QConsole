@@ -57,5 +57,10 @@ namespace QConsole.Views.Tabs
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void BtnLoggerDateX_Click(object sender, RoutedEventArgs e)
+        {
+            dpDateFrom.SelectedDate = null;
+            dpDateTo.SelectedDate = null;
+        }
     }
 }
