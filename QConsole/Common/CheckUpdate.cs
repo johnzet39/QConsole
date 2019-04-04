@@ -70,11 +70,11 @@ namespace QConsole.Common
         }
 
         #region Check updates.
-        static public async void CheckUpdatesAsync()
+        static public async void CheckUpdatesAsync(bool isOnStart = false)
         {
             try
             {
-                await Task.Run(() => StartCheckUpdates());
+                await Task.Run(() => StartCheckUpdates(isOnStart));
             }
             catch (Exception e)
             {
@@ -82,12 +82,17 @@ namespace QConsole.Common
             }
         }
 
-        static private void StartCheckUpdates()
+        static private void StartCheckUpdates(bool isOnStart)
         {
-            Thread.Sleep(2000);
-            if (Common.CheckUpdate.CompareVersions())
+            Thread.Sleep(500);
+            if (CompareVersions())
             {
-                Common.CheckUpdate.GoDownLoadFiles();
+                GoDownLoadFiles();
+            }
+            else
+            {
+                if (!isOnStart)
+                    MessageBox.Show("Вы используете последнюю версию приложения", "", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         #endregion

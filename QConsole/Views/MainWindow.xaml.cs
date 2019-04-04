@@ -27,7 +27,7 @@ namespace QConsole.Views
 
             if (Properties.Settings.Default.IsCheckUpdates)
             {
-                Common.CheckUpdate.CheckUpdatesAsync();
+                Common.CheckUpdate.CheckUpdatesAsync(isOnStart: true);
             }
         }
 
