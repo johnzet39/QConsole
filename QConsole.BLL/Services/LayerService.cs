@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using QConsole.BLL.DTO;
 using QConsole.BLL.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
-using QConsole.DAL.AccessLayer.Repositories;
+using QConsole.DAL.AccessLayer.DAO;
 using AutoMapper;
 
 namespace QConsole.BLL.Services
 {
     public class LayerService : ILayerService
     {
-        LayerRepository _layerRepository;
+        LayerDAO _layerRepository;
 
         public LayerService(string conn)
         {
-            _layerRepository = new LayerRepository(conn);
+            _layerRepository = new LayerDAO(conn);
         }
 
         public List<string> ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger)

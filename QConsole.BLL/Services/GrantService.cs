@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using QConsole.BLL.DTO;
 using QConsole.BLL.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
-using QConsole.DAL.AccessLayer.Repositories;
+using QConsole.DAL.AccessLayer.DAO;
 using AutoMapper;
 
 namespace QConsole.BLL.Services
 {
     public class GrantService : IGrantService
     {
-        GrantRepository _grantRepository;
+        GrantDAO _grantRepository;
 
         public GrantService(string conn)
         {
-            _grantRepository = new GrantRepository(conn);
+            _grantRepository = new GrantDAO(conn);
         }
 
 

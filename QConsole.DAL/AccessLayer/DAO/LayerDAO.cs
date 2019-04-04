@@ -5,7 +5,7 @@ using Npgsql;
 using QConsole.DAL.AccessLayer.Entities;
 using QConsole.DAL.AccessLayer.Interfaces;
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
     // queries for create/edit layers
     public static class LayerQueries
@@ -28,11 +28,11 @@ namespace QConsole.DAL.AccessLayer.Repositories
     }
 
 
-    public class LayerRepository : ILayerRepository
+    public class LayerDAO : ILayerDAO
     {
         private string _connectionString;
 
-        public LayerRepository(string connstring)
+        public LayerDAO(string connstring)
         {
             _connectionString = connstring;
         }

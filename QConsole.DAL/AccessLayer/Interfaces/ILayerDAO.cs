@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Entities;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface ILayerRepository
+    public interface ILayerDAO
     {
         //layers
         List<Layer> GetLayers();

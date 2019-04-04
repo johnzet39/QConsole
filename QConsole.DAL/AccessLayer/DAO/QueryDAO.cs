@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
-    public class QueryRepository : IQueryRepository
+    public class QueryDAO : IQueryDAO
     {
         private string _connectionString;
-        public QueryRepository(string connstring)
+        public QueryDAO(string connstring)
         {
             _connectionString = connstring;
         }

@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Entities;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface ILoggerRepository
+    public interface ILoggerDAO
     {
         //LOG LIST main
         List<LogRow> GetLogList(string ExtraQueryFull, string FirstRowsQuery);

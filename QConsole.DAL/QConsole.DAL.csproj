@@ -92,18 +92,18 @@
     <Compile Include="AccessLayer\Entities\Session.cs" />
     <Compile Include="AccessLayer\Entities\Layer.cs" />
     <Compile Include="AccessLayer\Entities\User.cs" />
-    <Compile Include="AccessLayer\Interfaces\IGrantRepository.cs" />
-    <Compile Include="AccessLayer\Interfaces\ILoggerRepository.cs" />
-    <Compile Include="AccessLayer\Interfaces\IQueryRepository.cs" />
-    <Compile Include="AccessLayer\Interfaces\ISessionRepository.cs" />
-    <Compile Include="AccessLayer\Interfaces\ILayerRepository.cs" />
-    <Compile Include="AccessLayer\Interfaces\IUserRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\GrantRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\LoggerRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\QueryRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\SessionRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\LayerRepository.cs" />
-    <Compile Include="AccessLayer\Repositories\UserRepository.cs" />
+    <Compile Include="AccessLayer\Interfaces\IGrantDAO.cs" />
+    <Compile Include="AccessLayer\Interfaces\ILoggerDAO.cs" />
+    <Compile Include="AccessLayer\Interfaces\IQueryDAO.cs" />
+    <Compile Include="AccessLayer\Interfaces\ISessionDAO.cs" />
+    <Compile Include="AccessLayer\Interfaces\ILayerDAO.cs" />
+    <Compile Include="AccessLayer\Interfaces\IUserDAO.cs" />
+    <Compile Include="AccessLayer\DAO\GrantDAO.cs" />
+    <Compile Include="AccessLayer\DAO\LoggerDAO.cs" />
+    <Compile Include="AccessLayer\DAO\QueryDAO.cs" />
+    <Compile Include="AccessLayer\DAO\SessionDAO.cs" />
+    <Compile Include="AccessLayer\DAO\LayerDAO.cs" />
+    <Compile Include="AccessLayer\DAO\UserDAO.cs" />
     <Compile Include="AccessLayer\Entities\ConnectionBaseDAL.cs" />
   </ItemGroup>
   <ItemGroup>

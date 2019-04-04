@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface IQueryRepository
+    public interface IQueryDAO
     {
         DataTable ExecuteQuery(string queryString);
     }

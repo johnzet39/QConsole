@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using QConsole.BLL.DTO;
 using QConsole.BLL.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
-using QConsole.DAL.AccessLayer.Repositories;
+using QConsole.DAL.AccessLayer.DAO;
 using QConsole.DAL.EF.EDM;
 using QConsole.DAL.EF.UnitOfWork;
 using AutoMapper;
@@ -18,14 +18,14 @@ namespace QConsole.BLL.Services
 {
     public class LoggerService : ILoggerService
     {
-        ILoggerRepository _loggerRepository;
+        ILoggerDAO _loggerRepository;
         UnitOfWork _unitOfWork;
         int lastRowsCount = 1000;
         string Conn;
 
         public LoggerService(string conn)
         {
-            _loggerRepository = new LoggerRepository(conn);
+            _loggerRepository = new LoggerDAO(conn);
             _unitOfWork = new UnitOfWork(conn);
             Conn = conn;
         }

@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Entities;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserDAO
     {
         //all users
         IEnumerable<User> GetUsers();

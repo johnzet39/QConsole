@@ -5,7 +5,7 @@ using Npgsql;
 using QConsole.DAL.AccessLayer.Entities;
 using QConsole.DAL.AccessLayer.Interfaces;
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
     // queries for create/edit users
     public static class UserQueries
@@ -48,11 +48,11 @@ namespace QConsole.DAL.AccessLayer.Repositories
     }
 
 
-    public class UserRepository : IUserRepository
+    public class UserDAO : IUserDAO
     {
         public string _connectionString { get;  private set; }
 
-        public UserRepository(string connstring)
+        public UserDAO(string connstring)
         {
             _connectionString = connstring;
         }

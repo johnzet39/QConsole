@@ -7,7 +7,7 @@ using Npgsql;
 using QConsole.DAL.AccessLayer.Entities;
 using QConsole.DAL.AccessLayer.Interfaces;
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
 
     // queries for Grants
@@ -34,12 +34,12 @@ namespace QConsole.DAL.AccessLayer.Repositories
         }
     }
 
-    public class GrantRepository : IGrantRepository
+    public class GrantDAO : IGrantDAO
     {
 
         private string _connectionString;
 
-        public GrantRepository(string connstring)
+        public GrantDAO(string connstring)
         {
             _connectionString = connstring;
         }

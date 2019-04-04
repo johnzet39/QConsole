@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Entities;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface IGrantRepository
+    public interface IGrantDAO
     {
         //groups
         List<User> GetGroups();

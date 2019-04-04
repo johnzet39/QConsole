@@ -5,17 +5,17 @@ using Npgsql;
 using QConsole.DAL.AccessLayer.Entities;
 using QConsole.DAL.AccessLayer.Interfaces;
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
 
-    public class LoggerRepository : ILoggerRepository
+    public class LoggerDAO : ILoggerDAO
     {
         private string _connectionString;
 
         /// <summary>
         /// Construcrot
         /// </summary>
-        public LoggerRepository(string connstring)
+        public LoggerDAO(string connstring)
         {
             _connectionString = connstring;
         }

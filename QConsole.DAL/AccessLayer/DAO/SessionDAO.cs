@@ -8,14 +8,14 @@ using QConsole.DAL.AccessLayer.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
 
 
-namespace QConsole.DAL.AccessLayer.Repositories
+namespace QConsole.DAL.AccessLayer.DAO
 {
-    public class SessionRepository : ISessionRepository<Session>
+    public class SessionDAO : ISessionRepository<Session>
     {
         public NpgsqlConnection _sqlConnection { get; private set; }
         public string _connectionString { get; private set; }
 
-        public SessionRepository(string connstring)
+        public SessionDAO(string connstring)
         {
             _connectionString = connstring;
             _sqlConnection = new NpgsqlConnection(_connectionString);

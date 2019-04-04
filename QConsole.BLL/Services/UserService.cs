@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 using QConsole.BLL.DTO;
 using QConsole.BLL.Interfaces;
 using QConsole.DAL.AccessLayer.Entities;
-using QConsole.DAL.AccessLayer.Repositories;
+using QConsole.DAL.AccessLayer.DAO;
 using AutoMapper;
 
 namespace QConsole.BLL.Services
 {
     public class UserService : IUserService
     {
-        UserRepository _userRepository;
+        UserDAO _userRepository;
 
         public UserService(string conn)
         {
-            _userRepository = new UserRepository(conn);
+            _userRepository = new UserDAO(conn);
         }
 
         public IEnumerable<UserDTO> GetUsers()
