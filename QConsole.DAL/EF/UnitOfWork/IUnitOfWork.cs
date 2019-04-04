@@ -11,8 +11,8 @@ namespace QConsole.DAL.EF.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        //IRepository<logtable> LogtableRepository { get; }
-        LogtableRepository LogtableRepository { get; }
+        IRepository<logtable> LogtableRepository { get; }
+        //LogtableRepository LogtableRepository { get; }
         /// 
         /// Commits all changes
         /// 

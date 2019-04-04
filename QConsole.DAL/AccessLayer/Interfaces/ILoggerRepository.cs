@@ -15,7 +15,7 @@ namespace QConsole.DAL.AccessLayer.Interfaces
         //build date string subquery
         string BuildExtraDateString(DateTime? dateFrom, DateTime? dateTo);
         //build 1000rows string subquery
-        string BuildExtraFirstRowsString();
+        string BuildExtraFirstRowsString(int countRows);
         //union extra subquery strings
         string UnionExtraStrings(IList<string> str);
         //get column list for combobox

@@ -25,7 +25,21 @@ namespace QConsole.ViewModels.TabLogger
         public IList<string> ColumnsList { get; set; } //List of attributes in combobox
 
 
- 
+        /// <summary>
+        /// Constrictor
+        /// </summary>
+        public LoggerViewModel()
+        {
+            Console.WriteLine("logger: " + this.GetHashCode());
+            OnlyLastRows = true;
+            PopulateComboBoxNumberGroups();
+            PopulateComboBoxAttributes();
+            NumberOfRecPerPage = 250;//Current number of rows in pages
+
+            //RefreshTab(); //This is in NumberOfRecPerPage property.
+        }
+
+
         // Refresh button command.
         private RelayCommand refreshCommand;
         public RelayCommand RefreshCommand
@@ -200,23 +214,6 @@ namespace QConsole.ViewModels.TabLogger
         }
 
 
-
-        /// <summary>
-        /// Constrictor
-        /// </summary>
-        public LoggerViewModel()
-        {
-            Console.WriteLine("logger: " + this.GetHashCode());
-            OnlyLastRows = true;
-            PopulateComboBoxNumberGroups();
-            PopulateComboBoxAttributes();
-            NumberOfRecPerPage = 250;//Current number of rows in pages
-
-            RefreshTab();
-        }
-
-        
-
         private void RefreshTab()
         {
             RefreshTabAsync();
@@ -238,17 +235,13 @@ namespace QConsole.ViewModels.TabLogger
 
         private void GetLogRowsList()
         {
-            string extraStringUnion = GetExtraStringUnion();
-            string onlyLastRowsString = "";
-            if (OnlyLastRows == true)
-                onlyLastRowsString = GetOnlyLastRowsString();
-
             _loggerService = new LoggerService(_connectionString);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRowDTO, LogRow>()).CreateMapper();
+
             try
             {
                 HasError = false;
-                logList = mapper.Map<IEnumerable<LogRowDTO>, List<LogRow>>(_loggerService.GetLogList(extraStringUnion, onlyLastRowsString));
+                logList = mapper.Map<IEnumerable<LogRowDTO>, List<LogRow>>(_loggerService.GetLogList(DateFrom, DateTo, ExtraQuery, OnlyLastRows));
             }
             catch (Exception e)
             {
@@ -256,46 +249,22 @@ namespace QConsole.ViewModels.TabLogger
                 Ext.LogPanel.PrintLog(e.Message);
             }
 
-
-            if (OnlyLastRows == true)//Show only last 1000 rows
+            if (logList != null)
             {
-                LogRowsList = new ObservableCollection<LogRow>(logList);
+                if (OnlyLastRows == true)//Show only last 1000 rows
+                {
+                    LogRowsList = new ObservableCollection<LogRow>(logList);
+                }
+                else//Paging
+                {
+                    PagedTable = new Ext.Paging<LogRow>();
+                    PagedTable.PageIndex = 1;
+                    IList<LogRow> firstTable = PagedTable.First(logList, NumberOfRecPerPage);
+                    LogRowsList = new ObservableCollection<LogRow>(firstTable);
+                    PageInfo = PageNumberDisplay();
+                }
             }
-            else//Paging
-            {
-                PagedTable = new Ext.Paging<LogRow>();
-                PagedTable.PageIndex = 1;
-                IList<LogRow> firstTable = PagedTable.First(logList, NumberOfRecPerPage);
-                LogRowsList = new ObservableCollection<LogRow>(firstTable);
-                PageInfo = PageNumberDisplay();
-            }
-        }
 
-        
-
-        private string GetOnlyLastRowsString()
-        {
-            _loggerService = new LoggerService(_connectionString);
-            return _loggerService.BuildExtraFirstRowsString();
-        }
-
-        private string GetExtraStringUnion()
-        {
-            _loggerService = new LoggerService(_connectionString);
-            List<string> Extra_strings = new List<string>(); //list of all extra subqueries
-
-            string extraDateString = _loggerService.BuildExtraDateString(DateFrom, DateTo); //Convert Dates to string subquery
-
-            if (ExtraQuery != null && ExtraQuery.Trim().Length > 0)
-                Extra_strings.Add(ExtraQuery); //add text query
-            if (extraDateString != null &&  extraDateString.Trim().Length > 0)
-                Extra_strings.Add(extraDateString); //add date
-
-            if (Extra_strings.Count > 0)
-                return _loggerService.UnionExtraStrings(Extra_strings); //extra subquery after union list of queries to one line
-
-            else
-                return "";
         }
 
         private async void ShowPropertyAsync()

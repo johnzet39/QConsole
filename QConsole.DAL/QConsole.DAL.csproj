@@ -127,7 +127,6 @@
     </Compile>
     <Compile Include="EF\Repositories\GenericRepository.cs" />
     <Compile Include="EF\Interfaces\IRepository.cs" />
-    <Compile Include="EF\Repositories\LogtableRepository.cs" />
     <Compile Include="EF\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="EF\UnitOfWork\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

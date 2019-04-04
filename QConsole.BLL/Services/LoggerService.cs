@@ -12,6 +12,7 @@ using QConsole.DAL.EF.EDM;
 using QConsole.DAL.EF.UnitOfWork;
 using AutoMapper;
 using QConsole.DAL.AccessLayer.Interfaces;
+using System.Data.Objects;
 
 namespace QConsole.BLL.Services
 {
@@ -19,6 +20,7 @@ namespace QConsole.BLL.Services
     {
         ILoggerRepository _loggerRepository;
         UnitOfWork _unitOfWork;
+        int lastRowsCount = 1000;
         string Conn;
 
         public LoggerService(string conn)
@@ -35,7 +37,7 @@ namespace QConsole.BLL.Services
 
         public string BuildExtraFirstRowsString()
         {
-            return _loggerRepository.BuildExtraFirstRowsString();
+            return _loggerRepository.BuildExtraFirstRowsString(lastRowsCount);
         }
 
         public List<string> GetColumnsList()
@@ -43,48 +45,94 @@ namespace QConsole.BLL.Services
             return _loggerRepository.GetColumnsList();
         }
 
-        //public List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
-        //{
-        //    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
-        //    return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
-        //}
-
         public string UnionExtraStrings(IList<string> str)
         {
             return _loggerRepository.UnionExtraStrings(str);
         }
 
-        public List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery)
+        private string GetExtraStringUnion(DateTime? DateFrom, DateTime? DateTo, string ExtraQuery)
         {
-            if (ExtraQueryFull != null && ExtraQueryFull.Trim().Length == 0 && FirstRowsQuery != null && FirstRowsQuery.Trim().Length == 0)
+            List<string> Extra_strings = new List<string>(); //list of all extra subqueries
+
+            string extraDateString = BuildExtraDateString(DateFrom, DateTo); //Convert Dates to string subquery
+
+            if (ExtraQuery != null && ExtraQuery.Trim().Length > 0)
+                Extra_strings.Add(ExtraQuery); //add text query
+            if (extraDateString != null && extraDateString.Trim().Length > 0)
+                Extra_strings.Add(extraDateString); //add date
+
+            if (Extra_strings.Count > 0)
+                return UnionExtraStrings(Extra_strings); //extra subquery after union list of queries to one line
+
+            else
+                return "";
+        }
+
+
+        public List<LogRowDTO> GetLogList(DateTime? DateFrom, DateTime? DateTo, string extraQuery, bool onlyLastRows)
+        {
+            if ((extraQuery == null || extraQuery.Trim().Length == 0)  && DateFrom == null && DateTo == null)
             {
                 //EF DAL
+                List<logtable> OrderedList;
+                if (onlyLastRows)
+                {
+                    OrderedList = _unitOfWork.LogtableRepository.Get().OrderByDescending(r => r.gid).Take(lastRowsCount).ToList();
+                }
+                else
+                {
+                    OrderedList = _unitOfWork.LogtableRepository.Get().OrderByDescending(r => r.gid).ToList();
+                }
+
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<logtable, LogRowDTO>()).CreateMapper();
-                return mapper.Map<IEnumerable<logtable>, List<LogRowDTO>>(_unitOfWork.LogtableRepository.GetAllOrdered());
+                return mapper.Map<IEnumerable<logtable>, List<LogRowDTO>>(OrderedList);
             }
             else
             {
                 //AccessLayer DAL
+                string extraStringUnion = GetExtraStringUnion(DateFrom, DateTo, extraQuery);
+                string onlyLastRowsString = "";
+                if (onlyLastRows == true)
+                    onlyLastRowsString = BuildExtraFirstRowsString();
+
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
-                return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(ExtraQueryFull, FirstRowsQuery));
+                return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(extraStringUnion, onlyLastRowsString));
             }
         }
 
         public int GetCountByOperation(string operation, int period)
         {
-            var count = _unitOfWork.LogtableRepository.GetCountByOperation(operation, period);
+            DateTime date = DateTime.Now.AddDays(-period);
+            var count = _unitOfWork.LogtableRepository.Get()
+                .Where(o => o.action.ToUpper() == operation.ToUpper())
+                .Where(o => o.timechange > date)
+                .Count();
             return count;
         }
 
         public int GetCountInserts(string schema, string layer, int period)
         {
-            var count = _unitOfWork.LogtableRepository.GetCountInserts(schema, layer, period);
+
+            int count = 0;
+            DateTime date = DateTime.Now.AddDays(-period).Date;
+            count = _unitOfWork.LogtableRepository.Get()
+                .Where(o => o.tablename == layer)
+                .Where(o => o.tableschema == schema)
+                .Where(o => o.action.ToUpper() == "INSERT")
+                .Where(o => o.timechange >= date)
+                .Count();
             return count;
         }
 
         public int GetCountInsertsMonth(string schema, string layer, int month, int year)
         {
-            var count = _unitOfWork.LogtableRepository.GetCountInsertsMonth(schema, layer, month, year);
+            int count = 0;
+            count = _unitOfWork.LogtableRepository.Get()
+                .Where(o => o.tablename == layer)
+                .Where(o => o.tableschema == schema)
+                .Where(o => o.action.ToUpper() == "INSERT")
+                .Where(o => o.timechange.Year == year && o.timechange.Month == month)
+                .Count();
             return count;
         }
     }

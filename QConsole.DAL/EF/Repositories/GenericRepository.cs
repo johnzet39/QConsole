@@ -9,26 +9,47 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.EF.Repositories
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         DbContext _context;
-        DbSet<T> _dbSet;
+        DbSet<TEntity> _dbSet;
 
 
         public GenericRepository(DbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<T>();
+            _dbSet = _context.Set<TEntity>();
         }
 
-        public IEnumerable<T> GetAll()
+        public void Create(TEntity item)
         {
-            return _dbSet.AsNoTracking().ToList();
+            _dbSet.Add(item);
         }
 
-        public IEnumerable<T> GetAllOrderByTimeChange()
+        public TEntity FindById(int id)
         {
-            return _dbSet.AsNoTracking().ToList();
+            return _dbSet.Find(id);
+        }
+
+        public IQueryable<TEntity> Get()
+        {
+            return _dbSet.AsNoTracking();
+        }
+
+        public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+        {
+            return _dbSet.AsNoTracking().Where(predicate).ToList();
+        }
+
+
+        public void Remove(TEntity item)
+        {
+            _dbSet.Remove(item);
+        }
+
+        public void Update(TEntity item)
+        {
+            _context.Entry(item).State = EntityState.Modified;
         }
     }
 }

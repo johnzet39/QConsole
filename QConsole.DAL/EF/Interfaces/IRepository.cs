@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.EF.Interfaces
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<TEntity> where TEntity : class
     {
-        IEnumerable<T> GetAll();
-
+        void Create(TEntity item);
+        TEntity FindById(int id);
+        IQueryable<TEntity> Get();
+        IEnumerable<TEntity> Get(Func<TEntity, bool> predicate);
+        void Remove(TEntity item);
+        void Update(TEntity item);
     }
 }

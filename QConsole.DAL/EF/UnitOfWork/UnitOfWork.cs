@@ -15,15 +15,26 @@ namespace QConsole.DAL.EF.UnitOfWork
         private readonly BaseEntities _dbContext;
 
         #region Repositories
-        //public IRepository<logtable> LogtableRepository => 
-        //    new GenericRepository<logtable>(_dbContext);
-        public LogtableRepository LogtableRepository =>
-            new LogtableRepository(_dbContext);
+
+        private IRepository<logtable> logtableRepository;
+        public IRepository<logtable> LogtableRepository
+        {
+            get
+            {
+                if (logtableRepository == null)
+                    logtableRepository = new GenericRepository<logtable>(_dbContext);
+                return logtableRepository;
+            }
+        }
         #endregion
 
         public UnitOfWork(string conn)
         {
             _dbContext = new BaseEntities(conn);
+
+            //################# DEBUGGINGGGG ###############
+            //_dbContext.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+            //################# DEBUGGINGGGG ###############
         }
 
         public void RejectChanges()

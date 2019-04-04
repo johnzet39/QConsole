@@ -88,9 +88,9 @@ namespace QConsole.DAL.AccessLayer.Repositories
             return ExtraDateString;
         }
         //build 1000rows string subquery
-        public string BuildExtraFirstRowsString()
+        public string BuildExtraFirstRowsString(int countRows)
         {
-            return " limit 1000";
+            return " limit " + countRows;
         }
         //union extra subquery strings
         public string UnionExtraStrings(IList<string> str)

@@ -11,7 +11,7 @@ namespace QConsole.BLL.Interfaces
     public interface ILoggerService
     {
         //LOG LIST main
-        List<LogRowDTO> GetLogList(string ExtraQueryFull, string FirstRowsQuery);
+        List<LogRowDTO> GetLogList(DateTime? DateFrom, DateTime? DateTo, string extraQuery, bool onlyLastRows);
         //build date string subquery
         string BuildExtraDateString(DateTime? dateFrom, DateTime? dateTo);
         //build 1000rows string subquery
