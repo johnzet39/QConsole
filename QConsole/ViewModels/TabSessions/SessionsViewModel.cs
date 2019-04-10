@@ -22,11 +22,13 @@ namespace QConsole.ViewModels.TabSessions
     {
         private readonly string _connectionString = Common.ConnectionStrings.ConnectionString;
         private static DispatcherTimer aTimer;
+        private DateTime _startTime;
 
         // Constructor.
         public SessionsViewModel()
         {
             Console.WriteLine("sessions: " + this.GetHashCode());
+            _startTime = DateTime.Now;
 
             CreatePlot();
             GetSessionsAsync();
@@ -127,7 +129,6 @@ namespace QConsole.ViewModels.TabSessions
 
             Session cur_row = SelectedSession;
             await Task.Run(() => GetSessions());
-            //Select selected session in datagrid
             if (cur_row != null)
             {
                 SelectedSession = SessionsList.Where(p => p.Pid == cur_row.Pid).First();
@@ -140,7 +141,6 @@ namespace QConsole.ViewModels.TabSessions
             var sessions = mapper.Map<IEnumerable<SessionDTO>, List<Session>>(service.GetSessions());
             SessionsList = new ObservableCollection<Session>(sessions);
             SessionsCount = SessionsList.Count;
-            //    AddPlotPoint();
         }
 
         private void RefreshTab()
@@ -263,9 +263,9 @@ namespace QConsole.ViewModels.TabSessions
         {
             Labels = new List<string>();
 
-            for (int i = _PlotPointsCount * TimerPeriod * -1; i <= 0; i = i + TimerPeriod)
+            for (int i = 1; i <= _PlotPointsCount; i++)
             {
-                Labels.Add(i.ToString());
+                Labels.Add(" ");
             }
         }
 
@@ -278,12 +278,23 @@ namespace QConsole.ViewModels.TabSessions
             values.Add(SessionsCount);
 
             string newlabel;
-            if (Int32.Parse(Labels.Last()) == 86400)
-                newlabel = "1";
-            else
-                newlabel = (Int32.Parse(Labels.Last()) + TimerPeriod).ToString();
+            newlabel = GetNewLabelFromDuration();
+
             Labels.RemoveAt(0);
             Labels.Add(newlabel);
+        }
+
+        private string GetNewLabelFromDuration()
+        {
+            double countSeconds;
+            countSeconds = DateTime.Now.Subtract(_startTime).TotalSeconds;
+            TimeSpan timeFromSeconds = TimeSpan.FromSeconds(countSeconds);
+            string resultString = string.Format("{0:D2}.{1:D2}:{2:D2}:{3:D2}", 
+                                                    timeFromSeconds.Days, 
+                                                    timeFromSeconds.Hours, 
+                                                    timeFromSeconds.Minutes, 
+                                                    timeFromSeconds.Seconds);
+            return resultString;
         }
 
         public SeriesCollection SeriesCollection { get; set; }
