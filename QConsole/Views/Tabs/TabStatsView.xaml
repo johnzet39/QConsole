@@ -83,7 +83,7 @@
                                 <Run Text="Новых записей в слоях за последние "/>
                                 <Run Text="{Binding PeriodDays}"/>
                                 <Run Text=" дней: "/>
-                                <Run Text="{Binding TotalCountInserts}"/>
+                                <Run Text="{Binding TotalCountInserts, UpdateSourceTrigger=PropertyChanged}"/>
                         </TextBlock>
                         <!--<TextBlock Text="{Binding StringFormat=Количество новых записей в слоях за последние {0} дней, Path=PeriodDays}" TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" FontSize="13" FontWeight="Medium" />-->
 

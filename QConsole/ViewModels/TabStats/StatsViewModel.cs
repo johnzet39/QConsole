@@ -42,6 +42,7 @@ namespace QConsole.ViewModels.TabStats
         public StatsViewModel()
         {
             PeriodDays = 30;
+
             Console.WriteLine("stats: " + this.GetHashCode());
             CreatePlotCountOperations();
             CreatePlotCountInserts();
@@ -189,7 +190,7 @@ namespace QConsole.ViewModels.TabStats
         {
             if (SeriesCountInsertsCollection != null)
             {
-                TotalCountInserts = 0;
+                int countInserts = 0;
                 foreach (var series in SeriesCountInsertsCollection)
                 {
                     SeriesCountInsertsCollection.Remove(series);
@@ -213,9 +214,10 @@ namespace QConsole.ViewModels.TabStats
                             //LabelPoint = labelPoint,
                         };
                         SeriesCountInsertsCollection.Add(pieSeries);
-                        TotalCountInserts += count;
+                        countInserts += count;
                     }
                 }
+                TotalCountInserts = countInserts;
             }
         }
 
@@ -253,7 +255,6 @@ namespace QConsole.ViewModels.TabStats
         {
             if (SeriesCountInsertsYearCollection != null)
             {
-                TotalCountInserts = 0;
                 foreach (var series in SeriesCountInsertsYearCollection)
                 {
                     SeriesCountInsertsYearCollection.Remove(series);
