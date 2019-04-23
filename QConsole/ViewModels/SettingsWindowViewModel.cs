@@ -56,7 +56,7 @@ namespace QConsole.ViewModels
             get => _configurationsPostgreSQL;
             set
             {
-                _configurationsPostgreSQL = value;
+                _configurationsPostgreSQL = value.Replace("\"", "").Replace(";", "").Replace(",", "");
                 OnPropertyChanged(("ConfigurationsPostgreSQL"));
             }
         }
