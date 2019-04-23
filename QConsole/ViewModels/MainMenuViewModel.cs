@@ -14,14 +14,7 @@ namespace QConsole.ViewModels
     {
         public MainMenuViewModel()
         {
-            string ConfigurationsPostgreSQL = Properties.Settings.Default.ConfigurationsPostgreSQL;
-            string[] Configs = ConfigurationsPostgreSQL.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-
-            ConfigurationMenuItems = new ObservableCollection<MainMenuItemViewModel>();
-            foreach (string config in Configs)
-            {
-                ConfigurationMenuItems.Add(new MainMenuItemViewModel { Header = config });
-            }
+            CreateConfigurationMenuItems();
         }
 
         // About button command.
@@ -66,6 +59,21 @@ namespace QConsole.ViewModels
         }
 
         public ObservableCollection<MainMenuItemViewModel> ConfigurationMenuItems { get; set; }
+
+        private void CreateConfigurationMenuItems()
+        {
+            string ConfigurationsPostgreSQL = Properties.Settings.Default.ConfigurationsPostgreSQL;
+            if (ConfigurationsPostgreSQL.Trim().Length > 0)
+            {
+                string[] Configs = ConfigurationsPostgreSQL.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+                ConfigurationMenuItems = new ObservableCollection<MainMenuItemViewModel>();
+                foreach (string config in Configs)
+                {
+                    ConfigurationMenuItems.Add(new MainMenuItemViewModel { Header = config });
+                }
+            }
+        }
 
 
         private async void ShowAboutWindowAsync()
