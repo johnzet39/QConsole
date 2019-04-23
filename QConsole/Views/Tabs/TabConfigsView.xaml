@@ -55,7 +55,7 @@
                  AcceptsReturn="True" 
                  HorizontalScrollBarVisibility="Auto" 
                  VerticalScrollBarVisibility="Auto"
-                 Padding="3">
+                 Padding="7,0">
         </TextBox>
     </DockPanel>
 </UserControl>

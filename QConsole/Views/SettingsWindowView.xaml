@@ -43,7 +43,7 @@
                        <TextBlock Text="Файлы конфигураций PostgreSQL:"  Margin="5,0"/>
                        <TextBlock Text="(Требуется перезапуск программы)" FontSize="9"/>
                     </StackPanel>
-                    <TextBox Text="{Binding ConfigurationsPostgreSQL, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Height="50"/>
+                    <TextBox Text="{Binding ConfigurationsPostgreSQL, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Height="50"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabSecond" Header="bbb" Visibility="Collapsed">
