@@ -60,7 +60,8 @@ namespace QConsole.ViewModels.TabConfigs
             try
             {
                 var fileStream = new FileStream(FilePath, FileMode.Create, FileAccess.Write);
-                using (var streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+                Encoding encodingUtf8WoBOM = new UTF8Encoding(false);
+                using (var streamWriter = new StreamWriter(fileStream, encodingUtf8WoBOM))
                 {
                     streamWriter.Write(text);
                 }
@@ -80,7 +81,8 @@ namespace QConsole.ViewModels.TabConfigs
             {
                 string text;
                 var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read);
-                using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+                Encoding encodingUtf8WoBOM = new UTF8Encoding(false);
+                using (var streamReader = new StreamReader(fileStream, encodingUtf8WoBOM))
                 {
                     text = streamReader.ReadToEnd();
                 }
@@ -92,6 +94,16 @@ namespace QConsole.ViewModels.TabConfigs
             {
                 isFileExists = false;
                 FileText = "Файл не найден";
+            }
+            catch (DirectoryNotFoundException)
+            {
+                isFileExists = false;
+                FileText = "Файл не найден";
+            }
+            catch (Exception e)
+            {
+                isFileExists = false;
+                FileText = e.Message;
             }
         }
         
