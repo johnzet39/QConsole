@@ -33,7 +33,7 @@ namespace QConsole.ViewModels.TabSessions
             CreatePlot();
             GetSessionsAsync();
             SetTimerStatus();
-
+            
         }
 
         // Refresh button command.
@@ -136,11 +136,21 @@ namespace QConsole.ViewModels.TabSessions
         }
         private void GetSessions()
         {
-            ISessionService service = new SessionService(_connectionString);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<SessionDTO, Session>()).CreateMapper();
-            var sessions = mapper.Map<IEnumerable<SessionDTO>, List<Session>>(service.GetSessions());
-            SessionsList = new ObservableCollection<Session>(sessions);
-            SessionsCount = SessionsList.Count;
+            try
+            {
+                ISessionService service = new SessionService(_connectionString);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<SessionDTO, Session>()).CreateMapper();
+                var sessions = mapper.Map<IEnumerable<SessionDTO>, List<Session>>(service.GetSessions());
+                SessionsList = new ObservableCollection<Session>(sessions);
+                SessionsCount = SessionsList.Count;
+            }
+            catch (Exception e)
+            {
+                RemoveTimer();
+                Properties.Settings.Default.ButtonTimerChecked = false;
+                SessionsList = null;
+                MessageBox.Show(e.Message, "Информация", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void RefreshTab()
