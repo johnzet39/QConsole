@@ -46,6 +46,7 @@ namespace QConsole.ViewModels
         private void NewTab()
         {
             Tabs.Add(new QueryTab());
+            SetSelectedTab();
         }
 
         private void NewConfigsTab(object obj)
@@ -58,10 +59,9 @@ namespace QConsole.ViewModels
                 filename = System.IO.Path.GetFileName(filePath);
             }
             Tabs.Add(new ConfigsTab()
-            {
-                Name = filename
-            }
+                {Name = filename}
             );
+            SetSelectedTab();
         }
 
         private void Tabs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -78,6 +78,32 @@ namespace QConsole.ViewModels
                     tab = (ITab)e.OldItems[0];
                     tab.CloseRequested -= OnTabCloseRequested;
                     break;
+            }
+        }
+
+        private void SetSelectedTab()
+        {
+            var count = Tabs.Count();
+            SelectedTabIndex = count - 1;
+        }
+
+        private int _selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get
+            {
+                if (_selectedTabIndex > Tabs.Count() - 1)
+                    return Tabs.Count() - 1;
+                else
+                    return _selectedTabIndex;
+            }
+            set
+            {
+                if (value > Tabs.Count() - 1)
+                    _selectedTabIndex = Tabs.Count() - 1;
+                else
+                    _selectedTabIndex = value;
+                OnPropertyChanged("SelectedTabIndex");
             }
         }
 

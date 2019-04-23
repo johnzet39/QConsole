@@ -60,7 +60,8 @@
                     ItemsSource="{Binding Tabs}" 
                     x:Name="TabCtrl" 
                     TabStripPlacement="Top"
-                    ikriv:TabContent.IsCached="True">
+                    ikriv:TabContent.IsCached="True"
+                    SelectedIndex="{Binding SelectedTabIndex}">
 
             <TabControl.Resources>
                 <DataTemplate DataType="{x:Type modelsTab:SessionTab}">
