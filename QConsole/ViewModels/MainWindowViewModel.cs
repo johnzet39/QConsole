@@ -19,16 +19,17 @@ namespace QConsole.ViewModels
         public MainWindowViewModel()
         {
             NewTabCommand = new RelayCommand(p => NewTab());
+            NewTabConfigsCommand = new RelayCommand(p => NewConfigsTab(p));
 
             tabs = new ObservableCollection<ITab>();
             tabs.CollectionChanged += Tabs_CollectionChanged;
 
             Tabs = tabs;
-            //Tabs = new ObservableCollection<ITab>();
             AddTabs();
         }
 
         public ICommand NewTabCommand { get; }
+        public ICommand NewTabConfigsCommand { get; }
         public Collection<ITab> Tabs { get; }
         public string Title { get; set; }
 
@@ -45,6 +46,22 @@ namespace QConsole.ViewModels
         private void NewTab()
         {
             Tabs.Add(new QueryTab());
+        }
+
+        private void NewConfigsTab(object obj)
+        {
+            string filename = "Conf";
+            var filePath = obj as string;
+            if (filePath != null && filePath.Trim().Length > 0)
+            {
+                Common.CurrentConfigurationStatic.CurrentPath = filePath;
+                filename = System.IO.Path.GetFileName(filePath);
+            }
+            Tabs.Add(new ConfigsTab()
+            {
+                Name = filename
+            }
+            );
         }
 
         private void Tabs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)

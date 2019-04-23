@@ -20,6 +20,7 @@ namespace QConsole.ViewModels
         {
             DisplayRootRegistry = displayRootRegistry;
             IsCheckUpdates = Properties.Settings.Default.IsCheckUpdates;
+            ConfigurationsPostgreSQL = Properties.Settings.Default.ConfigurationsPostgreSQL;
         }
 
 
@@ -49,10 +50,23 @@ namespace QConsole.ViewModels
             }
         }
 
+        private string _configurationsPostgreSQL;
+        public string ConfigurationsPostgreSQL
+        {
+            get => _configurationsPostgreSQL;
+            set
+            {
+                _configurationsPostgreSQL = value;
+                OnPropertyChanged(("ConfigurationsPostgreSQL"));
+            }
+        }
+
+        
 
         private void OkButton(object parameter)
         {
             Properties.Settings.Default.IsCheckUpdates = IsCheckUpdates;
+            Properties.Settings.Default.ConfigurationsPostgreSQL = ConfigurationsPostgreSQL;
             Properties.Settings.Default.Save();
 
             DialogResult = true;

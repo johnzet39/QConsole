@@ -2,6 +2,7 @@
 using QConsole.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,17 @@ namespace QConsole.ViewModels
 {
     class MainMenuViewModel : BaseViewModel
     {
+        public MainMenuViewModel()
+        {
+            string ConfigurationsPostgreSQL = Properties.Settings.Default.ConfigurationsPostgreSQL;
+            string[] Configs = ConfigurationsPostgreSQL.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
+            ConfigurationMenuItems = new ObservableCollection<MainMenuItemViewModel>();
+            foreach (string config in Configs)
+            {
+                ConfigurationMenuItems.Add(new MainMenuItemViewModel { Header = config });
+            }
+        }
 
         // About button command.
         private RelayCommand showAboutWindowCommand;
@@ -53,6 +65,7 @@ namespace QConsole.ViewModels
             }
         }
 
+        public ObservableCollection<MainMenuItemViewModel> ConfigurationMenuItems { get; set; }
 
 
         private async void ShowAboutWindowAsync()

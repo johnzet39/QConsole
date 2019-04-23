@@ -105,6 +105,7 @@
     <Compile Include="Commands\RelayCommand.cs" />
     <Compile Include="Common\CheckUpdate.cs" />
     <Compile Include="Common\ConnectionStrings.cs" />
+    <Compile Include="Common\CurrentConfigurationStatic.cs" />
     <Compile Include="Converters\MultiParametersConverter.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="DisplayRootRegistry.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Models\ITab.cs" />
     <Compile Include="Models\LogRow.cs" />
     <Compile Include="Models\Session.cs" />
+    <Compile Include="Models\Tabs\ConfigsTab.cs" />
     <Compile Include="Models\Tabs\GrantTab.cs" />
     <Compile Include="Models\Tabs\StatsTab.cs" />
     <Compile Include="Models\Tabs\LayerTab.cs" />
@@ -137,9 +139,11 @@
     </Compile>
     <Compile Include="ViewModels\AboutWindowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\MainMenuItemViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\SettingsWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabConfigs\ConfigsViewModel.cs" />
     <Compile Include="ViewModels\TabGrants\GrantsViewModel.cs" />
     <Compile Include="ViewModels\TabGrants\GrantPropertyWindowViewModel.cs" />
     <Compile Include="ViewModels\TabLayers\LayersViewModel.cs" />
@@ -180,6 +184,9 @@
     </Compile>
     <Compile Include="Views\Tabs\TabLoggerView.xaml.cs">
       <DependentUpon>TabLoggerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\TabConfigsView.xaml.cs">
+      <DependentUpon>TabConfigsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\TabQueryView.xaml.cs">
       <DependentUpon>TabQueryView.xaml</DependentUpon>
@@ -258,6 +265,10 @@
     <Page Include="Views\Tabs\TabLoggerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Tabs\TabConfigsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Tabs\TabQueryView.xaml">
       <SubType>Designer</SubType>
@@ -373,6 +384,8 @@
     <Resource Include="Icons\_tabControl\QueryView_16x.png" />
     <Resource Include="Icons\LineChart_16x.png" />
     <Resource Include="Icons\_tabControl\BarChart_16x.png" />
+    <Resource Include="Icons\Save_16x.png" />
+    <Resource Include="Icons\_tabControl\ConfigurationEditor_16x.png" />
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo1.cs</LastGenOutput>

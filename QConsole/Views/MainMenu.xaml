@@ -65,6 +65,19 @@
                 <MenuItem Header="Новая SQL вкладка"
                       Command="{Binding DataContext.NewTabCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
             </MenuItem>
+            <MenuItem Header="Конфигурации" ItemsSource="{Binding ConfigurationMenuItems}">
+                <MenuItem.ItemContainerStyle>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="Command" Value="{Binding DataContext.NewTabConfigsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+                        <Setter Property="CommandParameter" Value="{Binding Header}"/>
+                    </Style>
+                </MenuItem.ItemContainerStyle>
+                <MenuItem.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type vm:MainMenuItemViewModel}" ItemsSource="{Binding Path=ConfigurationMenuItems}">
+                        <TextBlock Text="{Binding Header}"/>
+                    </HierarchicalDataTemplate>
+                </MenuItem.ItemTemplate>
+            </MenuItem>
             <MenuItem Header="_Справка">
                 <MenuItem Header="_Проверить наличие новой версии..." 
                           Command="{Binding CheckUpdateCommand}"/>

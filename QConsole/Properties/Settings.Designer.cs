@@ -202,5 +202,17 @@ namespace QConsole.Properties {
                 this["ButtonChartChecked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ConfigurationsPostgreSQL {
+            get {
+                return ((string)(this["ConfigurationsPostgreSQL"]));
+            }
+            set {
+                this["ConfigurationsPostgreSQL"] = value;
+            }
+        }
     }
 }
