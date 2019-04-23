@@ -28,6 +28,8 @@ namespace QConsole
 
         public App()
         {
+            UpdateSettings();
+
             displayRootRegistry.RegisterWindowType<MainWindowViewModel, MainWindow>();
             displayRootRegistry.RegisterWindowType<AboutWindowViewModel, AboutWindowView>();
             displayRootRegistry.RegisterWindowType<SettingsWindowViewModel, SettingsWindowView>();
@@ -35,6 +37,19 @@ namespace QConsole
             displayRootRegistry.RegisterWindowType<LayerPropertyWindowViewModel, LayerPropertyWindowView>();
             displayRootRegistry.RegisterWindowType<GrantPropertyWindowViewModel, GrantPropertyWindowView>();
             displayRootRegistry.RegisterWindowType<LoggerPropertyWindowViewModel, LoggerPropertyWindowView>();
+        }
+
+        /// <summary>
+        /// Copy user settings from previous application version if necessary
+        /// </summary>
+        private void UpdateSettings()
+        {
+            if (QConsole.Properties.Settings.Default.UpdateSettings)
+            {
+                QConsole.Properties.Settings.Default.Upgrade();
+                QConsole.Properties.Settings.Default.UpdateSettings = false;
+                QConsole.Properties.Settings.Default.Save();
+            }
         }
 
         /// <summary>
