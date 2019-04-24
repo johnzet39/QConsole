@@ -36,7 +36,18 @@
                     <Image Source="../../Icons/Save_16x.png" />
                 </Button>
                 <Separator/>
-                <Button ToolTip="Переоткрыть" Command="{Binding RefreshCommand}">
+                <Button x:Name="BtnSelectAll" ToolTip="Выбрать все" 
+                        Click="BtnSelectAll_Click">
+                    <Image Source="../../Icons/SelectAll_16x.png" />
+                </Button>
+                <Button x:Name="BtnCopy" ToolTip="Копировать" Command="Copy">
+                    <Image Source="../../Icons/Copy_16x.png" />
+                </Button>
+                <Button x:Name="BtnPaste" ToolTip="Вставить" Command="Paste">
+                    <Image Source="../../Icons/Paste_16x_my.png" />
+                </Button>
+                <Separator/>
+                <Button ToolTip="Обновить" Command="{Binding RefreshCommand}">
                     <Image Source="../../Icons/Refresh_16x.png" />
                 </Button>
             </ToolBar>
@@ -48,7 +59,11 @@
             </StatusBarItem>
         </StatusBar>
 
-        <TextBlock DockPanel.Dock="Top" Text="{Binding FilePath}" FontSize="13" FontWeight="Bold" Margin="7"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="7">
+            <TextBlock Text="{Binding FilePath}" FontSize="13" FontWeight="Bold"/>
+            <TextBlock Text="{Binding FileDate}" FontSize="13" Margin="5,0"/>
+        </StackPanel>
+            
         <TextBox DockPanel.Dock="Top" x:Name="tb_text" 
                  Text="{Binding FileText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                  SelectionChanged="Tb_text_SelectionChanged"  

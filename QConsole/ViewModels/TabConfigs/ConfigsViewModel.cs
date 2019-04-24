@@ -65,6 +65,8 @@ namespace QConsole.ViewModels.TabConfigs
                 {
                     streamWriter.Write(text);
                 }
+
+                FileDate = GetFileDate();
             }
             catch (Exception e)
             {
@@ -89,6 +91,7 @@ namespace QConsole.ViewModels.TabConfigs
                 isFileExists = true;
                 FileText = text;
 
+                FileDate = GetFileDate();
             }
             catch (FileNotFoundException)
             {
@@ -106,7 +109,23 @@ namespace QConsole.ViewModels.TabConfigs
                 FileText = e.Message;
             }
         }
-        
+
+        private string GetFileDate()
+        {
+            string dtString = string.Empty;
+            if (isFileExists)
+            {
+                try
+                {
+                    DateTime dt = File.GetLastWriteTime(FilePath);
+                    dtString = string.Format("({0})", dt.ToString("dd.MM.yyyy HH:mm:ss"));
+                }
+                catch
+                {
+                }
+            }
+            return dtString;
+        }
 
         private string _filePath;
         public string FilePath
@@ -119,6 +138,20 @@ namespace QConsole.ViewModels.TabConfigs
             {
                 _filePath = value;
                 OnPropertyChanged("FilePath");
+            }
+        }
+
+        private string _fileDate;
+        public string FileDate
+        {
+            get
+            {
+                return _fileDate;
+            }
+            set
+            {
+                _fileDate = value;
+                OnPropertyChanged("FileDate");
             }
         }
 

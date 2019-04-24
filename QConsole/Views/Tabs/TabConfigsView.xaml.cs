@@ -35,5 +35,11 @@ namespace QConsole.Views.Tabs
             int col = tb_text.CaretIndex - tb_text.GetCharacterIndexFromLineIndex(row);
             lblCursorPosition.Text = "Line " + (row + 1) + ", Char " + (col + 1);
         }
+
+        private void BtnSelectAll_Click(object sender, RoutedEventArgs e)
+        {
+            tb_text.Focus();
+            tb_text.SelectAll();
+        }
     }
 }

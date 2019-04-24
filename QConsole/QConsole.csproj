@@ -384,6 +384,8 @@
     <Resource Include="Icons\_tabControl\BarChart_16x.png" />
     <Resource Include="Icons\Save_16x.png" />
     <Resource Include="Icons\_tabControl\ConfigurationEditor_16x.png" />
+    <Resource Include="Icons\SelectAll_16x.png" />
+    <Resource Include="Icons\Paste_16x_my.png" />
     <Content Include="Properties\AssemblyInfo.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyInfo1.cs</LastGenOutput>
