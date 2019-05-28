@@ -131,7 +131,7 @@ namespace QConsole.ViewModels.TabSessions
             await Task.Run(() => GetSessions());
             if (cur_row != null)
             {
-                SelectedSession = SessionsList.Where(p => p.Pid == cur_row.Pid).First();
+                SelectedSession = SessionsList.Where(p => p.Pid == cur_row.Pid).FirstOrDefault();
             }
         }
         private void GetSessions()
