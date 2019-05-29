@@ -32,6 +32,11 @@ namespace QConsole
 
         public LoginWindow()
         {
+            if (Properties.Settings.Default.IsCheckUpdates)
+            {
+                Common.CheckUpdate.CheckUpdatesAsync(isOnStart: true);
+            }
+
             InitializeComponent();
             //file with connectionStrings
             Common.ConnectionStrings._connectionStringsFilePath = System.IO.Path.Combine(

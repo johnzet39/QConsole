@@ -92,7 +92,7 @@ namespace QConsole.Common
             else
             {
                 if (!isOnStart)
-                    MessageBox.Show("Вы используете последнюю версию приложения", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Вы используете последнюю версию приложения", "Обновление QConsole", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
         #endregion

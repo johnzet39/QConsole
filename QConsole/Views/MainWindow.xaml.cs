@@ -24,11 +24,6 @@ namespace QConsole.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            if (Properties.Settings.Default.IsCheckUpdates)
-            {
-                Common.CheckUpdate.CheckUpdatesAsync(isOnStart: true);
-            }
         }
 
 
