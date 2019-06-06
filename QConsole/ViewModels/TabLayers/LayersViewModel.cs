@@ -50,7 +50,20 @@ namespace QConsole.ViewModels.TabLayers
             }
         }
 
-        
+        // Show list dictionaries command.
+        private RelayCommand _showListDictionariesCommand;
+        public RelayCommand ShowListDictionariesCommand
+        {
+            get
+            {
+                return _showListDictionariesCommand ??
+                  (_showListDictionariesCommand = new RelayCommand(obj =>
+                  {
+                      ShowDictionariesListAsync();
+                  }));
+            }
+        }
+
 
         // Layers list for datagrid.
         private ObservableCollection<Layer> _layersList;
@@ -178,6 +191,21 @@ namespace QConsole.ViewModels.TabLayers
             await displayRootRegistry.ShowModalPresentation(vm);
             if (vm.DialogResult)
                 RefreshTab();
+        }
+
+        private async void ShowDictionariesListAsync()
+        {
+            var displayRootRegistry = (Application.Current as App).displayRootRegistry;
+            try
+            {
+                ListDictionariesViewModel vm = new ListDictionariesViewModel(displayRootRegistry);
+                await displayRootRegistry.ShowModalPresentation(vm);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Невозможно открыть список справочников", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            RefreshTab();
         }
 
     }

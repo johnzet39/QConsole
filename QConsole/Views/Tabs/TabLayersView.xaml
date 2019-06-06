@@ -112,6 +112,11 @@
                     IsEnabled="{Binding SelectedItems.Count, ElementName=DG_Dicts}">
                 <Image Source="../../Icons/OpenTopic_16x.png" />
             </Button>
+            <Separator/>
+            <Button ToolTip="Редактировать список справочников"
+                    Command="{Binding ShowListDictionariesCommand}">
+                <Image Source="../../Icons/ListView_16x.png" />
+            </Button>
         </ToolBar>
         <DataGrid x:Name="DG_Dicts"
                   ItemsSource="{Binding DictsList}"

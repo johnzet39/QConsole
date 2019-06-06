@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\TabGrants\GrantPropertyWindowViewModel.cs" />
     <Compile Include="ViewModels\TabLayers\LayersViewModel.cs" />
     <Compile Include="ViewModels\TabLayers\LayerPropertyWindowViewModel.cs" />
+    <Compile Include="ViewModels\TabLayers\ListDictionariesViewModel.cs" />
     <Compile Include="ViewModels\TabLogger\LoggerPropertyWindowViewModel.cs" />
     <Compile Include="ViewModels\TabLogger\LoggerViewModel.cs" />
     <Compile Include="ViewModels\TabQuery\QueriesViewModel.cs" />
@@ -172,6 +173,9 @@
     </Compile>
     <Compile Include="Views\TabLayers\LayerPropertyWindowView.xaml.cs">
       <DependentUpon>LayerPropertyWindowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabLayers\ListDictionariesView.xaml.cs">
+      <DependentUpon>ListDictionariesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TabLogger\LoggerPropertyWindowView.xaml.cs">
       <DependentUpon>LoggerPropertyWindowView.xaml</DependentUpon>
@@ -247,6 +251,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\TabLayers\LayerPropertyWindowView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabLayers\ListDictionariesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

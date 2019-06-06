@@ -15,4 +15,11 @@ namespace QConsole.DAL.AccessLayer.Entities
         public Boolean Isupdater { get; set; }
         public Boolean Islogger { get; set; }
     }
+
+    public class InformationSchemaTable
+    {
+        public string Table_schema { get; set; }
+        public string Table_name { get; set; }
+        public string Table_type { get; set; }
+    }
 }

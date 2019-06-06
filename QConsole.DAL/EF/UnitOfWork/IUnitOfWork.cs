@@ -12,6 +12,7 @@ namespace QConsole.DAL.EF.UnitOfWork
     public interface IUnitOfWork
     {
         IRepository<logtable> LogtableRepository { get; }
+        IRepository<dictionaries> DictionariesRepository { get; }
         //LogtableRepository LogtableRepository { get; }
         /// 
         /// Commits all changes

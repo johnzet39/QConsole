@@ -35,6 +35,7 @@ namespace QConsole
             displayRootRegistry.RegisterWindowType<SettingsWindowViewModel, SettingsWindowView>();
             displayRootRegistry.RegisterWindowType<UserPropertyWindowViewModel, UserWindowView>();
             displayRootRegistry.RegisterWindowType<LayerPropertyWindowViewModel, LayerPropertyWindowView>();
+            displayRootRegistry.RegisterWindowType<ListDictionariesViewModel, ListDictionariesView>();
             displayRootRegistry.RegisterWindowType<GrantPropertyWindowViewModel, GrantPropertyWindowView>();
             displayRootRegistry.RegisterWindowType<LoggerPropertyWindowViewModel, LoggerPropertyWindowView>();
         }

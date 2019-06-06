@@ -107,6 +107,9 @@
     <Compile Include="AccessLayer\Entities\ConnectionBaseDAL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\EDM\dictionaries.cs">
+      <DependentUpon>QgisBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\EDM\logtable.cs">
       <DependentUpon>QgisBaseModel.tt</DependentUpon>
     </Compile>

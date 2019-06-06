@@ -5,7 +5,8 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="05cfb066756a423c93c47324b4f99b69" Name="Diagram1">
-        <EntityTypeShape EntityType="MY_BASEModel.logtable" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MY_BASEModel.logtable" Width="1.5" PointX="0.875" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MY_BASEModel.dictionaries" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

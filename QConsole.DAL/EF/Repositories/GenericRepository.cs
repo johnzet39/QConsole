@@ -44,6 +44,7 @@ namespace QConsole.DAL.EF.Repositories
 
         public void Remove(TEntity item)
         {
+            _dbSet.Attach(item);
             _dbSet.Remove(item);
         }
 
