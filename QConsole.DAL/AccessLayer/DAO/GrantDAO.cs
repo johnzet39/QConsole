@@ -144,7 +144,7 @@ namespace QConsole.DAL.AccessLayer.DAO
                             " CASE WHEN exists(select 1 from information_schema.role_table_grants where grantee = rtg.grantee AND rtg.table_schema=table_schema AND rtg.table_name=table_name and privilege_type = 'DELETE')  " +
                                 " THEN 1 ELSE 0 END AS isdelete  " +
                     " FROM    information_schema.role_table_grants rtg  " +
-                    " WHERE (rtg.table_schema = 'schema_spr') AND rtg.grantee = '{0}'  " +
+                    " WHERE ((rtg.table_schema = 'schema_spr' AND rtg.table_name <> 'dictionaries') OR rtg.table_schema||rtg.table_name in (select spr.schema_name||spr.table_name from schema_spr.dictionaries spr)) AND rtg.grantee = '{0}'  " +
                     " GROUP BY rtg.grantee, rtg.table_schema, rtg.table_name)  " +
                       " (SELECT  " +
                       " ps.table_schema, ps.table_name, ps.descript,  " +
@@ -157,7 +157,7 @@ namespace QConsole.DAL.AccessLayer.DAO
                     " SELECT t.table_schema, t.table_name , (select obj_description((quote_ident(t.table_schema) || '.' || quote_ident(t.table_name))::regclass, 'pg_class')) as descript,   " +
                         " gr.isselect, gr.isupdate, gr.isinsert, gr.isdelete, gr.grantee  " +
                         " FROM information_schema.tables t LEFT JOIN  grants gr ON gr.table_schema||gr.table_name = t.table_schema||t.table_name  " +
-                        " WHERE (t.table_schema = 'schema_spr') " +
+                        " WHERE (t.table_schema = 'schema_spr' AND t.table_name <> 'dictionaries') OR t.table_schema||t.table_name in (select spr.schema_name||spr.table_name from schema_spr.dictionaries spr) " +
                         " ORDER BY t.table_schema, t.table_name) ps); ", grantee);
             return GetListOfTables(sql_query);
         }

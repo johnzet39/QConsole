@@ -30,7 +30,7 @@ namespace QConsole.DAL.AccessLayer.DAO
 
     public class LayerDAO : ILayerDAO
     {
-        private string _connectionString;
+        readonly private string _connectionString;
 
         public LayerDAO(string connstring)
         {
@@ -81,10 +81,17 @@ namespace QConsole.DAL.AccessLayer.DAO
                                         " false " +
                                 " end as islogger " +
                                " FROM information_schema.tables t  " +
-                               " WHERE t.table_schema in ('schema_spr')  " +
+                               " WHERE (t.table_schema = 'schema_spr' AND t.table_name <> 'dictionaries') OR t.table_schema||t.table_name in (select spr.schema_name||spr.table_name from schema_spr.dictionaries spr) " +
                                " ORDER BY t.table_schema, t.table_name ; ";
 
             return GetListOfObjects(sql_query);
+        }
+
+        public List<InformationSchemaTable> GetAllTables()
+        {
+            string sql_query = " SELECT table_schema, table_name, table_type FROM information_schema.tables WHERE table_type = 'BASE TABLE'";
+
+            return GetListOfAllTables(sql_query);
         }
 
         private List<Layer> GetListOfObjects(string sql_query)
@@ -108,6 +115,33 @@ namespace QConsole.DAL.AccessLayer.DAO
                             objectpsql.Geomtype = dataReader["geomtype"].ToString();
                             objectpsql.Isupdater = Convert.ToBoolean(dataReader["isupdater"]);
                             objectpsql.Islogger = Convert.ToBoolean(dataReader["islogger"]);
+
+                            listOfObjects.Add(objectpsql);
+                        }
+                    }
+                }
+            }
+            return listOfObjects;
+        }
+
+        private List<InformationSchemaTable> GetListOfAllTables(string sql_query)
+        {
+            var listOfObjects = new List<InformationSchemaTable>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var command = new NpgsqlCommand(sql_query, conn))
+                {
+                    using (var dataReader = command.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            var objectpsql = new InformationSchemaTable();
+
+                            objectpsql.Table_schema = dataReader["table_schema"].ToString();
+                            objectpsql.Table_name = dataReader["table_name"].ToString();
+                            objectpsql.Table_type = dataReader["table_type"].ToString();
 
                             listOfObjects.Add(objectpsql);
                         }
