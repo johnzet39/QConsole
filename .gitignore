@@ -3,6 +3,7 @@
 
 Setup_QConsole/
 QWpfControls/
+QConsoleWix/
 
 # User-specific files
 *.suo
