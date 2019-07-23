@@ -288,7 +288,8 @@ namespace QConsole.ViewModels.TabSessions
             values.Add(SessionsCount);
 
             string newlabel;
-            newlabel = GetNewLabelFromDuration();
+            //newlabel = GetNewLabelFromDuration();
+            newlabel = GetLabelFromTimeNow();
 
             Labels.RemoveAt(0);
             Labels.Add(newlabel);
@@ -304,6 +305,12 @@ namespace QConsole.ViewModels.TabSessions
                                                     timeFromSeconds.Hours, 
                                                     timeFromSeconds.Minutes, 
                                                     timeFromSeconds.Seconds);
+            return resultString;
+        }
+
+        private string GetLabelFromTimeNow()
+        {
+            string resultString = DateTime.Now.ToString("HH:mm:ss");
             return resultString;
         }
 
