@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QConsole.DAL.AccessLayer.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.AccessLayer.Interfaces
 {
-    public interface ISessionRepository<T>
+    public interface ISessionDAO
     {
-        IEnumerable<T> GetSessionsList();
+        IEnumerable<Session> GetSessionsList();
     }
 
 }

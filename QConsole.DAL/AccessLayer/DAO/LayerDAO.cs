@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Interfaces;
 namespace QConsole.DAL.AccessLayer.DAO
 {
     // queries for create/edit layers
-    public static class LayerQueries
+    internal static class LayerQueries
     {
         public static string CommentOnTable(string tableschema, string tablename, string definition)
         {
@@ -28,7 +28,7 @@ namespace QConsole.DAL.AccessLayer.DAO
     }
 
 
-    public class LayerDAO : ILayerDAO
+    internal class LayerDAO : ILayerDAO
     {
         readonly private string _connectionString;
 

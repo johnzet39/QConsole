@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Interfaces;
 namespace QConsole.DAL.AccessLayer.DAO
 {
     // queries for create/edit users
-    public static class UserQueries
+    internal static class UserQueries
     {
         public static string CreateRole(string username)
         {
@@ -48,7 +48,7 @@ namespace QConsole.DAL.AccessLayer.DAO
     }
 
 
-    public class UserDAO : IUserDAO
+    internal class UserDAO : IUserDAO
     {
         public string _connectionString { get;  private set; }
 

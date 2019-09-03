@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace QConsole.DAL.AccessLayer.DAO
 {
-    public class QueryDAO : IQueryDAO
+    internal class QueryDAO : IQueryDAO
     {
         private string _connectionString;
         public QueryDAO(string connstring)

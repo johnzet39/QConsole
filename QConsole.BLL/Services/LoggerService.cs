@@ -13,41 +13,42 @@ using QConsole.DAL.EF.UnitOfWork;
 using AutoMapper;
 using QConsole.DAL.AccessLayer.Interfaces;
 using System.Data.Objects;
+using QConsole.DAL.AccessLayer.Manager;
 
 namespace QConsole.BLL.Services
 {
     public class LoggerService : ILoggerService
     {
-        ILoggerDAO _loggerRepository;
+        IManagerDAL _managerDAL;
         UnitOfWork _unitOfWork;
         int lastRowsCount = 1000;
         string Conn;
 
         public LoggerService(string conn)
         {
-            _loggerRepository = new LoggerDAO(conn);
+            _managerDAL = new ManagerDAL(conn);
             _unitOfWork = new UnitOfWork(conn);
             Conn = conn;
         }
 
         public string BuildExtraDateString(DateTime? dateFrom, DateTime? dateTo)
         {
-            return _loggerRepository.BuildExtraDateString(dateFrom, dateTo);
+            return _managerDAL.LoggerAccess.BuildExtraDateString(dateFrom, dateTo);
         }
 
         public string BuildExtraFirstRowsString()
         {
-            return _loggerRepository.BuildExtraFirstRowsString(lastRowsCount);
+            return _managerDAL.LoggerAccess.BuildExtraFirstRowsString(lastRowsCount);
         }
 
         public List<string> GetColumnsList()
         {
-            return _loggerRepository.GetColumnsList();
+            return _managerDAL.LoggerAccess.GetColumnsList();
         }
 
         public string UnionExtraStrings(IList<string> str)
         {
-            return _loggerRepository.UnionExtraStrings(str);
+            return _managerDAL.LoggerAccess.UnionExtraStrings(str);
         }
 
         private string GetExtraStringUnion(DateTime? DateFrom, DateTime? DateTo, string ExtraQuery)
@@ -96,7 +97,7 @@ namespace QConsole.BLL.Services
                     onlyLastRowsString = BuildExtraFirstRowsString();
 
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRow, LogRowDTO>()).CreateMapper();
-                return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_loggerRepository.GetLogList(extraStringUnion, onlyLastRowsString));
+                return mapper.Map<IEnumerable<LogRow>, List<LogRowDTO>>(_managerDAL.LoggerAccess.GetLogList(extraStringUnion, onlyLastRowsString));
             }
         }
 

@@ -10,7 +10,7 @@ using QConsole.DAL.AccessLayer.Entities;
 
 namespace QConsole.DAL.AccessLayer.DAO
 {
-    public class SessionDAO : ISessionRepository<Session>
+    internal class SessionDAO : ISessionDAO
     {
         public NpgsqlConnection _sqlConnection { get; private set; }
         public string _connectionString { get; private set; }

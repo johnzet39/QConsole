@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 using QConsole.BLL.Interfaces;
 using QConsole.BLL.DTO;
 using QConsole.DAL.AccessLayer.Entities;
-using QConsole.DAL.AccessLayer.DAO;
 using AutoMapper;
+using QConsole.DAL.AccessLayer.Manager;
 
 namespace QConsole.BLL.Services
 {
     public class SessionService : ISessionService
     {
-        SessionDAO _sessionRepository;
+        IManagerDAL _managerDAL;
 
         public SessionService(string conn)
         {
-            _sessionRepository = new SessionDAO(conn);
+            _managerDAL = new ManagerDAL(conn);
         }
 
         public IEnumerable<SessionDTO> GetSessions()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Session, SessionDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Session>, List<SessionDTO>>(_sessionRepository.GetSessionsList());
+            return mapper.Map<IEnumerable<Session>, List<SessionDTO>>(_managerDAL.SessionAccess.GetSessionsList());
         }
     }
 }

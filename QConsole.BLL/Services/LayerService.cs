@@ -11,41 +11,43 @@ using QConsole.DAL.AccessLayer.DAO;
 using AutoMapper;
 using QConsole.DAL.EF.UnitOfWork;
 using QConsole.DAL.EF.EDM;
+using QConsole.DAL.AccessLayer.Interfaces;
+using QConsole.DAL.AccessLayer.Manager;
 
 namespace QConsole.BLL.Services
 {
     public class LayerService : ILayerService
     {
-        LayerDAO _layerRepository;
+        IManagerDAL _managerDAL;
         UnitOfWork _unitOfWork;
         readonly string _conn;
 
         public LayerService(string conn)
         {
             _conn = conn;
-            _layerRepository = new LayerDAO(_conn);
+            _managerDAL = new ManagerDAL(_conn);
         }
 
         public List<string> ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger)
         {
-            return _layerRepository.ChangeLayer(tableschema, tablename, descript, isupdater, islogger);
+            return _managerDAL.LayerAccess.ChangeLayer(tableschema, tablename, descript, isupdater, islogger);
         }
 
         public int GetCountOfPeriod(string tableshcema, string tablename, int days)
         {
-            return _layerRepository.GetCountOfPeriod(tableshcema, tablename, days);
+            return _managerDAL.LayerAccess.GetCountOfPeriod(tableshcema, tablename, days);
         }
 
         public List<LayerDTO> GetDicts()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Layer>, List<LayerDTO>>(_layerRepository.GetDicts());
+            return mapper.Map<IEnumerable<Layer>, List<LayerDTO>>(_managerDAL.LayerAccess.GetDicts());
         }
 
         public List<LayerDTO> GetLayers()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Layer, LayerDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Layer>, List<LayerDTO>>(_layerRepository.GetLayers());
+            return mapper.Map<IEnumerable<Layer>, List<LayerDTO>>(_managerDAL.LayerAccess.GetLayers());
         }
 
         public List<DictionaryDTO> GetListOfDictionaries()
@@ -61,7 +63,7 @@ namespace QConsole.BLL.Services
         public List<InformationSchemaTableDTO> GetListOfAllTables()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<InformationSchemaTable, InformationSchemaTableDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<InformationSchemaTable>, List<InformationSchemaTableDTO>>(_layerRepository.GetAllTables());
+            return mapper.Map<IEnumerable<InformationSchemaTable>, List<InformationSchemaTableDTO>>(_managerDAL.LayerAccess.GetAllTables());
         }
 
         public void AddTableToDictionaries(string schemaname, string tablename)

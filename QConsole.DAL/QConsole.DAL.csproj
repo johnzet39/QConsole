@@ -109,6 +109,8 @@
     <Compile Include="AccessLayer\Entities\ConnectionBaseDAL.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessLayer\Manager\IManagerDAL.cs" />
+    <Compile Include="AccessLayer\Manager\ManagerDAL.cs" />
     <Compile Include="EF\EDM\dictionaries.cs">
       <DependentUpon>QgisBaseModel.tt</DependentUpon>
     </Compile>
@@ -165,9 +167,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AccessLayer\UnitOfWork\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

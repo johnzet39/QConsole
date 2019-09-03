@@ -7,20 +7,21 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QConsole.DAL.AccessLayer.Manager;
 
 namespace QConsole.BLL.Services
 {
     public class QueryService : IQueryService
     {
-        IQueryDAO _queryRepository;
+        IManagerDAL _managerDAL;
         public QueryService(string conn)
         {
-            _queryRepository = new QueryDAO(conn);
+            _managerDAL = new ManagerDAL(conn);
         }
 
         public DataTable ExecuteQuery(string queryString)
         {
-            return _queryRepository.ExecuteQuery(queryString);
+            return _managerDAL.QueryAccess.ExecuteQuery(queryString);
         }
     }
 }

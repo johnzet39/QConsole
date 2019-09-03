@@ -11,7 +11,7 @@ namespace QConsole.DAL.AccessLayer.DAO
 {
 
     // queries for Grants
-    public static class GrantsQueries
+    internal static class GrantsQueries
     {
         public static string RevokeAllOnTable(string tableschema, string tablename, string role)
         {
@@ -34,7 +34,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
     }
 
-    public class GrantDAO : IGrantDAO
+    internal class GrantDAO : IGrantDAO
     {
 
         private string _connectionString;

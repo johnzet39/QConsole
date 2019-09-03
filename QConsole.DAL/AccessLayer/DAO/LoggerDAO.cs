@@ -8,7 +8,7 @@ using QConsole.DAL.AccessLayer.Interfaces;
 namespace QConsole.DAL.AccessLayer.DAO
 {
 
-    public class LoggerDAO : ILoggerDAO
+    internal class LoggerDAO : ILoggerDAO
     {
         private string _connectionString;
 
