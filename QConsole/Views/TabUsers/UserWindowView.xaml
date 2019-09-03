@@ -29,7 +29,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Имя роли или пользователя:" Margin="5"/>
-                <TextBox x:Name="TB_UserName" Grid.Column="1" Margin="5" 
+                <TextBox x:Name="TB_UserName" Grid.Column="1" Margin="5" IsReadOnly="True"
                          Text="{Binding Path=Username, ValidatesOnDataErrors=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}"
                          />
                          <!--Validation.ErrorTemplate="{x:Null}"-->
