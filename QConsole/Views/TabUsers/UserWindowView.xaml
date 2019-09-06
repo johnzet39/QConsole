@@ -10,6 +10,7 @@
     <Window.Resources>
         <converters:BooleanToVisibilityConverter x:Key="b2v" InvertVisibility="True" />
         <converters:MultiParametersConverter x:Key="mpc" />
+        <converters:InverseBooleanConverter x:Key="invbool"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -29,7 +30,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Имя роли или пользователя:" Margin="5"/>
-                <TextBox x:Name="TB_UserName" Grid.Column="1" Margin="5" IsReadOnly="True"
+                <TextBox x:Name="TB_UserName" Grid.Column="1" Margin="5" IsReadOnly="{Binding Path=IsNew, Converter={StaticResource invbool}}"
                          Text="{Binding Path=Username, ValidatesOnDataErrors=true, NotifyOnValidationError=true, UpdateSourceTrigger=PropertyChanged}"
                          />
                          <!--Validation.ErrorTemplate="{x:Null}"-->
