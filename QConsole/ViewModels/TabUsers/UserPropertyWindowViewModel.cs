@@ -113,10 +113,13 @@ namespace QConsole.ViewModels.TabUsers
                 return;
             }
             if (IsNew)
-                if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+                if (!IsRole)
                 {
-                    Ext.UIHelper.ShowToolTip("Введите пароль", PasswordBox, 5);
-                    return;
+                    if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+                    {
+                        Ext.UIHelper.ShowToolTip("Введите пароль", PasswordBox, 5);
+                        return;
+                    }
                 }
             Password = PasswordBox.Password;
 
