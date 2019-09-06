@@ -219,8 +219,8 @@ namespace QConsole.ViewModels.TabUsers
         {
             IUserService service = new UserService(_connectionString);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
-            var sessions = mapper.Map<IEnumerable<UserDTO>, List<User>>(service.GetUsers());
-            UsersList = new ObservableCollection<User>(sessions);
+            var users = mapper.Map<IEnumerable<UserDTO>, List<User>>(service.GetUsers());
+            UsersList = new ObservableCollection<User>(users);
         }
 
         private void GrantRole(object role)
