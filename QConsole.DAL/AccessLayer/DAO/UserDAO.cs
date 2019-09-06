@@ -189,7 +189,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         {
             List<String> sql_queries = new List<String>();
 
-            if (Password.Length != 0) sql_queries.Add(UserQueries.AlterRolePassword(Username, Password));
+            if (!(Password is null) && Password.Length != 0) sql_queries.Add(UserQueries.AlterRolePassword(Username, Password));
             if (Definition != null) sql_queries.Add(UserQueries.CommentOnRole(Username, Definition));
 
 
