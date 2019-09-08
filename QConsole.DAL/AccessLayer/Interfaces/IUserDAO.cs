@@ -20,18 +20,18 @@ namespace QConsole.DAL.AccessLayer.Interfaces
         DataTable GetAvailableRoles(string oid);
 
         //grant available role
-        string GrantRole(string userName, string roleName);
+        void GrantRole(string userName, string roleName);
 
         //revoke assigned role
-        string RevokeRole(string userName, string roleName);
+        void RevokeRole(string userName, string roleName);
 
         //remove role/user
-        string RemoveRoleOrUser(string userName);
+        void RemoveRoleOrUser(string userName);
 
         //create new role/user
-        IEnumerable<String> CreateUserOrRole(string userName, string passWord, string definition);
+        void CreateUserOrRole(string userName, string passWord, string definition);
 
         //edit role/user
-        IEnumerable<String> EditUserOrRole(string userName, string passWord, string definition);
+        void EditUserOrRole(string userName, string passWord, string definition);
     }
 }

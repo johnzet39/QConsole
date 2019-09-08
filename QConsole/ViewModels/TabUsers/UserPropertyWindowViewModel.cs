@@ -141,14 +141,12 @@ namespace QConsole.ViewModels.TabUsers
         private void CreateNewRole(string password)
         {
             userService = new UserService(_connectionString);
-            IEnumerable<string> sql;
             try
             {
                 if (IsRole)
-                    sql = userService.CreateUserOrRole(Username, null, Description ?? String.Empty);
+                    userService.CreateUserOrRole(Username, null, Description ?? String.Empty);
                 else
-                    sql = userService.CreateUserOrRole(Username, password, Description ?? String.Empty);
-                Ext.LogPanel.PrintLog(sql);
+                    userService.CreateUserOrRole(Username, password, Description ?? String.Empty);
             }
             catch (Exception ex)
             {
@@ -163,7 +161,6 @@ namespace QConsole.ViewModels.TabUsers
         private void EditCurrentRole(string password)
         {
             userService = new UserService(_connectionString);
-            IEnumerable<string> sql;
 
             string DescriptionResult = null;
             if (_oldDescription != Description)
@@ -172,8 +169,7 @@ namespace QConsole.ViewModels.TabUsers
             }
             try
             {
-                sql = userService.EditUserOrRole(Username, password, DescriptionResult);
-                Ext.LogPanel.PrintLog(sql);
+                userService.EditUserOrRole(Username, password, DescriptionResult);
             }
             catch (Exception ex)
             {

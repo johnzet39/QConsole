@@ -37,29 +37,29 @@ namespace QConsole.BLL.Services
             return _managerDAL.UserAccess.GetAvailableRoles(oid);
         }
 
-        public string GrantRole(string userName, string roleName)
+        public void GrantRole(string userName, string roleName)
         {
-            return _managerDAL.UserAccess.GrantRole(userName, roleName);
+            _managerDAL.UserAccess.GrantRole(userName, roleName);
         }
 
-        public string RevokeRole(string userName, string roleName)
+        public void RevokeRole(string userName, string roleName)
         {
-            return _managerDAL.UserAccess.RevokeRole(userName, roleName);
+            _managerDAL.UserAccess.RevokeRole(userName, roleName);
         }
 
-        public string RemoveRoleOrUser(string userName)
+        public void RemoveRoleOrUser(string userName)
         {
-            return _managerDAL.UserAccess.RemoveRoleOrUser(userName);
+            _managerDAL.UserAccess.RemoveRoleOrUser(userName);
         }
 
-        public IEnumerable<string> CreateUserOrRole(string userName, string passWord, string definition)
+        public void CreateUserOrRole(string userName, string passWord, string definition)
         {
-            return _managerDAL.UserAccess.CreateUserOrRole(userName, passWord, definition);
+            _managerDAL.UserAccess.CreateUserOrRole(userName, passWord, definition);
         }
 
-        public IEnumerable<string> EditUserOrRole(string userName, string passWord, string definition)
+        public void EditUserOrRole(string userName, string passWord, string definition)
         {
-            return _managerDAL.UserAccess.EditUserOrRole(userName, passWord, definition);
+            _managerDAL.UserAccess.EditUserOrRole(userName, passWord, definition);
         }
     }
 }

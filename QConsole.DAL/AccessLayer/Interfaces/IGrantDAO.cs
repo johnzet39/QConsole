@@ -19,6 +19,6 @@ namespace QConsole.DAL.AccessLayer.Interfaces
         //dicts list for selected grantee (role)
         List<Grant> GetDicts(string grantee);
         //Grant privileges to selected role
-        List<string> GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list);
+        void GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list);
     }
 }

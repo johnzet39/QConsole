@@ -50,7 +50,7 @@ namespace QConsole.DAL.AccessLayer.DAO
 
     internal class UserDAO : IUserDAO
     {
-        public string _connectionString { get;  private set; }
+        private string _connectionString;
 
         public UserDAO(string connstring)
         {
@@ -126,7 +126,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
 
         //grant available role
-        public string GrantRole(string userName, string roleName)
+        public void GrantRole(string userName, string roleName)
         {
             string sql_query = UserQueries.GrantRole(userName, roleName);
             using (var conn = new NpgsqlConnection(_connectionString))
@@ -137,11 +137,10 @@ namespace QConsole.DAL.AccessLayer.DAO
                     command.ExecuteNonQuery();
                 }
             }
-            return sql_query;
         }
 
         //revoke assigned role
-        public string RevokeRole(string userName, string roleName)
+        public void RevokeRole(string userName, string roleName)
         {
             string sql_query = UserQueries.RevokeRole(userName, roleName);
             using (var conn = new NpgsqlConnection(_connectionString))
@@ -152,11 +151,10 @@ namespace QConsole.DAL.AccessLayer.DAO
                     command.ExecuteNonQuery();
                 }
             }
-            return sql_query;
         }
 
         //create new role/user
-        public IEnumerable<String> CreateUserOrRole(string Username, string Password, string Definition)
+        public void CreateUserOrRole(string Username, string Password, string Definition)
         {
             List<String> sql_queries = new List<String>();
 
@@ -176,7 +174,6 @@ namespace QConsole.DAL.AccessLayer.DAO
             try
             {
                 ExecuteSqlNonQuery(sql_queries);
-                return sql_queries;
             }
             catch
             {
@@ -185,7 +182,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
 
         //edit new role/user
-        public IEnumerable<String> EditUserOrRole(string Username, string Password, string Definition)
+        public void EditUserOrRole(string Username, string Password, string Definition)
         {
             List<String> sql_queries = new List<String>();
 
@@ -196,7 +193,6 @@ namespace QConsole.DAL.AccessLayer.DAO
             try
             {
                 ExecuteSqlNonQuery(sql_queries);
-                return sql_queries;
             }
             catch
             {
@@ -205,13 +201,12 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
 
         //remove role/user
-        public string RemoveRoleOrUser(string Username)
+        public void RemoveRoleOrUser(string Username)
         {
             string sql_query = UserQueries.DropRole(Username);
             try
             {
                 ExecuteSqlNonQuery(new List<string> { sql_query });
-                return sql_query;
             }
             catch
             {

@@ -46,9 +46,9 @@ namespace QConsole.BLL.Services
             return mapper.Map<IEnumerable<User>, List<UserDTO>>(_managerDAL.GrantAccess.GetUsers(grosysid));
         }
 
-        public List<string> GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list)
+        public void GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list)
         {
-            return _managerDAL.GrantAccess.GrantTableToRole(table_schema, table_name, role, grants_list);
+            _managerDAL.GrantAccess.GrantTableToRole(table_schema, table_name, role, grants_list);
         }
     }
 }

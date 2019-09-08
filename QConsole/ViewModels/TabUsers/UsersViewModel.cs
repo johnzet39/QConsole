@@ -227,8 +227,14 @@ namespace QConsole.ViewModels.TabUsers
         {
             string rolename = ((DataRowView)role)["groname"].ToString();
             IUserService service = new UserService(_connectionString);
-            string sql = service.GrantRole(SelectedUser.Usename, rolename);
-            LogPanel.PrintLog(sql);
+            try
+            {
+                service.GrantRole(SelectedUser.Usename, rolename);
+            }
+            catch (Exception e)
+            {
+                LogPanel.PrintLog(e.Message);
+            }
             RefreshTab();
         }
 
@@ -236,8 +242,14 @@ namespace QConsole.ViewModels.TabUsers
         {
             string rolename = ((DataRowView)role)["rolname"].ToString();
             IUserService service = new UserService(_connectionString);
-            string sql = service.RevokeRole(SelectedUser.Usename, rolename);
-            LogPanel.PrintLog(sql);
+            try
+            {
+                service.RevokeRole(SelectedUser.Usename, rolename);
+            }
+            catch (Exception e)
+            {
+                LogPanel.PrintLog(e.Message);
+            }
             RefreshTab();
         }
 
@@ -285,9 +297,8 @@ namespace QConsole.ViewModels.TabUsers
 
                 try
                 {
-                    var result = service.RemoveRoleOrUser(Username);
+                    service.RemoveRoleOrUser(Username);
                     SelectedUser = null;
-                    LogPanel.PrintLog(result);
                     RefreshTab();
                 }
                 catch (Exception ex)

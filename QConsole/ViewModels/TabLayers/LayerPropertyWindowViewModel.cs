@@ -116,17 +116,13 @@ namespace QConsole.ViewModels.TabLayers
             try
             {
                 layerService = new LayerService(_connectionString);
-                var result = layerService.ChangeLayer(
+                layerService.ChangeLayer(
                     Tableschema,
                     Tablename,
                     (Description != _oldDescription) ? Description : null,
                     (IsUpdater != _oldIsUpdater) ? IsUpdater : null,
                     (IsAudit != _oldIsAudit) ? IsAudit : null
                     );
-
-                Ext.LogPanel.PrintLog((List<string>)result);
-                
-
             }
             catch (Exception ex)
             {

@@ -152,7 +152,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
 
         //Change layer
-        public List<String> ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger)
+        public void ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger)
         {
             List<String> sql_queries = new List<String>();
 
@@ -163,7 +163,6 @@ namespace QConsole.DAL.AccessLayer.DAO
             try
             {
                 ExecuteSqlNonQuery(sql_queries);
-                return sql_queries;
             }
             catch
             {

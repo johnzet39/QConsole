@@ -230,7 +230,7 @@ namespace QConsole.DAL.AccessLayer.DAO
         }
 
         //Grant privileges to selected role
-        public List<string> GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list)
+        public void GrantTableToRole(string table_schema, string table_name, string role, List<string> grants_list)
         {
             List<string> sql_queries = new List<String>();
             sql_queries.Add(GrantsQueries.RevokeAllOnTable(table_schema, table_name, role));
@@ -259,7 +259,7 @@ namespace QConsole.DAL.AccessLayer.DAO
             try
             {
                 ExecuteSqlNonQuery(sql_queries);
-                return sql_queries;
+                //return sql_queries;
             }
             catch
             {

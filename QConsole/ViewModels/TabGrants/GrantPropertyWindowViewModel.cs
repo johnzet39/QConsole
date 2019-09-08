@@ -130,8 +130,7 @@ namespace QConsole.ViewModels.TabGrants
                 try
                 {
                     grantService = new GrantService(_connectionString);
-                    var result = grantService.GrantTableToRole(Tableschema, Tablename, RoleName,  grants_list);
-                    Ext.LogPanel.PrintLog((List<string>)result);
+                    grantService.GrantTableToRole(Tableschema, Tablename, RoleName,  grants_list);
                 }
                 catch (Exception ex)
                 {

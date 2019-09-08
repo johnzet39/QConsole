@@ -13,10 +13,10 @@ namespace QConsole.BLL.Interfaces
         IEnumerable<UserDTO> GetUsers();
         DataTable GetAssignedRoles(string oid);
         DataTable GetAvailableRoles(string oid);
-        string GrantRole(string userName, string roleName);
-        string RevokeRole(string userName, string roleName);
-        string RemoveRoleOrUser(string userName);
-        IEnumerable<String> CreateUserOrRole(string userName, string passWord, string definition);
-        IEnumerable<String> EditUserOrRole(string userName, string passWord, string definition);
+        void GrantRole(string userName, string roleName);
+        void RevokeRole(string userName, string roleName);
+        void RemoveRoleOrUser(string userName);
+        void CreateUserOrRole(string userName, string passWord, string definition);
+        void EditUserOrRole(string userName, string passWord, string definition);
     }
 }

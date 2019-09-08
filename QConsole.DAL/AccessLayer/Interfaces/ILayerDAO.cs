@@ -15,7 +15,7 @@ namespace QConsole.DAL.AccessLayer.Interfaces
         //dictionaries
         List<Layer> GetDicts();
         //Change layer
-        List<string> ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger);
+        void ChangeLayer(string tableschema, string tablename, string descript, bool? isupdater, bool? islogger);
         //Get count of changed rows in last days
         int GetCountOfPeriod(string tableshcema, string tablename, int days);
         //Get all non-geometry tables from information_schema
