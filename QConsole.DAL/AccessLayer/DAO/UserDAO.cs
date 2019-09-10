@@ -166,7 +166,7 @@ namespace QConsole.DAL.AccessLayer.DAO
             {
                 sql_queries.Add(UserQueries.CreateRole(Username));
             }
-            if (Definition.Length > 0)
+            if (Definition?.Length > 0)
             {
                 sql_queries.Add(UserQueries.CommentOnRole(Username, Definition));
             }
