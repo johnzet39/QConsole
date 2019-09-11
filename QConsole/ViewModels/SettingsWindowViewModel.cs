@@ -21,6 +21,7 @@ namespace QConsole.ViewModels
             DisplayRootRegistry = displayRootRegistry;
             IsCheckUpdates = Properties.Settings.Default.IsCheckUpdates;
             ConfigurationsPostgreSQL = Properties.Settings.Default.ConfigurationsPostgreSQL;
+            LoggerDefaultRowCount = Properties.Settings.Default.LoggerDefaultRowCount;
         }
 
 
@@ -61,12 +62,24 @@ namespace QConsole.ViewModels
             }
         }
 
+        private int _loggerDefaultRowCount;
+        public int LoggerDefaultRowCount
+        {
+            get => _loggerDefaultRowCount;
+            set
+            {
+                _loggerDefaultRowCount = value;
+                OnPropertyChanged(("LoggerDefaultRowCount"));
+            }
+        }
+
         
 
         private void OkButton(object parameter)
         {
             Properties.Settings.Default.IsCheckUpdates = IsCheckUpdates;
             Properties.Settings.Default.ConfigurationsPostgreSQL = ConfigurationsPostgreSQL;
+            Properties.Settings.Default.LoggerDefaultRowCount = LoggerDefaultRowCount;
             Properties.Settings.Default.Save();
 
             DialogResult = true;

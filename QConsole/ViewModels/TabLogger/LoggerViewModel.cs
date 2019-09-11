@@ -31,12 +31,20 @@ namespace QConsole.ViewModels.TabLogger
         public LoggerViewModel()
         {
             Console.WriteLine("logger: " + this.GetHashCode());
+
+            _loggerService = new LoggerService(_connectionString);
+            InitService();
             OnlyLastRows = true;
             PopulateComboBoxNumberGroups();
             PopulateComboBoxAttributes();
             NumberOfRecPerPage = 250;//Current number of rows in pages
 
             //RefreshTab(); //This is in NumberOfRecPerPage property.
+        }
+
+        private void InitService()
+        {
+            _loggerService.LastRowsCount = Properties.Settings.Default.LoggerDefaultRowCount;
         }
 
 
@@ -216,6 +224,7 @@ namespace QConsole.ViewModels.TabLogger
 
         private void RefreshTab()
         {
+            InitService();
             RefreshTabAsync();
         }
 
@@ -235,7 +244,6 @@ namespace QConsole.ViewModels.TabLogger
 
         private void GetLogRowsList()
         {
-            _loggerService = new LoggerService(_connectionString);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LogRowDTO, LogRow>()).CreateMapper();
 
             try
@@ -284,7 +292,7 @@ namespace QConsole.ViewModels.TabLogger
 
         private void PopulateComboBoxAttributes()
         {
-            _loggerService = new LoggerService(_connectionString);
+            //_loggerService = new LoggerService(_connectionString);
             IList<string> list = _loggerService.GetColumnsList();
             list.Insert(0, "Атрибуты");
             ColumnsList = list;
