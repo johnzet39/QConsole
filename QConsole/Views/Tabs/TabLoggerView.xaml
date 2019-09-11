@@ -100,7 +100,7 @@
                 <ToggleButton x:Name="chkLoggerRows" 
                               IsChecked="{Binding OnlyLastRows}"
                               Command="{Binding RefreshCommand}"
-                              ToolTip="Показать только последние 1000 записей"  ToolBar.OverflowMode="Never">
+                              ToolTip="Показать только последние записи"  ToolBar.OverflowMode="Never">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Image Source="../../Icons/LastHistoryCommand_16x.png"/>
                     </StackPanel>
