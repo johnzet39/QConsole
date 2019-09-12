@@ -32,9 +32,21 @@ namespace QConsole.BLL.Services
             return _managerDAL.UserAccess.GetAssignedRoles(oid);
         }
 
+        public IEnumerable<UserDTO> GetAssignedRolesObject(string oid)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<User>, List<UserDTO>>(_managerDAL.UserAccess.GetAssignedRolesObject(oid));
+        }
+
         public DataTable GetAvailableRoles(string oid)
         {
             return _managerDAL.UserAccess.GetAvailableRoles(oid);
+        }
+
+        public IEnumerable<UserDTO> GetAvailableRolesObject(string oid)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<User>, List<UserDTO>>(_managerDAL.UserAccess.GetAvailableRolesObject(oid));
         }
 
         public void GrantRole(string userName, string roleName)
