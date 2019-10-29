@@ -47,13 +47,6 @@
                 <Separator/>
                 <MenuItem x:Name="subMenuExit" Header="_Выход" Click="subMenuExit_Click"/>
             </MenuItem>
-            <MenuItem Header="_Правка">
-                <MenuItem x:Name="subMenuCopy" Header="_Копировоать" Command="Copy">
-                    <MenuItem.Icon>
-                        <Image Source="../icons/Copy_16x.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
             <MenuItem Header="_Вид">
                 <MenuItem x:Name="subMenuLog" Header="Панель вывода запросов" 
                           IsChecked = "{Binding LogPanelVisibility, Converter={StaticResource VisibilityToBooleanConverter}, Mode=TwoWay, Source={x:Static Properties:Settings.Default}}"
