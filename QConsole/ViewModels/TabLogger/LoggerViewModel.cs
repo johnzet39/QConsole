@@ -278,7 +278,10 @@ namespace QConsole.ViewModels.TabLogger
         private async void ShowPropertyAsync()
         {
             var displayRootRegistry = (Application.Current as App).displayRootRegistry;
-            IList<LogRow> listHist = LogRowsList.Where(x => x.Gidnum == SelectedLogRow.Gidnum && x.Gid != SelectedLogRow.Gid).ToList();
+            IList<LogRow> listHist = LogRowsList.Where(x => x.Tableschema == SelectedLogRow.Tableschema 
+                                                       && x.Tablename == SelectedLogRow.Tablename
+                                                       && x.Gidnum == SelectedLogRow.Gidnum
+                                                       && x.Gid != SelectedLogRow.Gid).ToList();
             LoggerPropertyWindowViewModel vm = new LoggerPropertyWindowViewModel(SelectedLogRow, listHist, displayRootRegistry);
             await displayRootRegistry.ShowModalPresentation(vm);
         }
