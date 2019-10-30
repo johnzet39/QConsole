@@ -14,6 +14,10 @@
     </UserControl.DataContext>
     <UserControl.Resources>
         <Style BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid"/>
+
+        <Style x:Key="EllipsedText" TargetType="TextBlock">
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="0">
         <Grid.RowDefinitions>
@@ -22,11 +26,11 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition MinWidth="100"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -208,6 +212,27 @@
                                     </Style>
                                 </DataGridCheckBoxColumn.CellStyle>
                             </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="S" Binding="{Binding ColumnsSelect}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT SELECT(columns)" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="U" Binding="{Binding ColumnsUpdate}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT UPDATE(columns)" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="I" Binding="{Binding ColumnsInsert}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT INSERT(columns)" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -306,6 +331,27 @@
                                     </Style>
                                 </DataGridCheckBoxColumn.CellStyle>
                             </DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="S" Binding="{Binding ColumnsSelect}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT SELECT(columns)"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="U" Binding="{Binding ColumnsUpdate}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT UPDATE(columns)"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="I" Binding="{Binding ColumnsInsert}" ElementStyle="{StaticResource EllipsedText}" MaxWidth="100">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="ToolTip" Value="GRANT INSERT(columns)"/>
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                            </DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
