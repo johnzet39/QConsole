@@ -11,6 +11,8 @@ using QConsole.BLL.Services;
 using QConsole.BLL.Interfaces;
 using System.Windows;
 using System.Text.RegularExpressions;
+using AutoMapper;
+using QConsole.BLL.DTO;
 
 namespace QConsole.ViewModels.TabGrants
 {
@@ -28,6 +30,7 @@ namespace QConsole.ViewModels.TabGrants
         private bool? _oldIsUpdate;
         private bool? _oldIsInsert;
         private bool? _oldIsDelete;
+        private List<GrantColumn> _oldColumnsList;
 
         public bool DialogResult = false;
 
@@ -45,8 +48,6 @@ namespace QConsole.ViewModels.TabGrants
                   }));
             }
         }
-
-
 
         private bool _isSelect;
         public bool IsSelect
@@ -92,8 +93,16 @@ namespace QConsole.ViewModels.TabGrants
             }
         }
 
-
-
+        private List<GrantColumn> _columnsList;
+        public List<GrantColumn> ColumnsList
+        {
+            get => _columnsList;
+            set
+            {
+                _columnsList = value;
+                OnPropertyChanged("ColumnsList");
+            }
+        }
 
 
         /// <summary>
@@ -101,6 +110,7 @@ namespace QConsole.ViewModels.TabGrants
         /// </summary>
         public GrantPropertyWindowViewModel(Grant currentRow, DisplayRootRegistry displayRootRegistry, string roleName)
         {
+            grantService = new GrantService(_connectionString);
             DisplayRootRegistry = displayRootRegistry;
 
             Tableschema = currentRow.Table_schema;
@@ -115,9 +125,23 @@ namespace QConsole.ViewModels.TabGrants
             _oldIsInsert = currentRow.IsInsert;
             IsDelete = currentRow.IsDelete;
             _oldIsDelete = currentRow.IsDelete;
+
+            ColumnsList = GetColumns(currentRow.Table_schema, currentRow.Table_name, roleName);
+            _oldColumnsList = new List<GrantColumn>(ColumnsList.Select(x => (GrantColumn)x.Clone()));
+            Console.WriteLine(ColumnsList.GetHashCode());
+            Console.WriteLine(_oldColumnsList.GetHashCode());
         }
 
         private void OkButton()
+        {
+            GrantActions();
+            GrantColumns();
+            
+            DialogResult = true;
+            this.CloseWindow();
+        }
+
+        private void GrantActions()
         {
             if (IsSelect != _oldIsSelect || IsUpdate != _oldIsUpdate || IsInsert != _oldIsInsert || IsDelete != _oldIsDelete)
             {
@@ -136,8 +160,7 @@ namespace QConsole.ViewModels.TabGrants
 
                 try
                 {
-                    grantService = new GrantService(_connectionString);
-                    grantService.GrantTableToRole(Tableschema, Tablename, RoleName, 
+                    grantService.GrantTableToRole(Tableschema, Tablename, RoleName,
                                                   IsSelect, IsUpdate, IsInsert, IsDelete,
                                                   selChanged, updChanged, insChanged, delChanged);
                 }
@@ -148,9 +171,85 @@ namespace QConsole.ViewModels.TabGrants
                     return;
                 }
             }
+        }
 
-            DialogResult = true;
-            this.CloseWindow();
+        private void GrantColumns()
+        {
+            var columnGranters = CompareColumnsGrants(_oldColumnsList, ColumnsList,
+                                                      out bool selChanged, out bool updChanged,
+                                                      out bool insChanged);
+
+            if (columnGranters?.Count() > 0)
+            {
+                try
+                {
+                    List<string> selectList = new List<string>();
+                    List<string> updateList = new List<string>();
+                    List<string> insertList = new List<string>();
+
+                    foreach (var gran in columnGranters)
+                    {
+                        if (gran.IsSelect)
+                            selectList.Add(gran.ColumnName);
+                        if (gran.IsUpdate)
+                            updateList.Add(gran.ColumnName);
+                        if (gran.IsInsert)
+                            insertList.Add(gran.ColumnName);
+                    }
+                    grantService.GrantColumnsToRole(Tableschema,Tablename,RoleName,
+                                                selectList, updateList, insertList,
+                                                selChanged, updChanged, insChanged);
+                }
+                catch (Exception ex)
+                {
+                    Ext.LogPanel.PrintLog(ex.Message.ToString());
+                    MessageBox.Show(ex.Message.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+            }
+
+        }
+
+        private List<ColumnGranter> CompareColumnsGrants(List<GrantColumn> old_columns, List<GrantColumn> columns,
+                                                        out bool selChanged, out bool updChanged, out bool insChanged)
+        {
+            selChanged = false;
+            updChanged = false;
+            insChanged = false;
+
+            List<ColumnGranter> granters = new List<ColumnGranter>();
+            for (int i = 0; i < columns.Count(); i++)
+            {
+                bool hasChanges = false;
+
+                if (columns[i].IsSelect != old_columns[i].IsSelect)
+                    selChanged = true;
+                if (columns[i].IsUpdate != old_columns[i].IsUpdate)
+                    updChanged = true;
+                if (columns[i].IsInsert != old_columns[i].IsInsert)
+                    insChanged = true;
+
+                if (selChanged || updChanged || insChanged)
+                    hasChanges = true;
+
+                if (hasChanges)
+                {
+                    ColumnGranter columnGranter = new ColumnGranter
+                    {
+                        ColumnName = columns[i].Column_name
+                    };
+
+                    if (columns[i].IsSelect)
+                        columnGranter.IsSelect = true;
+                    if (columns[i].IsUpdate)
+                        columnGranter.IsUpdate = true;
+                    if (columns[i].IsInsert)
+                        columnGranter.IsInsert = true;
+
+                    granters.Add(columnGranter);
+                }
+            }
+            return granters;
         }
 
         private void CloseWindow()
@@ -158,6 +257,19 @@ namespace QConsole.ViewModels.TabGrants
             DisplayRootRegistry.HidePresentation(this);
         }
 
+        private List<GrantColumn> GetColumns(string table_schema, string table_name, string role_name)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<GrantColumnDTO, GrantColumn>()).CreateMapper();
+            return mapper.Map<IEnumerable<GrantColumnDTO>, List<GrantColumn>>(grantService.GetColumns(table_schema, table_name, role_name));
+        }
+
+        public class ColumnGranter
+        {
+            public string ColumnName { get; set; }
+            public bool IsSelect { get; set; }
+            public bool IsUpdate { get; set; }
+            public bool IsInsert { get; set; }
+        }
 
     }
 }

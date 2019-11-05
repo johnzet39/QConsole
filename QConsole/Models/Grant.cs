@@ -20,11 +20,16 @@ namespace QConsole.Models
         public string ColumnsInsert { get; set; }
     }
 
-    public class GrantColumn
+    public class GrantColumn : ICloneable
     {
         public string Column_name { get; set; }
         public Boolean IsSelect { get; set; }
         public Boolean IsUpdate { get; set; }
         public Boolean IsInsert { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
