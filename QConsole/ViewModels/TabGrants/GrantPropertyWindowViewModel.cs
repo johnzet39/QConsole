@@ -48,8 +48,8 @@ namespace QConsole.ViewModels.TabGrants
 
 
 
-        private bool? _isSelect;
-        public bool? IsSelect
+        private bool _isSelect;
+        public bool IsSelect
         {
             get => _isSelect;
             set
@@ -59,8 +59,8 @@ namespace QConsole.ViewModels.TabGrants
             }
         }
 
-        private bool? _isUpdate;
-        public bool? IsUpdate
+        private bool _isUpdate;
+        public bool IsUpdate
         {
             get => _isUpdate;
             set
@@ -70,8 +70,8 @@ namespace QConsole.ViewModels.TabGrants
             }
         }
 
-        private bool? _isInsert;
-        public bool? IsInsert
+        private bool _isInsert;
+        public bool IsInsert
         {
             get => _isInsert;
             set
@@ -81,8 +81,8 @@ namespace QConsole.ViewModels.TabGrants
             }
         }
 
-        private bool? _isDelete;
-        public bool? IsDelete
+        private bool _isDelete;
+        public bool IsDelete
         {
             get => _isDelete;
             set
@@ -121,16 +121,25 @@ namespace QConsole.ViewModels.TabGrants
         {
             if (IsSelect != _oldIsSelect || IsUpdate != _oldIsUpdate || IsInsert != _oldIsInsert || IsDelete != _oldIsDelete)
             {
-                List<String> grants_list = new List<string>();
-                if ((bool)IsSelect) grants_list.Add("SELECT");
-                if ((bool)IsUpdate) grants_list.Add("UPDATE");
-                if ((bool)IsInsert) grants_list.Add("INSERT");
-                if ((bool)IsDelete) grants_list.Add("DELETE");
+                bool selChanged = false;
+                bool updChanged = false;
+                bool insChanged = false;
+                bool delChanged = false;
+                if (IsSelect != _oldIsSelect)
+                    selChanged = true;
+                if (IsUpdate != _oldIsUpdate)
+                    updChanged = true;
+                if (IsInsert != _oldIsInsert)
+                    insChanged = true;
+                if (IsDelete != _oldIsDelete)
+                    delChanged = true;
 
                 try
                 {
                     grantService = new GrantService(_connectionString);
-                    grantService.GrantTableToRole(Tableschema, Tablename, RoleName,  grants_list);
+                    grantService.GrantTableToRole(Tableschema, Tablename, RoleName, 
+                                                  IsSelect, IsUpdate, IsInsert, IsDelete,
+                                                  selChanged, updChanged, insChanged, delChanged);
                 }
                 catch (Exception ex)
                 {
