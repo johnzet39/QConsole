@@ -34,7 +34,7 @@
         </EntityType>
         <EntityContainer Name="Хранилище MY_BASEModelContainer">
           <EntitySet Name="logtable" EntityType="Self.logtable" Schema="logger" store:Type="Tables" />
-          <EntitySet Name="dictionaries" EntityType="Self.dictionaries" Schema="schema_spr" store:Type="Tables" />
+          <EntitySet Name="dictionaries" EntityType="Self.dictionaries" Schema="logger" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
