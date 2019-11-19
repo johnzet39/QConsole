@@ -185,12 +185,15 @@ namespace QConsole.ViewModels.TabLayers
 
         private async void ShowPropertyAsync(object selectedRow)
         {
-            var curRow = (Layer)selectedRow;
-            var displayRootRegistry = (Application.Current as App).displayRootRegistry;
-            LayerPropertyWindowViewModel vm = new LayerPropertyWindowViewModel(curRow, displayRootRegistry);
-            await displayRootRegistry.ShowModalPresentation(vm);
-            if (vm.DialogResult)
-                RefreshTab();
+            if (selectedRow != null)
+            {
+                var curRow = (Layer)selectedRow;
+                var displayRootRegistry = (Application.Current as App).displayRootRegistry;
+                LayerPropertyWindowViewModel vm = new LayerPropertyWindowViewModel(curRow, displayRootRegistry);
+                await displayRootRegistry.ShowModalPresentation(vm);
+                if (vm.DialogResult)
+                    RefreshTab();
+            }
         }
 
         private async void ShowDictionariesListAsync()

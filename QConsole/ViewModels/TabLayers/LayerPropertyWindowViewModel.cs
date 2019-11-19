@@ -11,12 +11,15 @@ using QConsole.BLL.Services;
 using QConsole.BLL.Interfaces;
 using System.Windows;
 using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
+using AutoMapper;
+using QConsole.BLL.DTO;
 
 namespace QConsole.ViewModels.TabLayers
 {
     class LayerPropertyWindowViewModel : BaseViewModel
     {
-        private ILayerService layerService;
+        private ILayerService _service;
         private readonly string _connectionString = Common.ConnectionStrings.ConnectionString;
         DisplayRootRegistry DisplayRootRegistry;
 
@@ -90,7 +93,16 @@ namespace QConsole.ViewModels.TabLayers
             }
         }
 
-
+        private ObservableCollection<LayerGrants> _layerGrantsList;
+        public ObservableCollection<LayerGrants> LayerGrantsList
+        {
+            get => _layerGrantsList;
+            set
+            {
+                _layerGrantsList = value;
+                OnPropertyChanged("LayerGrantsList");
+            }
+        }
 
 
         /// <summary>
@@ -99,6 +111,7 @@ namespace QConsole.ViewModels.TabLayers
         public LayerPropertyWindowViewModel(Layer currentLayer, DisplayRootRegistry displayRootRegistry)
         {
             DisplayRootRegistry = displayRootRegistry;
+            _service = new LayerService(_connectionString);
 
             Tableschema = currentLayer.Table_schema;
             Tablename = currentLayer.Table_name;
@@ -109,14 +122,21 @@ namespace QConsole.ViewModels.TabLayers
             IsAudit = currentLayer.Islogger;
             _oldIsAudit = IsAudit;
 
+            LayerGrantsList = GetGrantsToLayer(Tableschema, Tablename);
+        }
+
+        private ObservableCollection<LayerGrants> GetGrantsToLayer(string schemaname, string tablename)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<LayerGrantsDTO, LayerGrants>()).CreateMapper();
+            var list = mapper.Map<IEnumerable<LayerGrantsDTO>, List<LayerGrants>>(_service.GetGrantsToLayer(schemaname, tablename));
+            return new ObservableCollection<LayerGrants>(list);
         }
 
         private void OkButton(object parameter)
         {
             try
             {
-                layerService = new LayerService(_connectionString);
-                layerService.ChangeLayer(
+                _service.ChangeLayer(
                     Tableschema,
                     Tablename,
                     (Description != _oldDescription) ? Description : null,
