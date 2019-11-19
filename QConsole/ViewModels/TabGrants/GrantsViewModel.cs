@@ -278,23 +278,29 @@ namespace QConsole.ViewModels.TabGrants
 
         private async void ShowPropertyRoleAsync(object selectedRow)
         {
-            var curRow = (User)selectedRow;
-            var displayRootRegistry = (Application.Current as App).displayRootRegistry;
-            UserPropertyWindowViewModel vm = new UserPropertyWindowViewModel(curRow, displayRootRegistry);
-            await displayRootRegistry.ShowModalPresentation(vm);
-            if (vm.DialogResult)
-                RefreshTab();
+            if (selectedRow != null)
+            {
+                var curRow = (User)selectedRow;
+                var displayRootRegistry = (Application.Current as App).displayRootRegistry;
+                UserPropertyWindowViewModel vm = new UserPropertyWindowViewModel(curRow, displayRootRegistry);
+                await displayRootRegistry.ShowModalPresentation(vm);
+                if (vm.DialogResult)
+                    RefreshTab();
+            }
         }
 
 
         private async void ShowPropertyGrantAsync(object selectedRow)
         {
-            var curRow = (Grant)selectedRow;
-            var displayRootRegistry = (Application.Current as App).displayRootRegistry;
-            GrantPropertyWindowViewModel vm = new GrantPropertyWindowViewModel(curRow, displayRootRegistry, SelectedGroup.Usename);
-            await displayRootRegistry.ShowModalPresentation(vm);
-            if (vm.DialogResult)
-                RefreshTab();
+            if (selectedRow != null)
+            {
+                var curRow = (Grant)selectedRow;
+                var displayRootRegistry = (Application.Current as App).displayRootRegistry;
+                GrantPropertyWindowViewModel vm = new GrantPropertyWindowViewModel(curRow, displayRootRegistry, SelectedGroup.Usename);
+                await displayRootRegistry.ShowModalPresentation(vm);
+                if (vm.DialogResult)
+                    RefreshTab();
+            }
         }
 
 
