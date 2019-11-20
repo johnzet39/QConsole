@@ -18,4 +18,4 @@ This allows a specialist unfamiliar with the concept of dbms to manage the datab
 At the moment, the limitation of using this application is that it is to some extent tied to a specific database structure:
 - name of schema logger: "logger";
 - name of table logger: "logtable";
-- dictionaries (non-spatial tables) can be placed in the schema named "schema_spr". Also list of dictionaries can be posted in the table "schema_spr"."dictionaries";
+- dictionaries (non-spatial tables) can be placed in the schema named "schema_spr". Also list of dictionaries can be posted in the table "logger"."dictionaries";
