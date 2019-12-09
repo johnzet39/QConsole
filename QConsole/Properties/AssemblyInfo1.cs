@@ -5,5 +5,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyVersion("1.3.3609.371")]
-[assembly: AssemblyFileVersion("1.3.3609.371")]
+[assembly: AssemblyVersion("1.3.3629.238")]
+[assembly: AssemblyFileVersion("1.3.3629.238")]

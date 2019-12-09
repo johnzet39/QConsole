@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QConsole.Views.TabLayers"
         mc:Ignorable="d"
-        Title="Свойства слоя" Height="300" Width="800" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+        Title="Свойства слоя" Height="800" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style BasedOn="{StaticResource DataGridMainStyle}" TargetType="DataGrid"/>
 
@@ -54,11 +54,6 @@
                     <Setter Property="IsHitTestVisible" Value="False"/>
                 </Style>
             </DataGrid.RowStyle>
-            <DataGrid.InputBindings>
-                <MouseBinding Gesture="LeftDoubleClick" 
-                                  Command="{Binding ShowPropertyGrantCommand}" 
-                                  CommandParameter="{Binding ElementName=DG_Grants, Path=SelectedItem}"  />
-            </DataGrid.InputBindings>
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFC9C9C9"/>
             </DataGrid.Resources>
