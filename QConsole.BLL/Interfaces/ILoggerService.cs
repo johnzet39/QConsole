@@ -31,6 +31,6 @@ namespace QConsole.BLL.Interfaces
         int GetCountInserts(string schema, string layer, DateTime DateFrom, DateTime DateTo);
         //get count of inserts in month
         int GetCountInsertsMonth(string schema, string layer, int month, int year);
-        List<LogRowDTO> GetAllLogByPeriod(DateTime datefrom, DateTime dateto);
+        //List<LogRowDTO> GetAllLogByPeriod(DateTime datefrom, DateTime dateto);
     }
 }

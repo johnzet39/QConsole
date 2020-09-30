@@ -158,13 +158,14 @@ namespace QConsole.BLL.Services
             return count;
         }
 
-        public List<LogRowDTO> GetAllLogByPeriod(DateTime datefrom, DateTime dateto)
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Logtable, LogRowDTO>()).CreateMapper();
-            var dalObjects = _unitOfWork.LogtableRepository.Get()
-                .Where(o => o.timechange >= datefrom)
-                .Where(o => o.timechange < dateto).ToList();
-            return mapper.Map<IEnumerable<Logtable>, List<LogRowDTO>>(dalObjects);
-        }
+        //WEB
+        //public List<LogRowDTO> GetAllLogByPeriod(DateTime datefrom, DateTime dateto)
+        //{
+        //    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Logtable, LogRowDTO>()).CreateMapper();
+        //    var dalObjects = _unitOfWork.LogtableRepository.Get()
+        //        .Where(o => o.timechange >= datefrom)
+        //        .Where(o => o.timechange < dateto).ToList();
+        //    return mapper.Map<IEnumerable<Logtable>, List<LogRowDTO>>(dalObjects);
+        //}
     }
 }
